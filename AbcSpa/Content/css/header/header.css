@@ -1,0 +1,23 @@
+﻿#custom-bootstrap-menu.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a:hover, #custom-bootstrap-menu.navbar-default .navbar-nav > li > a:focus {
+    /*Modified by Ramon*/
+    /*color: #6B9ED8;*/
+    background-color: #595959;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: #555;
+    background-color: #595959;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
+    background-color: #595959;
+    /*Modified by Ramon*/
+    /*font-size: 14px;*/
+    font-size: 18px;
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e04f24392dc4f3c9fade8dfcea16d85" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="abcbdModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.AckSet" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.ActionsSet" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.AnalysticsAreaSet" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.AnalystSet" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.AnalyticsMethodSet" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.BaseParamFamilySet" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.BaseParamSet" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.ContainerSet" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.EnterpriseSet" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.MarketSet" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.MatrixChangesSet" Width="1.5" PointX="16.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.MatrixSet" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.MethodSet" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.NormSet" Width="1.5" PointX="11.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.OfficeSet" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.PackageSet" Width="1.5" PointX="14" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.ParameterSet" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.PreserverSet" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.Prices" Width="1.5" PointX="7.5" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.RegionSet" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.ResidueSet" Width="1.5" PointX="5.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.RightSet" Width="1.5" PointX="9.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.RoleSet" Width="1.5" PointX="12" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.SessionLogSet" Width="1.5" PointX="16.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.UnitSet" Width="1.5" PointX="7.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcbdModel.UserSet" Width="1.5" PointX="14.25" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ActionsSet_dbo_AckSet_Ack_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MethodSet_dbo_ContainerSet_Container_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MarketSet_dbo_RegionSet_Region_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_OfficeSet_dbo_MarketSet_Market_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_PackageSet_dbo_NormSet_Norm_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_Prices_Precio_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_UserSet_dbo_RoleSet_Role_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.FK_dbo_SessionLogSet_dbo_UserSet_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.AnalystEnterprises" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.EnterpriseActions" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.MatrixParameters" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.ParameterAcks" ManuallyRouted="false" />
+        <AssociationConnector Association="abcbdModel.RightRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="abcbdModel.GroupSet" Width="1.5" PointX="7.5" PointY="0.75" />
+        <AssociationConnector Association="abcbdModel.GroupParameters" />
+        <AssociationConnector Association="abcbdModel.PackageGroups" />
+        <AssociationConnector Association="abcbdModel.PackageParameters" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

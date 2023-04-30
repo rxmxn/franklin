@@ -1,0 +1,382 @@
+﻿<div class="main-scroll">
+	<div class="padding10" style="position: absolute; width: 99%;">
+		<h6 class="text-light margin0 text-uppercase">
+			Instalaciones
+			<!-- <span class="ani-hover-vertical ani-slow icon mif-library place-right"></span> -->
+		</h6>
+		<hr class="thin bg-grayLighter">
+	</div>
+
+	<div class="col-lg-12" style="padding-top: 2rem; height: 100%;">
+		<div class="row" style="height: 100%;">
+
+			<!-- Sidebar -->
+			@*<div ng-include="'Shared/SidebarFilter'" class="col-lg-3"></div>*@
+			<div class="col-lg-2" ng-show="panels[0].state" style="height: 100%;">
+				@Html.Partial("SidebarFilter")
+			</div>
+			<!-- end of Sidebar -->
+
+			<div class="col-lg-12" minimize-directive style="height: 100%;">
+				<div class="panel" style="height: 100%; padding-bottom: 3rem;">
+
+					<div class="heading">
+						<span class="titleBarText">{{panels[1].name}}</span>
+						<!--<span class="minimize" ng-click="minimize(panels[1])"></span>-->
+					</div>
+
+					<div class="content" style="height: 95%; overflow: auto;">
+						<section>
+							@Html.Partial("BoxHeader")
+						</section>
+
+						<!-- Enterprise Table -->
+						<div class="box-body" data-ng-if="elementsList.length" style="height: 76%; overflow: auto;">
+
+							<table class="table table-hover table-condensed table-responsive" style="width: 2000px;">
+								<thead>
+									<tr role="row">
+										<th style="width: 150px; cursor: pointer;" ng-click="orderByField='Name'; reverseSort = !reverseSort">
+											Nombre(s)
+											<span ng-show="orderByField == 'Name'" style="margin-left: 5px; width: 10px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 200px;">
+											Descripci&oacute;n
+										</th>
+										<th style="width: 100px;">
+											Clave
+										</th>
+										<th style="width: 150px;">
+											Región
+										</th>										
+										<th style="width: 200px;">
+											Áreas Analíticas
+										</th>
+										<th style="width: 200px;" data-toggle="tooltip" title="Vende o Realiza">
+											Actividad Comercial
+										</th>
+										<th style="width: 50px;" data-toggle="tooltip" title="Sucursal Intelesis">
+											Sucursal Intelesis
+										</th>
+										<th style="width: 50px;" data-toggle="tooltip" title="Sucursal Autolab">
+											Sucursal Autolab
+										</th>
+										<th style="width: 250px;">
+											Empresa a la que pertenece
+										</th>
+										<th style="width: 250px;">
+											Línea de Negocio (Mercado)
+										</th>
+										<th style="width: 400px;">
+											Reconocimientos
+										</th>
+										<th style="width: 80px; text-align: center;" ng-if="accessLevel === 1" data-toggle="tooltip" title="Adicionar Reconocimiento">Ad. Rec.</th>
+										<th style="width: 80px; text-align: center;" ng-if="accessLevel === 1">Editar</th>
+										<th style="width: 80px; text-align: center;" ng-if="accessLevel === 1">Dar baja/alta</th>
+									</tr>
+								</thead>
+
+								<tbody aria-relevant="all" aria-live="polite" role="alert" 
+								data-ng-repeat="suc in elementsList | filter:search:strict | orderBy:orderByField:reverseSort">
+									<tr>
+										<td>{{suc.Name}}</td>
+										<td>{{suc.Description}}</td>
+										<td>{{suc.Key}}</td>
+										<td>{{suc.Region.Name}}</td>
+										<td>
+											<span ng-repeat="aa in suc.AnalyticsArea">
+												{{aa.Key}}{{suc.AnalyticsArea[suc.AnalyticsArea.length -1].Key !== aa.Key ? ',' : ''}}
+											</span>
+										</td>
+										<td>{{suc.Vende === true && suc.Realiza === true ? 'Vende y Realiza' : suc.Vende === true && suc.Realiza === false ? 'Vende' : 'Realiza' }}</td>
+										<td>{{suc.SucursalIntelesis}}</td>
+										<td>{{suc.SucursalAutolab}}</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td ng-if="accessLevel === 1" style="text-align: center;">
+											<a href="" data-ng-click="addRec(suc)" data-toggle="tooltip" title="Adicionar Reconocimiento">
+												<span class="icon mif-clipboard" style="color: #1b6eae; font-size: 20px;"></span>
+											</a>
+										</td>
+										<td ng-if="accessLevel === 1" style="text-align: center;">
+											<a href="" data-ng-click="edit(suc)" data-toggle="tooltip" title="Editar">
+                                                <span class="icon mif-pencil" style="color: #1b6eae; font-size: 1rem;"></span>
+											</a>
+										</td>
+										<td ng-if="accessLevel === 1" style="text-align: center;">
+											<a href="" data-toggle="tooltip" title="{{suc.Active ? 'Dar baja' : 'Dar alta'}}" data-ng-click="setActivation(suc, !suc.Active)">
+												<i ng-class="[suc.Active ? 'fa fa-thumbs-down' : 'fa fa-thumbs-up']"
+												   ng-style="{'color': suc.Active ?'red':'green'}" style="font-size:24px;"></i>
+											</a>
+										</td>
+									</tr>
+									<tr data-ng-repeat="o in suc.Offices">
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>{{o.Name}}</td>
+										<!-- <td>
+											<span ng-repeat="o in suc.Offices">
+												{{o.Name}}{{suc.Offices[suc.Offices.length -1].Name !== o.Name ? ',' : ''}}
+											</span>
+										</td> -->
+										<td>{{o.Market.Name}}</td>
+										<!-- <td>
+											<span ng-repeat="o in suc.Offices">
+												{{o.Market.Name}}{{suc.Offices[suc.Offices.length -1].Market.Name !== o.Market.Name ? ',' : ''}}
+											</span>
+										</td> -->
+										<!-- | filter: {Office: o.Id}" -->
+										<td>
+											<span ng-repeat="ar in o.RecOtorgs" ng-style="{'color': ar.Expired ? '#CCC7C7' : 'black'}">
+												{{ar.rec}}{{ar.Expired ? '(Expirado)' : ''}}{{o.RecOtorgs[o.RecOtorgs.length -1].rec !== ar.rec ? ',' : ''}}
+											</span>
+											<!-- <ul style="margin-left: 0; padding-left: 1rem;">
+												<li data-ng-repeat="ar in suc.RecOtorgs">
+													<span ng-style="{'color': ar.Expired ? '#CCC7C7' : 'black'}">{{ar.rec}} {{ar.Expired ? '(Expirado)' : ''}}</span>
+												</li>
+											</ul> -->
+										</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+								</tbody>
+
+							</table>
+
+						</div>
+						<!-- End of Enterprise Table -->
+
+						<section>
+							@Html.Partial("BoxFooter")
+						</section>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<ul class="t-menu horizontal compact taskbar_panels">
+		<li ng-repeat="p in panels" style="margin-right: 3px;">
+			<a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+		</li>
+	</ul>
+
+</div>
+
+<script type="text/ng-template" id="editDialog">
+	<div class="ngdialog-message">
+		<form>
+			<div style="margin-left: 10px; margin-right:10px;">
+				<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+				<div class="row" style="min-height: 200px; height: 500px; overflow: auto;">
+
+					<div wizard on-finish="acceptDialog()" sucursal-select-directive>
+
+						<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page1">
+							<div class="input-control text" style="margin-top: 30px; width: 100%;">
+								<label>Nombre</label>
+								<input placeholder="Nombre de la instalación" type="text" style="margin-top: 10px;"
+									   data-ng-model="ngDialogData.dData.Name">
+							</div>
+
+							<div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+								<label>Descripci&oacute;n</label>
+								<textarea placeholder="Descripción" type="text" style="max-width: 100%; max-height: 100px;"
+										  data-ng-model="ngDialogData.dData.Description"></textarea>
+							</div>
+							@* TODO: Revisar error unique *@
+							<div class="col-md-6 col-lg-6" style="padding-left: 0; padding-right: 5px; margin-top: 10px;">
+								<div class="input-control text" style="margin-top: 30px; width: 100%;">
+									<label>Clave</label>
+									<input placeholder="Clave" type="text" style="margin-top: 10px;"
+										   data-ng-model="ngDialogData.dData.Key" @*unique-name="/sucursal/CheckSucursalName"*@>
+                                    <p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+								</div>
+							</div>
+							
+							<div class="col-md-3 col-lg-3" style="padding-left: 0; padding-right: 5px; margin-top: 10px;">
+								<div style="margin-top:12px; text-align: center;">
+									<label style="margin-bottom: 0;">Vende</label>
+									<div class="clearfix"></div>
+									<ul class="toggle" style="padding-left: 0px;">
+										<li style="list-style: outside none none;">
+											<input type="checkbox" name="vendeCB" data-on-color="success" data-off-color="danger" data-on="success" data-label-width="1"
+												   data-on-text="Si" data-off-text="No"
+												   data-ng-model="ngDialogData.dData.Vende" bootstrap-switch>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+							<div class="col-md-3 col-lg-3" style="padding-left: 0; padding-right: 5px; margin-top: 10px;">
+								<div style="margin-top:12px; text-align: center;">
+									<label style="margin-bottom: 0;">Realiza</label>
+									<div class="clearfix"></div>
+									<ul class="toggle" style="padding-left: 0px;">
+										<li style="list-style: outside none none;">
+											<input type="checkbox" name="vendeCB" data-on-color="success" data-off-color="danger" data-on="success" data-label-width="1"
+												   data-on-text="Si" data-off-text="No"
+												   data-ng-model="ngDialogData.dData.Realiza" bootstrap-switch>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<!-- <div class="col-md-6 col-lg-6" style="padding-left: 0; padding-right: 5px; margin-top: 10px;">
+								<div class="input-control select" style="width: 100%; margin-top: 30px;">
+									<label data-toggle="tooltip" title="Región">Región</label>
+									<select id="region-select"
+											data-ng-model="ngDialogData.dData.Region.Id"
+											data-ng-options="reg.Id as reg.Name for reg in regions"
+											style="border: 1px #d9d9d9 solid;">
+										<option value="">Selecciona una Región</option>
+									</select>
+								</div>
+							</div> -->
+
+							<!-- <div class="col-md-6 col-lg-6" style="padding-right: 0; padding-left: 5px; margin-top: 10px;">
+								<div class="input-control select" style="width: 100%; margin-top: 30px;">
+									<label data-toggle="tooltip" title="Empresas/Mercados de la Región">Empresas/Mercados</label>
+									<select id="office-select"
+											data-ng-model="ngDialogData.dData.Office.Id"
+											data-ng-options="office.Id as office.Name + '/' + office.MarketName for office in offices"
+											style="border: 1px #d9d9d9 solid;">
+										<option value="">Selecciona una Empresa/Mercado</option>
+									</select>
+								</div>
+							</div> -->
+
+						</div>
+
+						<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page2">
+							
+							<div class="col-md-12 col-lg-12" style="padding-left: 0; padding-right: 5px; margin-top: 10px;">
+								<div class="input-control select" style="width: 100%; margin-top: 30px;">
+									<label data-toggle="tooltip" title="Región">Región</label>
+									<select id="region-select"
+											data-ng-model="ngDialogData.dData.Region.Id"
+											data-ng-options="reg.Id as reg.Name for reg in regions"
+											style="border: 1px #d9d9d9 solid;">
+										<option value="">Selecciona una Región</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+							
+							<div class="panel" style="width:100%; margin-top: 20px;">
+								<div class="heading">
+									<span class="titleBarText">Empresas/Mercados de la Región</span>
+								</div>
+								<div class="content" style="height:290px; overflow-y:auto;">
+									<div class="table-responsive">
+										<table class="table table-hover table-condensed table-responsive">
+											<thead>
+												<tr role="row">
+													<th style="width: 25%;">
+														Empresa
+													</th>
+													<th style="width: 25%;">
+														Mercado
+													</th>
+													<th style="width: 10%;">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody aria-relevant="all" aria-live="polite" role="alert">
+												<tr class="odd" data-ng-repeat="o in offices">
+													<td>{{o.Name}}</td>
+													<td>{{o.MarketName}}</td>
+													<td class="text-center">
+														<label class="input-control checkbox block">
+															<input type="checkbox" data-ng-click="officeChecked(o)" ng-model="o.checked">
+															<span class="check"></span>
+														</label>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+												
+						<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page3">
+							
+							<div class="col-md-6 col-lg-6">
+								<div class="input-control text" style="width: 100%; margin-top: 10px;">
+									<label>Sucursal de Intelesis</label>
+									<input type="number" placeholder="Sucursal de Intelesis" style="padding: 0 0 0 0.3125rem"
+										   data-ng-model="ngDialogData.dData.SucursalIntelesis">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="input-control text" style="width: 100%; margin-top: 10px;">
+									<label>Sucursal de Autolab</label>
+									<input type="number" placeholder="Sucursal de Autolab" style="padding: 0 0 0 0.3125rem"
+										   data-ng-model="ngDialogData.dData.SucursalAutolab">
+								</div>
+							</div>
+							
+							<div class="panel" style="width:100%; margin-top: 68px;">
+								<div class="heading">
+									<span class="titleBarText">Áreas Analíticas Disponibles</span>
+								</div>
+								<div class="content" style="height:290px; overflow-y:auto;">
+									<div class="table-responsive">
+										<table class="table table-hover table-condensed table-responsive">
+											<thead>
+												<tr role="row">
+													<th style="width: 20%;">
+														Área Analítica
+													</th>
+													<th style="width: 25%;">
+														Descripción
+													</th>
+													<th style="width: 25%;">
+														Centro de Costo
+													</th>
+													<th style="width: 10%;">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody aria-relevant="all" aria-live="polite" role="alert">
+												<tr class="odd" data-ng-repeat="aa in analyticsareas">
+													<td>{{aa.Key}}</td>
+													<td>{{aa.Description}}</td>
+													<td>{{aa.CentroCosto.Number}}</td>
+													<td class="text-center">
+														<label class="input-control checkbox block">
+															<input type="checkbox" data-ng-click="aaChecked(aa)" ng-model="aa.checked">
+															<span class="check"></span>
+														</label>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>

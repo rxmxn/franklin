@@ -1,0 +1,54 @@
+/*no pinchó bien*/
+.fixed-first-column{
+	/*el margin-left es el correspondiente al width de la 1ra columna*/
+    margin-left:200px; 
+    /*el padding-bottom da un espacio entre el scroll horizontal y la ultima fila de la tabla*/
+    padding-bottom:1px;
+}
+/*no pinchó bien*/
+.headcol {
+    position:absolute;
+    width:200px;
+    left:0;
+    top:auto;
+    /*border-right: 0px none black;*/
+    /*only relevant for first row*/
+    /*border-top-width:3px; */
+    /*compensate for top border*/
+    /*margin-top:-3px; */
+}
+
+.background-img{
+	/*background: transparent url('../img/bg.jpg') repeat scroll 0 0;*/
+    background: transparent url('../img/bgnoise.png') repeat scroll 0 0;
+	/*background: #FFF url('../img/gas.gif') repeat fixed 0 0;       */
+	/*background: transparent url('../img/top_bg.jpg') repeat scroll 0 0;*/
+}
+ 
+.content-container{
+	padding-left: 2%; 
+	padding-right: 2%;
+}
+
+.page-content{
+	min-height: 100%;
+	height: 100%;
+}
+
+.main-scroll{
+	overflow-y:scroll;
+	height: 100%;
+}
+
+.main-scroll-limit{
+	height: 100%; 
+    /*modified by adiel*/
+	/*padding-bottom: 44px;*/
+}
+
+.taskbar_panels {
+    width: 100% !important; 
+    position: absolute !important; 
+    bottom: 0 !important; 
+    z-index: 999 !important;
+}

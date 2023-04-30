@@ -1,0 +1,47 @@
+﻿<div class="ngdialog-message" style="height: 500px;">
+
+	<div class="content-container">
+		<h5 style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Reconocimientos adquiridos por el Analista: </h5>
+		<p style="font-weight: bold; color: black;">{{ngDialogData.annalist}}</p>
+		<div class="input-control text"
+			 data-toggle="tooltip" title="Búsqueda por todos los elementos de la página actual">
+			<input type="text" placeholder="Filtro general pág. actual" data-ng-model="search.$">
+		</div>
+
+		<p data-ng-if="!ngDialogData.dData.length" style="padding-top: 10px;">Este Analista no presenta reconocimientos</p>
+	</div>
+
+	<div class="box-body" data-ng-if="ngDialogData.dData.length" style="height: 76%; overflow: auto;">
+		<div class="table-responsive">
+			<table class="table table-hover table-condensed table-responsive">
+				<thead>
+					<tr role="row">
+						<th style="width: 25%;">Nivel</th>
+						<th style="width: 25%;">Instalación</th>
+						<th style="width: 20%;">Reconocimiento</th>
+						<th style="width: 20%;" data-toggle="tooltip" title="Fecha en que se adquirió el reconocimiento">Fecha</th>
+						<th style="width: 10%; text-align: center;">
+							Parámetros
+						</th>
+					</tr>
+				</thead>
+
+				<tbody aria-relevant="all" aria-live="polite" role="alert"
+					   data-ng-repeat="ra in ngDialogData.dData">
+					<tr class="odd" data-ng-repeat="ro in ra.RecOtorgsToShow | filter:search:strict"
+						ng-style="{'color': ro.Expired ? '#CCC7C7' : 'black'}">
+						<td>{{ra.TipoSignatario.Tipo}}</td>
+						<td>{{ro.Sucursal}}</td>
+						<td>{{ro.Ack}}{{ro.Enterprise !== null ? '/' + ro.Enterprise : ''}}</td>
+						<td>{{ro.AcquiredDate}}</td>
+						<td style="text-align: center;">
+							<span style="cursor: pointer; font-size: 1.2rem"
+								  ng-click="viewParams(ro.Annalist, ro.Id, ro.Ack, ro.Enterprise)"
+								  class="mif-lab icon"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

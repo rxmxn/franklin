@@ -1,0 +1,445 @@
+﻿<div class="main-scroll">
+	<div class="padding10" style="position: absolute; width: 99%;">
+		<h6 class="text-light margin0 text-uppercase">
+			Bitácora de accesos a la web
+			<!-- <span class="ani-hover-spanner ani-fast icon mif-user-check place-right"></span> -->
+		</h6>
+		<hr class="thin bg-grayLighter">
+	</div>
+
+	<div class="col-lg-12" two-panels-directive style="padding-top: 2rem; height: 100%;">
+		<div class="row" style="height: 100%;">
+
+			<div class="col-lg-12" ng-show="panels[0].state" id="panel0" style="height: 100%;">
+				<div id="usrTable" class="panel" style="height: 100%; padding-bottom: 3rem;" fullscreen="isFullscreen0">
+
+				<div class="heading">
+					<div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+						 style="color: white; cursor: pointer;"
+						 data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+						<div class="app-bar-drop-container"
+							 data-role="dropdown"
+							 data-toggle-element="#toggle-tiles-dropdown"
+							 data-no-close="true"
+							 style="width: 13.2rem; margin-top: 0.4rem; border: 2px solid #005696;
+									 margin-left: -8px; text-align: left;">
+							<div class="tile-container bg-white fg-dark" style="padding: 10px;">
+								<!-- Comienza aqui el desplegable de filtros -->
+								<div class="row" style="font-size: 0.775rem;">
+									<div class="col-lg-12">
+										<label style="margin: 10px 0px 0px 0;">Elementos a mostrar</label>
+										<div style="display: block; margin: 5px 5px 10px 0;">
+											<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+												   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+											bootstrap-switch data-ng-model="alta" data-ng-change="RefreshList(1)">
+											<span style="vertical-align: middle;" id="menulink">Ver Elem. activos</span>
+										</div>
+										<div style="display: block; margin: 5px 5px 10px 0;">
+											<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+												   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+											bootstrap-switch data-ng-model="baja" data-ng-change="RefreshList(1)">
+											<span style="vertical-align: middle;" id="menulink">Ver Elem. de baja</span>
+										</div>
+										<div style="display: block; margin: 5px 5px 10px 0;">
+											<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+												   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+											bootstrap-switch data-ng-model="viewConnected" data-ng-change="RefreshList(1)">
+											<span style="vertical-align: middle;" id="menulink">Ver usuarios conectados</span>
+										</div>
+									</div>
+								</div>
+								<!-- Termina aqui el desplegable de filtros -->
+							</div>
+						</div>
+					</div>
+					<span class="titleBarText" style="margin-left: 1.825rem;">{{panels[0].name}}</span>
+					<span class="minimize" ng-click="isFullscreen0 ? null : minimize(panels[0])" style="right: 2.625rem;"></span>
+					<span class="{{isFullscreen0?'restoreDown':'maximize'}}" ng-click="toggleFullScreen(0)"></span>
+				</div>
+
+					<div class="content" style="height: 95%;">
+						<div class="box-header">
+							<div class="box-name">
+								<i class="glyphicon glyphicon-user"></i>
+								<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 14px; margin-left: 5px;">
+									Elementos: {{pageTotal}}
+								</span>
+							</div>
+
+							<div class="row" style="margin-left: 0;">
+
+								<div class="input-control text" style="margin-right: 50px; float: left;">
+									<input type="text" placeholder="Buscar nombre" data-ng-model="searchGeneral">
+									<button class="button" data-ng-click="RefreshList(1)" style="z-index: 1;"
+											data-toggle="tooltip" title="Buscar por Nombre(s), Apellido(s) o Nombre de Usuario en toda la Base de Datos">
+										<span class="mif-search"></span>
+									</button>
+								</div>
+
+								<div class="input-control text" style="margin-right: 40px; float: left;">
+									<input type="text" placeholder="Buscar IP" data-ng-model="searchIp">
+									<button class="button" data-ng-click="RefreshList(1)"
+											data-toggle="tooltip" title="Buscar por dirección IP en toda la Base de Datos">
+										<span class="mif-search"></span>
+									</button>
+								</div>
+
+								<div class="input-control text" style="margin-right: 50px; float: left;"
+									 data-toggle="tooltip" title="Búsqueda por todos los elementos de la página actual">
+									<input type="text" placeholder="Filtro general pág. actual" data-ng-model="search.$">
+								</div>
+
+								<div class="dropdown-button place-left" style="height: 1.61rem; margin-top: 0.44rem; margin-right: 50px; width: 10.9rem;">
+									<button class="button dropdown-toggle" style="height: inherit; width: inherit;">Filtrar por fecha</button>
+									<div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 280px;">
+										<!--<label style="margin-top: 12px;">Filtrar por fecha</label>-->
+										<div class="row">
+											<div class="col-lg-6" style="padding-right: 1px;">
+												<div class="input-control text" data-role="datepicker" style="width: 100%;"
+													 data-locale="es" data-format="dd/mm/yyyy">
+													<input type="text" ng-model="fromDate" placeholder="Desde">
+													<button class="button"><span class="mif-calendar"></span></button>
+												</div>
+											</div>
+											<div class="col-lg-6" style="padding-left: 1px;">
+												<div class="input-control text" data-role="datepicker" style="width: 100%;"
+													 data-locale="es" data-format="dd/mm/yyyy">
+													<input type="text" placeholder="Hasta" ng-model="untilDate">
+													<button class="button"><span class="mif-calendar"></span></button>
+												</div>
+											</div>
+										</div>
+										<div class="row" style="margin-top: 10px;">
+											<div class="col-xs-12">
+												<div class="col-xs-6 text-center" style="padding: 0;">
+													<button class="button medium-button" data-ng-click="dateFilterRemove()" data-toggle="tooltip" title="Borrar">
+														<span class="glyphicon glyphicon-erase" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+														<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+													</button>
+												</div>
+												<div class="col-xs-6 text-center" style="padding: 0;">
+													<button class="button medium-button" data-ng-click="dateFilter()" data-toggle="tooltip" title="Filtrar">
+														<span class="mif-search" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+														<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+						<div class="box-body" data-ng-if="!elementsList.length">
+							<div class="scroll-panel margin-left-10">
+								<p data-ng-if="isLoading">
+									<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+								</p>
+								<p data-ng-if="!isLoading">
+									<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+								</p>
+							</div>
+						</div>
+
+						<!-- UserAccess Table -->
+						<div class="box-body" data-ng-if="elementsList.length" style="height: 70%; overflow: auto;">
+							<table class="table table-striped table-hover table-condensed table-responsive" style="min-width: 1070px;">
+								<thead>
+									<tr role="row">
+										<th style="width: 90px; text-align: center;">Foto</th>
+										<th style="width: 250px; cursor: pointer;" ng-click="orderByField='User.FullName'; reverseSort = !reverseSort">
+											Nombre
+											<span ng-show="orderByField == 'User.FullName'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 120px; cursor: pointer;" ng-click="orderByField='User.UserName'; reverseSort = !reverseSort">
+											Usuario
+											<span ng-show="orderByField == 'User.UserName'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 120px; cursor: pointer;" ng-click="orderByField='Info.Connected'; reverseSort = !reverseSort">
+											Estado
+											<span ng-show="orderByField == 'Info.Connected'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 150px; cursor: pointer;" ng-click="orderByField='Info.IpAddress'; reverseSort = !reverseSort">
+											Dirección IP
+											<span ng-show="orderByField == 'Info.IpAddress'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 160px; cursor: pointer;" ng-click="orderByField='Info.StartSession'; reverseSort = !reverseSort">
+											Inicio Sesión
+											<span ng-show="orderByField == 'Info.StartSession'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 160px; cursor: pointer;" ng-click="orderByField='Info.EndSession'; reverseSort = !reverseSort">
+											Fin Sesión
+											<span ng-show="orderByField == 'Info.EndSession'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+									</tr>
+								</thead>
+
+								<tbody aria-relevant="all" aria-live="polite" role="alert">
+									<tr class="odd" data-ng-repeat="x in elementsList | filter:search:strict | orderBy:orderByField:reverseSort">
+										<td style="text-align: center !important;">
+											<img data-ng-if="x.User.Photo == null" ng-src="/Content/img/{{x.User.Gender ? 'female.jpg' : 'usermale.jpg' }}" style="width: 42px; height: 42px;" />
+											<img data-ng-if="x.User.Photo != null" ng-src="{{x.User.Photo}}" style="width: auto; height: 42px;" />
+										</td>
+										<td>
+											<a href="" data-ng-click="more(x)" data-toggle="tooltip" title="Ver más">
+												{{x.User.FullName}}
+											</a>
+										</td>
+										<td>{{x.User.UserName}}</td>
+										<td>{{x.Info.Connected === true ? "Conectado" : "Desconectado"}}</td>
+										<td>{{x.Info.IpAddress}}</td>
+										<td>{{x.Info.StartSession | date:"dd/MM/yyyy HH:mm"}}</td>
+										<td>{{x.Info.EndSession | date:"dd/MM/yyyy HH:mm"}}</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+						<!-- End of UserAccess Table -->
+
+						<section>
+							@Html.Partial("BoxFooter")
+						</section>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6" ng-show="panels[1].state" id="panel1" style="height: 100%;">
+				<div id="usrTable" class="panel" style="height: 100%; padding-bottom: 3rem;" fullscreen="isFullscreen1">
+
+					<div class="heading">
+						<span class="titleBarText">{{panels[1].name}}</span>
+						<span class="minimize" ng-click="isFullscreen1 ? null : minimize(panels[1])" style="right: 2.625rem;"></span>
+						<span class="{{isFullscreen1?'restoreDown':'maximize'}}" ng-click="toggleFullScreen(1)"></span>
+					</div>
+
+					<div class="content" style="height: 95%;">
+						<div class="box-header">
+							<div style="height: 100px; float: right;">
+								<img ng-src="{{avatarIMG}}" data-ng-if="selectedUser.User.Photo == null" style="height: inherit;">
+								<img ng-src="{{selectedUser.User.Photo}}" data-ng-if="selectedUser.User.Photo != null" style="height: inherit;">
+							</div>
+							<div class="box-name">
+								<span class="icon mif-hour-glass"></span>
+								<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 14px; margin-left: 5px;">
+									Accesos: {{pageTotalMore}}
+								</span>
+							</div>
+
+							<div class="input-control text" style="margin-right: 40px; float: left;">
+								<input type="text" placeholder="Buscar IP" data-ng-model="searchIpMore">
+								<button class="button" data-ng-click="RefreshListMore(1)"
+										data-toggle="tooltip" title="Buscar por dirección IP en toda la Base de Datos">
+									<span class="mif-search"></span>
+								</button>
+							</div>
+
+							<div class="input-control text" style="margin-right: 40px; float: left;"
+								 data-toggle="tooltip" title="Búsqueda por todos los elementos de la página actual">
+								<input type="text" placeholder="Filtro general pág. actual" data-ng-model="searchMore.$">
+							</div>
+
+							<div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 10.9rem; float: left;">
+								<button class="button dropdown-toggle" style="height: inherit; width: inherit;">Filtrar por fecha</button>
+								<div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 280px;">
+									<!--<label style="margin-top: 12px;">Filtrar por fecha</label>-->
+									<div class="row">
+										<div class="col-lg-6" style="padding-right: 1px;">
+											<div class="input-control text" data-role="datepicker" style="width: 100%;"
+												 data-locale="es" data-format="dd/mm/yyyy">
+												<input type="text" ng-model="fromDateMore" placeholder="Desde">
+												<button class="button"><span class="mif-calendar"></span></button>
+											</div>
+										</div>
+										<div class="col-lg-6" style="padding-left: 1px;">
+											<div class="input-control text" data-role="datepicker" style="width: 100%;"
+												 data-locale="es" data-format="dd/mm/yyyy">
+												<input type="text" placeholder="Hasta" ng-model="untilDateMore">
+												<button class="button"><span class="mif-calendar"></span></button>
+											</div>
+										</div>
+									</div>
+									<div class="row" style="margin-top: 10px;">
+										<div class="col-xs-12">
+											<div class="col-xs-6 text-center" style="padding: 0;">
+												<button class="button medium-button" data-ng-click="dateFilterRemoveMore()" data-toggle="tooltip" title="Borrar">
+													<span class="glyphicon glyphicon-erase" aria-hidden="true" data-ng-if="!initDateFilterMore"></span>
+													<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilterMore"></span>
+												</button>
+											</div>
+											<div class="col-xs-6 text-center" style="padding: 0;">
+												<button class="button medium-button" data-ng-click="dateFilterMore()" data-toggle="tooltip" title="Filtrar">
+													<span class="mif-search" aria-hidden="true" data-ng-if="!initDateFilterMore"></span>
+													<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilterMore"></span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="box-body" data-ng-if="!elementsListMore.length">
+							<div class="scroll-panel margin-left-10">
+								<p data-ng-if="isLoadingMore">
+									<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+								</p>
+								<p data-ng-if="!isLoadingMore">
+									<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+								</p>
+							</div>
+						</div>
+
+						<!-- UserAccess Table -->
+						<div class="box-body" data-ng-if="elementsListMore.length" style="height: 70%; overflow: auto;">
+							<table class="table table-striped table-hover table-condensed table-responsive">
+								<thead>
+									<tr role="row">
+										<th style="width: 150px; cursor: pointer;" ng-click="orderByField='IpAddress'; reverseSort = !reverseSort">
+											Dirección IP
+											<span ng-show="orderByField == 'IpAddress'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 160px; cursor: pointer;" ng-click="orderByField='StartSession'; reverseSort = !reverseSort">
+											Inicio Sesión
+											<span ng-show="orderByField == 'StartSession'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+										<th style="width: 160px; cursor: pointer;" ng-click="orderByField='EndSession'; reverseSort = !reverseSort">
+											Fin Sesión
+											<span ng-show="orderByField == 'EndSession'" style="margin-left: 5px;">
+												<span ng-show="!reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+												</span>
+												<span ng-show="reverseSort">
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+												</span>
+											</span>
+										</th>
+									</tr>
+								</thead>
+
+								<tbody aria-relevant="all" aria-live="polite" role="alert">
+									<tr class="odd" data-ng-repeat="x in elementsListMore | filter:searchMore:strict | orderBy:orderByField:reverseSort">
+										<td>{{x.IpAddress}}</td>
+										<td>{{x.StartSession | date:"dd/MM/yyyy HH:mm"}}</td>
+										<td>{{x.EndSession | date:"dd/MM/yyyy HH:mm"}}</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+						<!-- End of UserAccess Table -->
+
+						<section>
+
+							<div class="box-footer text-center" style="height: 48px;">
+
+								<div style="text-align: right; position: absolute; right: 15px;" ng-show="pageTotalMore > 10">
+									<label style="vertical-align: bottom;">Mostrar: </label>
+									<div class="input-control select" style="width: 50px;"
+										 data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+										<select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSizeMore" ng-change="RefreshListMore(1)">
+											<option>10</option>
+											<option>20</option>
+											<option>30</option>
+											<option>50</option>
+										</select>
+									</div>
+								</div>
+
+								<paging class="small"
+										page="currentPageMore"
+										page-size="pageSizeMore"
+										total="pageTotalMore"
+										adjacent="1"
+										dots="..."
+										hide-if-empty="true"
+										show-prev-next="true"
+										show-first-last="true"
+										text-next-class="fa fa-angle-right"
+										text-prev-class="fa fa-angle-left"
+										text-first-class="fa fa-angle-double-left"
+										text-last-class="fa fa-angle-double-right"
+										text-title-page="P&aacute;gina {page}"
+										text-title-first="Inicio"
+										text-title-last="Fin"
+										text-title-next="Siguiente"
+										text-title-prev="Anterior"
+										paging-action="RefreshListMore(page)">
+								</paging>
+
+							</div>
+
+						</section>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<ul class="t-menu horizontal compact taskbar_panels">
+		<li ng-repeat="p in panels" style="margin-right: 3px;">
+			<a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+		</li>
+	</ul>
+
+</div>

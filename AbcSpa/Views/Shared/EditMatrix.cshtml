@@ -1,0 +1,96 @@
+﻿<div class="ngdialog-message">
+	<form>
+		<div style="margin-left: 10px; margin-right:10px;">
+			<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+			<div class="row" style="min-height: 200px; height: 250px;">
+
+				<div class="col-lg-6">
+					<div class="input-control select" ch-combo style="width: 100%; margin-top: 30px;">
+						<label data-toggle="tooltip" title="Grupos de matrices">Grupos de Matrices</label>
+						<select id="ngDialogData.baseMatrixList-select"
+								data-ng-model="ngDialogData.dData.BaseMatrix.Id"
+								data-ng-options="bmtrx.Id as bmtrx.Name for bmtrx in ngDialogData.baseMatrixList"
+								data-ng-change="bmChange()"
+								style="border: 1px #d9d9d9 solid;">
+							<option value="">Seleccione un grupo para la matriz /submatriz</option>
+						</select>
+					</div>
+
+					<div class="input-control" style="width: 100%; margin-top: 16px;">
+						<label data-toggle="tooltip" title="Nombre de la Matriz">Nombre de la Matriz</label>
+						<input type="text" list="sugPlace" placeholder="Introducir Matriz" style="border-radius: 0;"
+							   data-ng-model="ngDialogData.dData.Name" @*data-ng-change="getMatrixName()"*@ />
+						<datalist id="sugPlace">
+							<option data-ng-repeat="mtrx in ngDialogData.matrixList" value="{{mtrx.Name}}"></option>
+						</datalist>
+					</div>
+
+					<div class="input-control" style="width: 100%; margin-top: 40px;">
+						<label data-toggle="tooltip" title="Nombre de la Submatriz">Nombre de la Submatriz</label>
+						<input type="text" list="submtrx" placeholder="Introducir Submatriz" style="border-radius: 0;"
+							   data-ng-model="ngDialogData.dData.SubMatrix" @*data-ng-change="getSubMatrix()"*@ />
+						<datalist id="submtrx">
+							<option data-ng-repeat="submtrx in ngDialogData.submatrixList" value="{{submtrx.Name}}"></option>
+						</datalist>
+					</div>
+
+					@*<div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+							<label style="margin-left: 15px;" data-toggle="tooltip" title="Relación de Matrices disponibles">Matrices</label>
+							<select id="matrix-select"
+									ng-disabled="!(matrixList.length>0)"
+									data-ng-model="ngDialogData.dData.Matrix.Id"
+									data-ng-options="matrix.Id as matrix.Name for matrix in matrixList"
+									style="border: 1px #d9d9d9 solid;">
+								<option value="">Seleccione la matriz que desea adicionar</option>
+							</select>
+						</div>*@
+				</div>
+				<div class="col-md-6 col-lg-6">
+					<div class="input-control text" style="width: 100%; margin-top: 28px;">
+						<label data-toggle="tooltip" title="Mercado" style="display: block">Mercado</label>
+						<input data-toggle="tooltip" title="Mercado" type="text" ng-model="ngDialogData.dData.BaseMatrix.Mercado.Name" ng-disabled="true">
+					</div>
+
+					<div class="input-control" style="width: 100%; margin-top: 16px;">
+						<label data-toggle="tooltip" title="Descripción de la Matriz (2 letras)">Descripción de la Matriz (2 letras)</label>
+						<input type="text" list="mtrxD" placeholder="Introducir Matriz (2 letras)" style="border-radius: 0;"
+							   data-ng-model="ngDialogData.dData.Description" @*data-ng-change=""*@ maxlength="2" />
+						<datalist id="mtrxD">
+							<option data-ng-repeat="mtrx in ngDialogData.matrixList" value="{{mtrx.Description}}"></option>
+						</datalist>
+					</div>
+
+					<div class="input-control" style="width: 100%; margin-top: 40px;">
+						<label data-toggle="tooltip" title="Descripción">Descripción (2 Letras)</label>
+						<input type="text" list="submtrxD" placeholder="Introducir Descripción 2 LETRAS" style="border-radius: 0;"
+							   data-ng-model="ngDialogData.dData.SubMtrxDescription" @*data-ng-change=""*@ />
+						<datalist id="submtrxD">
+							<option data-ng-repeat="submtrx in ngDialogData.submatrixList" value="{{submtrx.Description}}"></option>
+						</datalist>
+					</div>
+
+					@*<div class="input-group" style="padding-top: 10px; padding-right: 15px; width: 100%;">
+							<label data-toggle="tooltip" title="Descripción">Descripción (2 Letras)</label>
+							<input type="text" class="form-control" list="submtrxD" placeholder="Introducir Descripción 2 LETRAS" style="border-radius: 0;"
+								   data-ng-model="ngDialogData.dData.SubMtrxDescription" data-ng-change="" />
+							<datalist id="submtrxD">
+								<select style="display: none;" ng-model="ngDialogData.dData.SubMatrix.Name" ng-options="submtrx as submtrx.Description for submtrx in ngDialogData.submatrixList"></select>
+							</datalist>
+						</div>*@
+					@*<div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+							<label>Descripci&oacute;n</label>
+							<textarea required="" placeholder="Descripción" type="text" style="max-width: 100%;" data-ng-model="ngDialogData.dData.Description"></textarea>
+						</div>*@
+				</div>
+
+			</div>
+
+			<div class="ngdialog-buttons">
+				<button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+					<i class="fa fa-check"></i>
+				</button>
+			</div>
+
+		</div>
+	</form>
+</div>

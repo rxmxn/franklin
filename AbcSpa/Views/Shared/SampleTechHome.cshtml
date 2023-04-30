@@ -1,0 +1,368 @@
+﻿<div class="col-lg-6" ng-show="panels[0].state" id="panel1" style="height: 50%;">
+	<div class="panel" style="width: 100%; height: 100%;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[0].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[0])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[0])"></span>
+		</div>
+		<div class="content" style="height: 88%; overflow: auto;" id="panel1Content">
+
+			<div class="col-lg-6" id="chart1">
+				<div fusioncharts width="100%"
+				     height="250px"
+				     type="pie3d"
+				     datasource="{{datasource1}}"
+				     events="events1">
+				</div>
+			</div>
+
+			<div class="col-lg-6" id="chart1a" data-ng-show="info1.length">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="pie3d"
+					 datasource="{{datasource1a}}"
+					 events="events1a">
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName1}}</label>
+			<div class="box-body" data-ng-if="info1.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th>Clave Específica (Parámetro)</th>
+							<th>Analistas</th>
+							<th>Reconocimientos</th>
+							<th>Sucursal/Instalación donde se realiza</th>
+							<th>Sucursal/Instalación donde se vende</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert">
+						<tr class="odd" ng-repeat="ai in info1">
+							<td>{{ai.Param}}</td>
+							<td><span ng-repeat="a in ai.Annalists">{{a}}, </span></td>
+							<td><span ng-repeat="a in ai.RecOtorgs">{{a}}, </span></td>
+							<td>{{ai.SucursalRealiza}}</td>
+							<td>{{ai.SucursalVende}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;" data-ng-if="info1a.length">
+				{{selectedName1a}}, Reconocimiento: {{info1a[0].Ack}}
+			</label>
+			<div class="box-body" data-ng-if="info1a.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Clave Específica (Parámetro)</th>
+								<th>Analistas</th>
+								<th>Sucursal/Instalación donde se realiza</th>
+								<th>Sucursal/Instalación donde se vende</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="i in info1a">
+							<tr class="odd" ng-repeat="j in i.Param">
+								<td>{{j.Name}}</td>
+								<td><span ng-repeat="a in j.Analistas">{{a}}, </span></td>
+								<td>{{j.SucursalRealiza}}</td>
+								<td>{{j.SucursalVende}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[1].state" id="panel2" style="height: 50%;">
+	<div class="panel" style="width: 100%; height: 100%;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[1].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[1])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[1])"></span>
+		</div>
+		<div class="content" style="height: 88%; overflow: auto;" id="panel2Content">
+			<div class="col-lg-6" id="chart2">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="column2d"
+					 datasource="{{datasource2}}"
+					 events="events2">
+				</div>
+			</div>
+
+			<div class="col-lg-6" id="chart2a" data-ng-show="info2.length">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="pie3d"
+					 datasource="{{datasource2a}}"
+					 events="events2a">
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">
+				{{selectedName2}}, Reconocimiento: {{info2[0].Ack}} 
+			</label>
+			<div class="box-body" data-ng-if="info2.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th>Método</th>
+							<th>Clave Específica (Parámetro)</th>
+							<th>Analistas</th>
+							<th>Sucursal/Instalación donde se realiza</th>
+							<th>Sucursal/Instalación donde se vende</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="i in info2">
+						<tr>
+							<td>{{i.Method}}</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class="odd" ng-repeat="j in i.Param">
+							<td>&nbsp;</td>
+							<td>{{j.Name}}</td>
+							<td><span ng-repeat="a in j.Analistas">{{a}}, </span></td>
+							<td>{{j.SucursalRealiza}}</td>
+							<td>{{j.SucursalVende}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName2a}}</label>
+			<div class="box-body" data-ng-if="info2a.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Método</th>
+								<th>Clave Específica (Parámetro)</th>
+								<th>Analistas</th>
+								<th>Sucursal/Instalación donde se realiza</th>
+								<th>Sucursal/Instalación donde se vende</th>
+								<th>Reconocimientos</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="i in info2a">
+							<tr>
+								<td>{{i.Method}}</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr class="odd" ng-repeat="j in i.Param">
+								<td>&nbsp;</td>
+								<td>{{j.Param}}</td>
+								<td><span ng-repeat="a in j.Analistas">{{a}}, </span></td>
+								<td>{{j.SucursalRealiza}}</td>
+								<td>{{j.SucursalVende}}</td>
+								<td><span ng-repeat="ack in j.acks">{{ack}}, </span></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[2].state" id="panel3" style="height: 50%;">
+	<div class="panel" style="width: 100%; height: 100%;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[2].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[2])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[2])"></span>
+		</div>
+		<div class="content" style="height: 88%; overflow: auto;" id="panel3Content">
+			
+			<div class="col-lg-6" id="chart3">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="column2d"
+					 datasource="{{datasource3}}"
+					 events="events3">
+				</div>
+			</div>
+			<div class="col-lg-6" id="chart3a" data-ng-show="info3.length">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="pie3d"
+					 datasource="{{datasource3a}}"
+					 events="events3a">
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName3}}</label>
+			<div class="box-body" data-ng-if="info3.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th style="width: 5%; text-align: center;">Foto</th>
+							<th>Nombre</th>
+							<th>Reconocimientos</th>
+							<th>Sucursales</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert">
+						<tr class="odd" ng-repeat="sig in info3">
+							<td style="text-align: center !important;">
+								<img data-ng-if="sig.Photo === '' || sig.Photo === null" ng-src="/Content/img/{{sig.Gender === false ? 'usermale.jpg' : 'female.jpg' }}" style="width: 42px; height: 42px;" />
+								<img data-ng-if="sig.Photo !== '' && sig.Photo !== null" ng-src="{{sig.Photo}}" style="width: auto; height: 42px;" />
+							</td>
+							<td>{{sig.Name}}</td>
+							<td><span ng-repeat="ack in sig.acks">{{ack}}, </span></td>
+							<td>
+								<ul style="margin-left: 0; padding-left: 1rem;">
+									<li ng-repeat="suc in sig.sucursales">{{suc}}</li>
+								</ul>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName3a}}</label>
+			<div class="box-body" data-ng-if="info3a.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th style="width: 5%; text-align: center;">Foto</th>
+							<th>Nombre</th>
+							<th>Reconocimientos</th>
+							<th>Sucursales</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert">
+						<tr class="odd" ng-repeat="sig in info3a">
+							<td style="text-align: center !important;">
+								<img data-ng-if="sig.Photo === '' || sig.Photo === null" ng-src="/Content/img/{{sig.Gender === false ? 'usermale.jpg' : 'female.jpg' }}" style="width: 42px; height: 42px;" />
+								<img data-ng-if="sig.Photo !== '' && sig.Photo !== null" ng-src="{{sig.Photo}}" style="width: auto; height: 42px;" />
+							</td>
+							<td>{{sig.Name}}</td>
+							<td><span ng-repeat="ack in sig.acks">{{ack}}, </span></td>
+							<td>
+								<ul style="margin-left: 0; padding-left: 1rem;">
+									<li ng-repeat="suc in sig.sucursales">{{suc}}</li>
+								</ul>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[3].state" id="panel4" style="height: 50%;">
+	<div class="panel" style="width: 100%; height: 100%;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[3].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[3])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[3])"></span>
+		</div>
+		<div class="content" style="height: 88%; overflow: auto;" id="panel4Content">
+			<div class="col-lg-6" id="chart4">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="pie3d"
+					 datasource="{{datasource4}}"
+					 events="events4">
+				</div>
+			</div>
+			<div class="col-lg-6" id="chart4a" data-ng-show="info4.length">
+				<div fusioncharts width="100%"
+					 height="250px"
+					 type="pie3d"
+				     datasource="{{datasource4a}}"
+					 events="events4a">
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName4}}</label>
+			<div class="box-body" data-ng-if="info4.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th>Método</th>
+							<th>Clave Específica (Parámetro)</th>
+							<th>Analistas</th>
+							<th>Sucursal/Instalación donde se realiza</th>
+							<th>Sucursal/Instalación donde se vende</th>
+							<th>Reconocimientos</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="i in info4">
+							<tr>
+								<td>{{i.Method}}</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr class="odd" ng-repeat="j in i.Param">
+								<td>&nbsp;</td>
+								<td>{{j.Param}}</td>
+								<td><span ng-repeat="a in j.Analistas">{{a}}, </span></td>
+								<td>{{j.SucursalRealiza}}</td>
+								<td>{{j.SucursalVende}}</td>
+								<td><span ng-repeat="ack in j.acks">{{ack}}, </span></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName4a}}</label>
+			<div class="box-body" data-ng-if="info4a.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Clave Específica (Parámetro)</th>
+								<th>Analistas</th>
+								<th>Reconocimientos</th>
+								<th>Sucursal/Instalación donde se realiza</th>
+								<th>Sucursal/Instalación donde se vende</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert">
+							<tr class="odd" ng-repeat="ai in info4a">
+								<td>{{ai.Param}}</td>
+								<td><span ng-repeat="a in ai.Annalists">{{a}}, </span></td>
+								<td><span ng-repeat="a in ai.RecOtorgs">{{a}}, </span></td>
+								<td>{{ai.SucursalRealiza}}</td>
+								<td>{{ai.SucursalVende}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

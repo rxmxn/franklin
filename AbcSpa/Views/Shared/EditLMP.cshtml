@@ -1,0 +1,175 @@
+﻿<div class="ngdialog-message">
+    <form style="height: inherit;">
+        <div style="margin-left: 10px; margin-right:10px; height: inherit;" class="content-container">
+            <h5 style="margin-left: -5px; margin-bottom: 5px">{{dialogTitle}}</h5>
+            <div class="row" style="min-height: 200px; height: inherit; overflow: auto;">
+                <div wizard on-finish="acceptDialog()" style="height: inherit;">
+                    <div wz-step style="min-height: 500px;">
+                        <div class="col-lg-12" style="padding-left: 0; padding-right: 0; height: inherit;" edit-package-select-directive>
+                            <div class="row" style="margin-left: 0; margin-right: 0">
+                                <div class="input-control text" style="margin-top: 0; display: inline-block">
+                                    <label style="font-size: small; margin-bottom: 0; margin-top: 10px;">Nombre</label>
+                                    <input placeholder="Límite Máximo Permisible" type="text" style="margin-top: 10px; font-size: small;"
+                                           data-ng-model="ngDialogData.dData.Name" unique-name="/maxpermitedlimit/CheckMaxPermitedLimitName">
+                                    <p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+                                </div>
+
+                                <div class="input-control textarea" style="margin-top: 0;">
+                                    <label style="font-size: small; margin-top: 3px; margin-bottom: 1px;">Descripci&oacute;n</label>
+                                    <textarea placeholder="Descripción" type="text" style="font-size: small; min-height: 1.2rem; height: 1.625rem; padding-top: 5px; margin-top: 3px; max-width: 100%;"
+                                              data-ng-model="ngDialogData.dData.Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="panel" style="width: 100%; margin-top: 10px; height: 90%;">
+                                <div class="heading">
+                                    <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+                                         style="color: white; cursor: pointer;"
+                                         data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+                                        <div class="app-bar-drop-container"
+                                             data-role="dropdown"
+                                             data-toggle-element="#toggle-tiles-dropdown"
+                                             data-no-close="true"
+                                             style="width: 34rem; margin-top: 0.4rem; border: 2px solid #005696;
+									            margin-left: -8px; text-align: left;">
+                                            <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                                <!-- Comienza aqui el desplegable de filtros -->
+                                                <div class="row" style="font-size: 0.775rem;">
+                                                    <div class="col-lg-6">
+                                                       <label style="margin: 10px 0px 0px 0;">Elementos a mostrar</label>
+                                                            <div style="display: block; margin: 5px 5px 10px 0;">
+                                                                <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                       data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                                bootstrap-switch data-ng-model="ngDialogData.viewParameters" data-ng-change="getElem(pageSize, searchGeneral)">
+                                                                <span style="vertical-align: middle;" id="menulink">Ver Parámetros</span>
+                                                            </div>
+                                                            <div style="display: block; margin: 5px 5px 10px 0;">
+                                                                <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                       data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                                bootstrap-switch data-ng-model="ngDialogData.viewGroups" data-ng-change="getElem(pageSize, searchGeneral)">
+                                                                <span style="vertical-align: middle;" id="menulink">Ver Grupos</span>
+                                                            </div>
+                                                            <div style="display: block; margin: 5px 5px 10px 0;">
+                                                                <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                       data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                                bootstrap-switch data-ng-model="ngDialogData.viewPackages" data-ng-change="getElem(pageSize, searchGeneral)">
+                                                                <span style="vertical-align: middle;" id="menulink">Ver Paquetes</span>
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-lg-6">
+                                                        <label style="font-size: small; display: block;">Búsqueda general</label>
+                                                        <div class="input-control text" style="display: inline">
+                                                            <input type="text" name="search" style="line-height: inherit; display: inline; width: inherit" placeholder="Búsqueda General" data-ng-model="searchGeneral">
+                                                            <button class="button" data-ng-click="getElem(pageSize, searchGeneral)" name="buttonsearch"
+                                                                    data-toggle="tooltip" style="position: relative;"
+                                                                    title="Buscar por todos los elementos en la Base de Datos">
+                                                                <span class="mif-search"></span>
+                                                            </button>
+
+                                                            <button class="button" data-ng-click="getElem(pageSize, '')" name="buttonReset"
+                                                                    data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                    title="Resetear la búsqueda">
+                                                                <span class="mif-cross"></span>
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- Termina aqui el desplegable de filtros -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="titleBarText"  style="margin-left: 1.825rem;">Listado de elementos Disponibles</span>
+                                </div>
+                                <div class="content" style="height: inherit;">
+                                    <p data-ng-if="!ngDialogData.elementList.length && isLoading">
+                                        <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                                    </p>
+                                    <p data-ng-if="!ngDialogData.elementList.length && !isLoading">No hay parámetros disponibles</p>
+                                    <div class="box-body" data-ng-if="ngDialogData.elementList.length" style="height: inherit; overflow: auto">
+                                        <div ng-style="{'width': tableWidth + 'px'}" style="font-size: small">
+                                            <tree-grid tree-data="elementList"
+                                                       tree-control="my_tree"
+                                                       col-defs="col_defs"
+                                                       expand-on="ngDialogData.expanding_property"
+                                                       on-select="my_tree_handler(branch)"
+                                                       icon-expand="icon mif-chevron-thin-right mif-s"
+                                                       icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                       icon-leaf="icon mif-lab"
+                                                       row-actions="rowActions">
+                                            </tree-grid>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="box-footer text-center" style="height: 48px;">
+
+                                        @*<div style="text-align: right; position: absolute; right: 0.55rem" ng-show="pageTotal > 10">
+                                                <label style="vertical-align: bottom; margin-bottom: 0.45rem; font-size: 0.8rem;">MOSTRAR: </label>
+                                                <div class="input-control select" style="width: 50px;"
+                                                     data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+                                                    <select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSize" ng-change="refreshElementList(1, pageSize, searchGeneral)">
+                                                        <option>10</option>
+                                                        <option>20</option>
+                                                        <option>30</option>
+                                                        <option>50</option>
+                                                    </select>
+                                                </div>
+                                            </div>*@
+                                        <div ng-show="pageTotal > pageSize">
+                                            <paging class="small"
+                                                    page="currentPage"
+                                                    page-size="pageSize"
+                                                    total="pageTotal"
+                                                    adjacent="1"
+                                                    dots="..."
+                                                    hide-if-empty="true"
+                                                    show-prev-next="true"
+                                                    show-first-last="true"
+                                                    text-next-class="fa fa-angle-right"
+                                                    text-prev-class="fa fa-angle-left"
+                                                    text-first-class="fa fa-angle-double-left"
+                                                    text-last-class="fa fa-angle-double-right"
+                                                    text-title-page="P&aacute;gina {page}"
+                                                    text-title-first="Inicio"
+                                                    text-title-last="Fin"
+                                                    text-title-next="Siguiente"
+                                                    text-title-prev="Anterior"
+                                                    paging-action="refreshElementList(page, pageSize, searchGeneral)">
+                                            </paging>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div wz-step style="min-height: 500px; ">
+                        <div class="panel" style="width: 100%; margin-top: 10px; height: 95%;">
+                            <div class="heading">
+                                <span class="titleBarText">Listado de elementos seleccionados</span>
+                            </div>
+                            <div class="content" style="height: inherit;">
+                                <p data-ng-if="!selectedItems.length">No hay elementos disponibles</p>
+                                <div class="box-body" data-ng-if="selectedItems.length" style="height: 300px; max-height: 320px; overflow: auto">
+                                    <div ng-style="{'width': tableWidth + 'px'}">
+                                        <tree-grid tree-data="selectedItems"
+                                                   tree-control="my_tree"
+                                                   col-defs="col_defs"
+                                                   expand-on="ngDialogData.expanding_property"
+                                                   on-select="my_tree_handler(branch)"
+                                                   icon-expand="icon mif-chevron-thin-right mif-s"
+                                                   icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                   icon-leaf="icon mif-lab "
+                                                   row-actions="rowActions">
+                                        </tree-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

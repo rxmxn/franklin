@@ -1,0 +1,30 @@
+﻿<div class="ngdialog-message" style="height: 500px;">
+
+    <div class="content-container">
+        <h5 style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Parámetros Reconocidos para el Analista: </h5>
+        <p style="padding-bottom: 10px; font-weight: bold; color: black;">{{ngDialogData.annalist}}</p>
+	    <p style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Reconocimiento:</p>
+	    <p style="padding-bottom: 10px; font-weight: bold; color: black;">{{ngDialogData.rec}}</p> 
+        <p data-ng-if="!ngDialogData.dData.length" style="padding-top: 0.5cm">No hay Parámetros disponibles para este Analista con este Reconocimiento.</p>
+    </div>
+
+    <div class="box-body" data-ng-if="ngDialogData.dData.length" style="height: 76%; overflow: auto;">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed table-responsive">
+                <thead>
+                    <tr role="row">
+                        <th style="width: 50%;">Parámetro</th>
+                        <th style="width: 50%;">Método</th>
+                    </tr>
+                </thead>
+
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                    <tr class="odd" data-ng-repeat="p in ngDialogData.dData">
+                        <td>{{p.Param}}</td>
+                        <td>{{p.Method}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

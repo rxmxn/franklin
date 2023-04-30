@@ -1,0 +1,957 @@
+﻿<div class="ngdialog-message">
+    <form style="height: inherit;">
+        <div style="margin-left: 10px; margin-right: 10px; font-size: 0.75rem; height: inherit;">
+            <h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+            <div class="row" style="min-height: 200px; height: inherit; overflow: auto;">
+                <div wizard on-finish="acceptDialog()" style="height: inherit;">
+
+                    <div wz-step style="min-height: 500px;">
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control text" style="margin-top: 20px; width: 100%;">
+                                <label data-toggle="tooltip" title="Clave Específica del Parámetro">Clave Específica</label>
+                                <input placeholder="Clave Específica del Parámetro" type="text" unique-name="/param/CheckParamUniquekey"
+                                       data-ng-model="ngDialogData.dData.ParamUniquekey">
+                                <p style="position: absolute " data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control text" style="width: 100%; margin-top: 20px;">
+                                <label data-toggle="tooltip" title="Descripción Específica">Descripción Específica</label>
+                                <input placeholder="Descripción Específica" type="text"
+                                       data-ng-model="ngDialogData.dData.Description">
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-6 col-lg-6">
+                                <div class="input-control text" style="margin-top: 38px; width: 100%;">
+                                    <label data-toggle="tooltip" title="Clave Genérica">Clave Genérica</label>
+                                    <input placeholder="Clave Genérica" type="text"
+                                           data-ng-model="ngDialogData.dData.GenericKey">
+                                    </div>
+                            </div>*@
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Parámetro base">Parámetro base</label>
+                                <select id="baseparam-select"
+                                        data-ng-model="ngDialogData.dData.BaseParam.Id"
+                                        data-ng-options="baseparam.Id as baseparam.Name for baseparam in baseparams"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Parámetro base</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.MeasureUnit">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Unidad para reporte">Unidad para reporte</label>
+                                <select id="unit-select"
+                                        data-ng-model="ngDialogData.dData.Unit.Id"
+                                        data-ng-options="unit.Id as unit.Name for unit in units"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona una Unidad</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.PerTurnCapacity">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Capacidad instalada/semana (Trabajo combinado)">Capacidad inst./semana (Trabajo comb.)</label>
+                                <input placeholder="Capacidad por turno" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.PerTurnCapacity">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.PerWeekCapacity">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Capacidad instalada/semana (Máxima)">Capacidad inst./semana (Máxima)</label>
+                                <input placeholder="Capacidad por semana" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.PerWeekCapacity">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.AutolabAssignedAreaName">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Nombre asignado por Autolab">Nombre Autolab</label>
+                                <input placeholder="Nombre Autolab" type="text"
+                                       data-ng-model="ngDialogData.dData.AutolabAssignedAreaName">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Clave genérica para estadísticas">Clave para estadísticas</label>
+                                <input placeholder="Clave genérica para estadísticas" type="text"
+                                       data-ng-model="ngDialogData.dData.GenericKeyForStatistic">
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6 col-lg-6">
+                            <div class="input-control" style="width: 100%; margin-top: 15px;">
+                                <label style="padding-top: 0; margin-bottom: 0; margin-top: 6px" data-toggle="tooltip" title="Clave del analista">Clave del Analista Asignado</label>
+                                <input type="text" list="sugAnn" placeholder="Introducir clave del analista" style="border-radius: 0;"
+                                       data-ng-model="ngDialogData.dData.AnnalistKey" ng-change="getAnnalistKey()" />
+                                <datalist id="sugAnn">
+                                    <option data-ng-repeat="Ann in AnnalistList" value="{{Ann}}"></option>
+                                </datalist>
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Decimales para Reporte">Decimales para Reporte</label>
+                                <input placeholder="Decimales para Reporte" type="number"
+                                       data-ng-model="ngDialogData.dData.DecimalesReporte">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Tipos de Servicio">Tipos de Servicio</label>
+                                <select id="tiposerv-select"
+                                        data-ng-model="ngDialogData.dData.TipoServicio.Id"
+                                        data-ng-options="tserv.Id as tserv.Name for tserv in tiposServicio"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Tipo de Servicio</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Currency">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Precio del parámetro">Precio</label>
+                                <input placeholder="Precio" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.Precio.Value">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Currency">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;">
+                                <label data-toggle="tooltip" title="Moneda del precio">Moneda</label>
+                                <select id="currency-select"
+                                        data-ng-model="ngDialogData.dData.Precio.Currency.Id"
+                                        data-ng-options="currency.Id as currency.Name for currency in currencies"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona una Moneda</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div wz-step style="min-height: 500px; " edit-param-select-directive>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.RequiredVolume">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Volúmen Requerido</label>
+                                <input placeholder="Volúmen requerido" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.RequiredVolume">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.MinimumVolume">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Volúmen M&iacute;nimo</label>
+                                <input placeholder="Volúmen mínimo" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.MinimumVolume">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsMethod">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;" ng-if="columnList.AnalyticsMethod">
+                                <div class="input-control text" style="width: 100%;">
+                                    <label>L&iacute;mite de Reporte</label>
+                                    <input placeholder="Límite de Reporte" type="number" style="padding: 0 0 0 0.3125rem"
+                                           data-ng-model="ngDialogData.dData.ReportLimit">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.AnalysisTime">
+                            <div class="input-control text" style="width: 100%; margin-top: 44px;">
+                                <label>Tiempo para el An&aacute;lisis (días naturales)</label>
+                                <input placeholder="Tiempo para el Análisis" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.AnalysisTime">
+                            </div>
+                        </div>
+                       
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.DeliverTime">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Tiempo de Entrega al Cliente (días hábiles)</label>
+                                <input placeholder="Tiempo de Entrega al cliente" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.DeliverTime">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.ReportTime">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Tiempo de Entrega para el Analista (días hábiles)</label>
+                                <input placeholder="Tiempo para el Analista" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.ReportTime">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.MaxTimeBeforeAnalysis">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Tiempo Máximo Previo al Análisis (días naturales)</label>
+                                <input placeholder="Tiempo Máximo Previo al Análisis" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.MaxTimeBeforeAnalysis">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.LabDeliverTime">
+                            <div class="input-control text" style="width: 100%; margin-top: 38px;">
+                                <label>Tiempo de Entrega al Laboratorio (días hábiles)</label>
+                                <input placeholder="Tiempo de Entrega al Laboratorio" type="number" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.LabDeliverTime">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Container">
+                            <div class="input-control select" style="width:100%; margin-top: 38px;">
+                                <label>Envases</label>
+                                <select id="container-select"
+                                        data-ng-model="ngDialogData.dData.Container.Id"
+                                        data-ng-options="container.Id as container.Name for container in containers"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Envase</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Preserver">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;" ng-if="columnList.Preserver">
+                                <label>Preservadores</label>
+                                <select id="preserver-select"
+                                        data-ng-model="ngDialogData.dData.Preserver.Id"
+                                        data-ng-options="preserver.Id as preserver.Name for preserver in preservers"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Preservador</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control select" style="width: 100%; margin-top: 38px;" ng-if="columnList.AnalyticsMethod">
+                                <label>Técnica Anal&iacute;tica</label>
+                                <select id="analyticsmethod-select"
+                                        data-ng-model="ngDialogData.dData.AnalyticsMethod.Id"
+                                        data-ng-options="analyticsmethod.Id as analyticsmethod.Name for analyticsmethod in analyticsmethods"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona una Técnica Anal&iacute;tica</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Residue">
+                            <div class="input-control select" style="width:100%; margin-top: 38px;">
+                                <label>Tipo de Desecho</label>
+                                <select id="residue-select"
+                                        data-ng-model="ngDialogData.dData.Residue.Id"
+                                        data-ng-options="residue.Id as residue.Name for residue in residues"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Tipo de Desecho</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix" style="height: 300px;"></div>
+                        
+                        <div class="clearfix"></div>
+                     </div>
+
+                    <div wz-step style="min-height: 500px;">
+                        <label style="margin-top: 10px; width: 100%;" ng-if="columnList.DetectionLimit">Límite de Detección:</label>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.DetectionLimit">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Valor</label>
+                                <input type="number" placeholder="Valor del Límite de Detección" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.DetectionLimit.Value">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.DetectionLimit">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Decimales</label>
+                                <input type="number" placeholder="Cantidad de decimales" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.DetectionLimit.Decimals">
+                            </div>
+                        </div>
+
+                        <label style="margin-top: 10px; width: 100%;" ng-if="columnList.CuantificationLimit">Límite de Cuantificación:</label>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.CuantificationLimit">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Valor</label>
+                                <input type="number" placeholder="Valor del Límite de Cuantificación" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.CuantificationLimit.Value">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.CuantificationLimit">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Decimales</label>
+                                <input type="number" placeholder="Cantidad de decimales" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.CuantificationLimit.Decimals">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <label style="margin-top: 10px; width: 100%; padding-left: 15px; padding-right: 15px;" ng-if="columnList.Uncertainty">Incertidumbre:</label>
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Uncertainty">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Valor</label>
+                                <input type="number" placeholder="Valor de Incertidumbre" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.Uncertainty.Value">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.Uncertainty">
+                            <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                <label>Decimales</label>
+                                <input type="number" placeholder="Cantidad de decimales" style="padding: 0 0 0 0.3125rem"
+                                       data-ng-model="ngDialogData.dData.Uncertainty.Decimals">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12" style="padding: 0">
+                            <label class="input-control checkbox block" style="width: 100%; margin-top: 15px; padding-left: 15px; padding-right: 15px;" ng-if="columnList.Qc">
+                                <input type="checkbox" data-placement="right" ng-model="ngDialogData.dData.QcObj.HasQc">
+                                <span class="caption">Genera Muestra QC</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                            <div ng-show="ngDialogData.dData.QcObj.HasQc" ng-if="columnList.Qc">
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="input-control text" style="width: 100%; margin-top: 15px;">
+                                        <label>Límite Superior</label>
+                                        <input type="number" placeholder="Límite Superior"
+                                               data-ng-model="ngDialogData.dData.QcObj.UpperLimit">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6" ng-if="columnList.Qc">
+                                    <div class="input-control text" style="width: 100%; margin-top: 15px;">
+                                        <label>Límite Inferior</label>
+                                        <input type="number" placeholder="Límite Inferior"
+                                               data-ng-model="ngDialogData.dData.QcObj.LowerLimit">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                                        <div wz-step style="min-height: 500px;  ">
+                        <!-- <div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+                            <label style="margin-left: 15px;" data-toggle="tooltip" title="Grupo de Matrices">Grupo de Matrices</label>
+                            <select id="basematrix-select" data-ng-change="changeBaseMtrx()"
+                                    data-ng-disabled="ngDialogData.dData.Matrixes.length>0"
+                                    data-ng-model="ngDialogData.BaseMatrix"
+                                    data-ng-options="bMtrx as bMtrx.Name for bMtrx in baseMatrixList"
+                                    ch-basematrix
+                                    style="border: 1px #d9d9d9 solid;">
+                                <option value="">Selecciona un Grupo de Matrices</option>
+                            </select>
+                        </div> -->
+                        <!-- <div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+                                <label data-toggle="tooltip" title="Método" style="margin-left: 15px;">Método</label>
+                                <select id="metodo-select"
+                                        data-ng-model="ngDialogData.dData.Metodo.Id"
+                                        data-ng-options="metodo.Id as metodo.Name for metodo in methods"
+                                        data-ng-change="MetodoChanged(ngDialogData.dData.Metodo.Id)"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona un Método</option>
+                                </select>
+                        </div> -->
+
+                        <div class="panel" style="height: 100%;">
+                            <div class="heading">
+                                <span class="titleBarText">Matrices/Submatrices del Parámetro Base seleccionado</span>
+                            </div>
+
+                            <div class="content" style="height: 370px; overflow: auto;">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr role="row">
+
+                                                <th style="text-align: center; width: 10%;">
+                                                    Nva Clave
+                                                </th>
+                                                <th style="width: 10%;">
+                                                    Matriz/Submatriz
+                                                </th>
+                                                <th style="text-align: center; width: 10%;">
+                                                    MERCADO (A: ABC, &nbsp; F: FERMI, G: GMTK)
+                                                </th>
+                                                <th style="text-align: center; width: 10%;">
+                                                    MATRIZ &nbsp; (2 LETRAS)
+                                                </th>
+                                                <th style="text-align: center; width: 10%;">
+                                                    DESCRIPCIÓN (2 LETRAS)
+                                                </th>
+                                                <th style="text-align: center; width: 10%;">
+                                                    Largo
+                                                </th>
+                                                <th style="text-align: center; width: 10%;">&nbsp;</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                            <tr class="odd" data-ng-repeat="mtrx in matrixes">
+                                                <!-- <td class="text-center">
+                                                <label class="input-control radio small-check">
+                                                    <input type="radio" name="select-m"
+                                                           data-ng-click="matrixSelected(mtrx)"
+                                                           ng-checked="mtrx.selected">
+                                                    <span class="check"></span>
+                                                </label>
+                                                </td> -->
+                                                <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}{{mtrx.Description}}{{mtrx.SubMtrxDescription}}</td>
+                                                <td>{{mtrx.Name}}{{(mtrx.SubMatrix===''||mtrx.SubMatrix===null)?'':'/'}}{{mtrx.SubMatrix}}</td>
+                                                <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}</td>
+                                                <td style="text-align: center;">{{mtrx.Description}}</td>
+                                                <td style="text-align: center;">{{mtrx.SubMtrxDescription}}</td>
+                                                <td style="text-align: center;">{{mtrx.Description.length+mtrx.SubMtrxDescription.length+1}}</td>
+                                                <td class="text-center">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" data-ng-click="mtrxChecked(mtrx)" ng-model="mtrx.check">
+                                                        <span class="check"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div wz-step style="min-height: 500px; ">
+
+                        <div class="col-md-12 col-lg-12">
+                            <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                <label data-toggle="tooltip" title="Sucursal donde se Realiza">Sucursal donde se realiza</label>
+                                <select id="rSucursalList-select"
+                                        data-ng-model="ngDialogData.dData.SucursalRealiza.Id"
+                                        data-ng-options="rsuc.Id as rsuc.Region.Name+'/'+rsuc.Name for rsuc in rSucursalList"
+                                        style="border: 1px #d9d9d9 solid;"
+                                        ng-change="sucRealizaChange()">
+                                    <option value="">Selecciona la sucursal donde se realiza</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsArea" style="height: 90%;">
+                            <div class="panel" style="width:100%; margin-top: 10px; height: 90%;">
+                                <div class="heading">
+                                    <span class="titleBarText">Áreas Analíticas / Centros de Costo</span>
+                                </div>
+                                <div class="content" style="height:300px; overflow-y:auto;">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-condensed table-responsive">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 10%;">&nbsp;</th>
+                                                    <th style="width: 45%; text-align: center;">
+                                                        Área Analítica
+                                                    </th>
+                                                    <th style="width: 45%; text-align: center;">
+                                                        Centro de Costo
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody aria-relevant="all" aria-live="polite" role="alert" style="overflow-y: scroll;">
+                                                <tr class="odd" data-ng-repeat="aa in analyticsareas">
+                                                    <td class="text-center">
+                                                        <label class="input-control radio small-check">
+                                                            <input type="radio" name="select-aa"
+                                                                   data-ng-click="aaChange(aa)"
+                                                                   ng-checked="aa.selected">
+                                                            <span class="check"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: center;">{{aa.Key}}</td>
+                                                    <td style="text-align: center;">{{aa.CentroCosto.Number}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsArea" style="height: 90%;">
+                            <div class="panel" style="width:100%; margin-top: 10px; height: 90%;">
+                                <div class="heading">
+                                    <span class="titleBarText">Unidades Analíticas / Claves de Analista</span>
+                                </div>
+                                <div class="content" style="height:300px; overflow-y:auto;">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-condensed table-responsive">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 10%;">&nbsp;</th>
+                                                    <th style="width: 45%; text-align: center;">
+                                                        Unidad Analítica
+                                                    </th>
+                                                    <th style="width: 45%; text-align: center;">
+                                                        Clave de Analista
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody aria-relevant="all" aria-live="polite" role="alert" style="overflow-y: scroll;">
+                                                <tr class="odd" data-ng-repeat="ua in unidadesAnaliticas">
+                                                    <td class="text-center">
+                                                        <label class="input-control radio small-check">
+                                                            <input type="radio" name="select-ua"
+                                                                   data-ng-click="uaChange(ua)"
+                                                                   ng-checked="ua.selected">
+                                                            <span class="check"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: center;">{{ua.Key}}</td>
+                                                    <td style="text-align: center;">
+                                                        <div class="input-control select" style="width: 100%; margin-top: 10px;">
+                                                            <select id="tipo-select"
+                                                                    data-ng-model="ua.AnnalistKeyId"
+                                                                    data-ng-options="ak.Id as ak.Clave for ak in ua.AnnalistKey"
+                                                                    data-ng-change="akChange(ua.AnnalistKeyId)"
+                                                                    style="border: 1px #d9d9d9 solid; margin-top: 0;" @*ng-disabled="e.disable !== undefined && !e.disable"*@>
+                                                                <option value="">Selecciona Clave de analista</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsArea">
+                                <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                    <label data-toggle="tooltip" title="Área Analítica">Área Analítica</label>
+                                    <select id="aa-select"
+                                            data-ng-model="aa"
+                                            data-ng-options="aa as aa.Key for aa in analyticsareas"
+                                            style="border: 1px #d9d9d9 solid;"
+                                            ng-change="aaChange(aa)">
+                                        <option value="">Selecciona un Área Analítica</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsArea">
+                                <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                    <label data-toggle="tooltip" title="Unidad Analítica / Clave Analista">Unidad Analítica / Clave Analista</label>
+                                    <select id="ua-select"
+                                            data-ng-model="ngDialogData.dData.UnidadAnalitica.Id"
+                                            data-ng-options="ua.Id as ua.Key + '/' + ua.AnnalistKey for ua in unidadesAnaliticas"
+                                            style="border: 1px #d9d9d9 solid;">
+                                        <option value="">Selecciona una Unidad Analítica</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6" ng-if="columnList.AnalyticsArea">
+                                <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                    <label data-toggle="tooltip" title="Centro de Costo">Centro de Costo</label>
+                                    <select id="centrocosto-select"
+                                            data-ng-model="ngDialogData.dData.CentroCosto.Id"
+                                            data-ng-options="centrocosto.Id as centrocosto.Number for centrocosto in centroscosto"
+                                            style="border: 1px #d9d9d9 solid;">
+                                        <option value="">Selecciona un Centro de Costo</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+                    </div>
+
+                    <div wz-step style="min-height: 500px; ">
+
+                        <div class="col-md-6 col-lg-6" style="margin-top: 10px;">
+                            <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                <label data-toggle="tooltip" title="Sucursal donde se vende">Sucursal donde se vende</label>
+                                <select id="vSucursalList-select"
+                                        data-ng-model="ngDialogData.dData.SucursalVende.Id"
+                                        data-ng-options="vsuc.Id as vsuc.Region.Name+'/'+vsuc.Name for vsuc in ngDialogData.vSucursalList"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona la sucursal donde se vende</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" style="margin-top: 10px;">
+                            <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                <label data-toggle="tooltip" title="Ramas">Ramas</label>
+                                <select id="rama-select"
+                                        data-ng-model="ngDialogData.dData.Rama.Id"
+                                        data-ng-options="ram.Id as ram.Name for ram in ramas"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona una Rama</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" style="margin-top: 10px;">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.ResiduoPeligroso">
+                                <span class="caption">Residuo Peligroso</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6" style="margin-top: 10px;">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.ParamPrintResults.Yes">
+                                <span class="caption">Imprimir en Reporte de Resultados</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.ReportaCliente">
+                                <span class="caption">Se reporta al cliente</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.SellSeparated">
+                                <span class="caption">Se vende por separado</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.CuentaEstadistica">
+                                <span class="caption">Cuenta para Estadística</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block" 
+                                   ng-if="columnList.InternetPublish">
+                                <input type="checkbox" data-placement="right" ng-model="ngDialogData.dData.InternetPublish">
+                                <span class="caption">Publicar Internet</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <label style="margin-left: 15px;">Programación por días de la semana</label>
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Monday">
+                                <span class="caption">Se programa el Lunes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Tuesday">
+                                <span class="caption">Se programa el Martes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Wednesday">
+                                <span class="caption">Se programa el Miércoles</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Thursday">
+                                <span class="caption">Se programa el Jueves</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Friday">
+                                <span class="caption">Se programa el Viernes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Saturday">
+                                <span class="caption">Se programa el Sábado</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Sunday">
+                                <span class="caption">Se programa el Domingo</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+
+                    <div wz-step style="min-height: 500px; ">
+                        <div class="panel" style="width: 100%; margin-top: 10px; height: 400px;">
+                            <div class="heading">
+                                <span class="titleBarText">Analistas Disponibles</span>
+                            </div>
+                            <div class="content" style="height: 370px; overflow-y: auto;">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr role="row">
+                                                <th style="width: 5%; text-align: center;">Foto</th>
+                                                <th style="width: 25%;">Nombre</th>
+                                                <th style="width: 25%; text-align: center;">Signatario</th>
+                                                <th style="width: 10%;">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                            <tr class="odd" data-ng-repeat="an in annalists">
+                                                <td style="text-align: center !important;">
+                                                    <img data-ng-if="!an.Photo" ng-src="/Content/img/{{an.Gender === false ? 'usermale.jpg' : 'female.jpg' }}" style="width: 42px; height: 42px;" />
+                                                    <img data-ng-if="an.Photo" ng-src="{{an.Photo}}" style="width: auto; height: 42px;" />
+                                                </td>
+                                                <td>{{an.Name}} {{an.LastName}}</td>
+                                                <td style="text-align: center;"><span style="cursor: pointer; font-size: 1.2rem" ng-click="viewRecAdqs(an)" class="mif-clipboard icon"></span></td>
+                                                <td class="text-center">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" data-ng-click="annalistChecked(an)" ng-model="an.checked">
+                                                        <span class="check"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div wz-step style="min-height: 500px; ">
+
+                        <div style="height: 100%;">
+                            <div class="content" style="height: 100%;">
+                                <p data-ng-if="!elementsList.length && isLoading">
+                                    <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                                </p>
+                                <p data-ng-if="!elementsList.length @*&& !isLoading*@">No hay Límites disponibles</p>
+                                <p style="font-size: larger;" data-ng-if="elementsList.length @*&& !isLoading*@">Módulos de Límites Máximos Disponibles:</p>
+                                <div class="box-body" data-ng-if="elementsList.length" style="height: 98%; overflow: auto">
+                                    <div ng-style="{'width': '1100px'}">
+                                        <tree-grid tree-data="elementsList"
+                                                   tree-control="my_tree"
+                                                   col-defs="col_defs"
+                                                   expand-on="expanding_property"
+                                                   on-select="my_tree_handler(branch)"
+                                                   icon-expand="icon mif-chevron-thin-right mif-s"
+                                                   icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                   icon-leaf="icon mif-lab"
+                                                   row-actions="rowActions">
+                                        </tree-grid>
+
+                                    </div>
+                                </div>
+                                @*<div class="box-footer text-center" style="height: 48px;">
+
+                                            <div style="text-align: right; position: absolute; right: 0.55rem" ng-show="pageTotal > 10">
+                                                <label style="vertical-align: bottom; margin-bottom: 0.45rem; font-size: 0.8rem;">MOSTRAR: </label>
+                                                <div class="input-control select" style="width: 50px;"
+                                                     data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+                                                    <select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSize" ng-change="refreshElementList((page-1)*pageSize, pageSize, searchGeneral)">
+                                                        <option>10</option>
+                                                        <option>20</option>
+                                                        <option>30</option>
+                                                        <option>50</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div ng-show="pageTotal > pageSize">
+                                                <paging class="small"
+                                                        page="currentPage"
+                                                        page-size="pageSize"
+                                                        total="pageTotal"
+                                                        adjacent="1"
+                                                        dots="..."
+                                                        hide-if-empty="true"
+                                                        show-prev-next="true"
+                                                        show-first-last="true"
+                                                        text-next-class="fa fa-angle-right"
+                                                        text-prev-class="fa fa-angle-left"
+                                                        text-first-class="fa fa-angle-double-left"
+                                                        text-last-class="fa fa-angle-double-right"
+                                                        text-title-page="P&aacute;gina {page}"
+                                                        text-title-first="Inicio"
+                                                        text-title-last="Fin"
+                                                        text-title-next="Siguiente"
+                                                        text-title-prev="Anterior"
+                                                        paging-action="refreshElementList((page-1)*pageSize, pageSize, searchGeneral)">
+                                                </paging>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div wz-step style="min-height: 500px;">
+
+                        <label>Fórmula de Cálculo</label>
+
+                        <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                            <label data-toggle="tooltip" title="Tipo de Fórmula">Tipo de Fórmula</label>
+                            <select id="level-select"
+                                    data-ng-model="ngDialogData.dData.TipoFormula"
+                                    style="border: 1px #d9d9d9 solid;"
+                                    ng-change="tipoFormulaChanged(ngDialogData.dData.TipoFormula)">
+                                <option value="">Selecciona Tipo de Fórmula</option>
+                                <option value="0">Media geométrica</option>
+                                <option value="1">Media aritmética</option>
+                                <option value="2">Promedio ponderado</option>
+                                <option value="3">Otra</option>
+                            </select>
+                        </div>
+
+                        <div class="panel" style="width: 100%; margin-top: 20px; height: 210px;" ng-show="ngDialogData.dData.TipoFormula !== '' && ngDialogData.dData.TipoFormula != '3'">
+                            <div class="heading">
+                                <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+                                     style="color: white; cursor: pointer;"
+                                     data-toggle="tooltip" title="Buscar elementos">
+                                    <div class="app-bar-drop-container"
+                                         data-role="dropdown"
+                                         data-toggle-element="#toggle-tiles-dropdown"
+                                         data-no-close="true"
+                                         style="width: 10rem; margin-top: 0.4rem; border: 2px solid #005696; margin-left: -8px; text-align: left;">
+                                        <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                            <!-- Comienza aqui el desplegable de filtros -->
+                                            <label style="font-size: small; display: block;">Filtro general</label>
+
+                                            <div class="row" style="font-size: 0.775rem;">
+                                                <div class="input-control text" style="margin-left: 15px; margin-right: 50px; float: left; width: inherit;" data-toggle="tooltip" title="Buscar Parámetro">
+                                                    <input type="text" placeholder="Filtro general" data-ng-model="search.$">
+                                                </div>
+                                            </div>
+                                            <!-- Termina aqui el desplegable de filtros -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="titleBarText" style="margin-left: 1.2rem;">Parámetros a aplicarles la fórmula seleccionada</span>
+                            </div>
+
+                            <div style="height: 190px; width: 100%; overflow-y: auto;" class="content">
+                                <label class="input-control checkbox col-lg-3 col-md-3" ng-repeat="p in paramKeys | filter:search:strict" style="margin: .325rem 0;">
+                                    <input type="checkbox" data-ng-click="paramChecked(p.key)" ng-model="paramKeysChecked[p.key]">
+                                    <span class="check"></span>
+                                    <span>{{p.key}}</span>
+                                    <input type="number" ng-model="p.peso" style="float: right; margin-top: -5px; width: 60px;" ng-show="ngDialogData.dData.TipoFormula == '2'" ng-change="tipoFormulaChanged(ngDialogData.dData.TipoFormula)">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="input-control text" style="width: 100%; margin-top: 48px;"
+                             ng-if="columnList.Formula">
+                            <label>Fórmula de Cálculo</label>
+                            <input placeholder="Fórmula de Cálculo" type="text"
+                                   data-ng-model="ngDialogData.dData.Formula">
+                        </div>
+                        <!-- <div style="height: 360px; overflow-y: scroll;">
+                            <p style="font-size: larger;">Resumen del parámetro:</p>
+                            <p>Límite Máximo Permitido: {{ngDialogData.dData.MaxPermitedLimit == null ? '-' : ngDialogData.dData.MaxPermitedLimit}}</p>
+                            <p>Capacidad Instalada/semana (Trabajo Combinado): {{ngDialogData.dData.PerTurnCapacity == null ? '-' : ngDialogData.dData.PerTurnCapacity}}</p>
+                            <p>Capacidad Instalada/semana (Máxima): {{ngDialogData.dData.PerWeekCapacity == null ? '-' : ngDialogData.dData.PerWeekCapacity}}</p>
+                            <p>Nombre asignado por Autolab: {{ngDialogData.dData.AutolabAssignedAreaName}}</p>
+                            <p>Clave del Parámetro: {{ngDialogData.dData.ParamUniquekey}}</p>
+                            <p>Clave genérica para estadísticas: {{ngDialogData.dData.GenericKeyForStatistic}}</p>
+                            <p>Precio: {{ngDialogData.dData.Precio.Value}}</p>
+                            <p>Moneda: {{ngDialogData.dData.Precio.Currency.Name}}</p>
+                            <p>Centro de Costo / Área Analítica: {{ngDialogData.dData.CentroCosto.Name}}</p>
+                            <p>Parámetro base: {{ngDialogData.dData.BaseParam.Name}}</p>
+                            <p>Unidad: {{ngDialogData.dData.Unit.Name}}</p>
+                            <p>Método: {{ngDialogData.dData.Metodo.Name}}</p>
+                            <p>Analistas:</p>
+                            <ul>
+                                <li data-ng-repeat="an in annalists" ng-if="an.checked">
+                                    {{an.Name}}
+                                </li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/ng-template" id="editDialog">
+    <div class="ngdialog-message">
+        <form>
+            <div style="margin-left: 10px; margin-right:10px;">
+                <h3 style="padding-bottom: 10px;">{{dialogTitle}}</h3>
+                <div class="row" style="padding-bottom: 10px;">
+                    <div class="col-lg-8">
+                        <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                            <label data-toggle="tooltip" title="Valor del Límite Máximo Permitido">Valor</label>
+                            <input placeholder="Valor del LMP" type="number"
+                                   data-ng-model="ngDialogData.Value">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-control text" style="width: 100%; margin-top: 28px;">
+                            <label data-toggle="tooltip" title="Puntos decimales después de la coma a mostrar para el Límite Máximo Permitido">Decimales</label>
+                            <input maxlength="1" type="number"
+                                   data-ng-model="ngDialogData.DecimalsPoints">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ngdialog-buttons">
+                    <button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+                        <i class="fa fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

@@ -1,0 +1,444 @@
+﻿<div class="ngdialog-message">
+    <form style="height: inherit;">
+        <div style="margin-left: 10px; margin-right: 10px; font-size: 0.75rem; height: inherit;">
+            <h5 @*style="padding-bottom: 10px;"*@>{{dialogTitle}}</h5>
+            <div class="row" style="min-height: 200px; overflow: auto; height: inherit;">
+
+                <div wizard on-finish="acceptDialog()" on-clicknext="nextPage()" current-step="currentStep" style="height: inherit;">
+
+                    <div wz-step style="min-height: 500px;" wz-title="page1">
+                        <div class="col-lg-12">
+                            <div class="input-control text">
+                                <label style="margin-left: 15px;">Clave Específica</label>
+                                <input placeholder="Clave Específica del grupo" type="text" style="margin-top: 10px; margin-left: 15px;"
+                                       data-ng-model="ngDialogData.dData.Name" unique-name="/group/CheckGroupName">
+                                <p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+                            </div>
+
+                            <div class="input-control textarea col-lg-12" style="margin-top: 20px;">
+                                <label>Descripci&oacute;n Específica</label>
+                                <textarea required="" placeholder="Descripción Específica" type="text" style="max-width: 100%;"
+                                          data-ng-model="ngDialogData.dData.Description"></textarea>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12">
+                                <div class="input-control select" style="width: 100%; margin-top: 30px;">
+                                    <label data-toggle="tooltip" title="Tipos de Servicio">Tipos de Servicio</label>
+                                    <select id="centrocosto-select"
+                                            data-ng-model="ngDialogData.dData.TipoServicio.Id"
+                                            data-ng-options="tserv.Id as tserv.Name for tserv in tiposServicio"
+                                            style="border: 1px #d9d9d9 solid;">
+                                        <option value="">Selecciona un Tipo de Servicio</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <label class="input-control checkbox block">
+                                    <input type="checkbox"
+                                           data-ng-click=""
+                                           data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.SellSeparated">
+                                    <span class="caption">Se vende por separado</span>
+                                    <span class="check pull-right"></span>
+                                </label>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <label class="input-control checkbox block">
+                                    <input type="checkbox"
+                                           data-ng-click=""
+                                           data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.CuentaEstadistica">
+                                    <span class="caption">Cuenta para Estadística</span>
+                                    <span class="check pull-right"></span>
+                                </label>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <label class="input-control checkbox block">
+                                    <input type="checkbox"
+                                           data-ng-click=""
+                                           data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.MostrarLista">
+                                    <span class="caption">Mostrar Lista de Componentes del Grupo</span>
+                                    <span class="check pull-right"></span>
+                                </label>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <label class="input-control checkbox block">
+                                    <input type="checkbox"
+                                           data-ng-click=""
+                                           data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.ParamPrintResults">
+                                    <span class="caption">Imprimir en resultados</span>
+                                    <span class="check pull-right"></span>
+                                </label>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div wz-step style="min-height: 500px;" wz-title="page2">
+
+                        <div class="panel" style="width: 100%; margin-top: 10px; height: 100%;">
+                            <div class="heading">
+                                <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+                                     style="color: white; cursor: pointer;"
+                                     data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+                                    <div class="app-bar-drop-container"
+                                         data-role="dropdown"
+                                         data-toggle-element="#toggle-tiles-dropdown"
+                                         data-no-close="true"
+                                         style="width: 17rem; margin-top: 0.4rem; border: 2px solid #005696;
+									            margin-left: -8px; text-align: left;">
+                                        <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                            <!-- Comienza aqui el desplegable de filtros -->
+                                            <div class="row" style="font-size: 0.775rem;">
+                                                <div class="col-lg-12">
+                                                    <label style="font-size: small; display: block;">Búsqueda general</label>
+                                                    <div class="input-control text" style="display: inline">
+                                                        <input type="text" name="search" style="line-height: inherit; display: inline; width: inherit" placeholder="Búsqueda General" data-ng-model="searchGeneral">
+                                                        <button class="button" data-ng-click="searchfunction(searchGeneral)" name="buttonsearch"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Buscar por todos los elementos en la Base de Datos">
+                                                            <span class="mif-search"></span>
+                                                        </button>
+
+                                                        <button class="button" data-ng-click="searchfunction('')" name="buttonReset"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Resetear la búsqueda">
+                                                            <span class="mif-cross"></span>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Termina aqui el desplegable de filtros -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="titleBarText" style="margin-left: 1.2rem;">Listado de Parámetros Disponibles</span>
+                                <span class="{{isFullscreen?'restoreDown':'maximize'}}" ng-click="toggleFullScreen()"></span>
+                            </div>
+
+
+                            <div class="content" style="height: 92%;">
+                                <p data-ng-if="!ngDialogData.paramList.length">No hay parámetros disponibles</p>
+                                <div class="box-body" data-ng-if="ngDialogData.paramList.length" style="height: 90%; overflow: auto">
+                                    <div ng-style="{'width': tableWidht}">
+                                        <tree-grid tree-data="paramList"
+                                                   tree-control="my_tree"
+                                                   col-defs="col_defs"
+                                                   expand-on="expanding_property"
+                                                   on-select="my_tree_handler(branch)"
+                                                   icon-expand="icon mif-chevron-thin-right mif-s"
+                                                   icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                   icon-leaf="icon mif-lab"
+                                                   row-actions="rowActions">
+                                        </tree-grid>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer text-center" style="height: 50px;">
+                                    <div ng-show="true">
+                                        <paging class="small"
+                                                page="currentPage"
+                                                page-size="pageSize"
+                                                total="pageTotal"
+                                                adjacent="1"
+                                                dots="..."
+                                                hide-if-empty="true"
+                                                show-prev-next="true"
+                                                show-first-last="true"
+                                                text-next-class="fa fa-angle-right"
+                                                text-prev-class="fa fa-angle-left"
+                                                text-first-class="fa fa-angle-double-left"
+                                                text-last-class="fa fa-angle-double-right"
+                                                text-title-page="P&aacute;gina {page}"
+                                                text-title-first="Inicio"
+                                                text-title-last="Fin"
+                                                text-title-next="Siguiente"
+                                                text-title-prev="Anterior"
+                                                paging-action="getpage(page, pageSize, searchGeneral)">
+                                        </paging>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div wz-step style="min-height: 500px;" wz-title="page3">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+                                    <label style="margin-left: 15px;" data-toggle="tooltip" title="Disparador de los parámetros del Grupo">Disparador de los parámetros del grupo</label>
+                                    <select id="parameters-select" data-ng-change=""
+                                            @*data-ng-disabled="ngDialogData.dData.Parameters.length>0"*@
+                                            data-ng-model="ngDialogData.dData.DispParam.DispParamId"
+                                            data-ng-options="param.Id as param.Name for param in ngDialogData.dData.Parameters"
+                                            style="border: 1px #d9d9d9 solid;">
+                                        <option value="">N/A</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                @*<div class="input-control text" style="width: 100%; margin-top: 28px;">
+                                        <label data-toggle="tooltip" title="Decimales para Reporte" style="display: block">Decimales para Reporte</label>
+                                        <input placeholder="Decimales para Reporte" type="number" style="width: 100%; border: 1px #d9d9d9 solid;"
+                                               data-ng-model="ngDialogData.dData.DecimalesReporte">
+                                    </div>*@
+
+
+
+
+                            </div>
+                        </div>
+
+                        @*<div class="panel" style="width: 100%; margin-top: 10px; height: 92%;">
+                            <div class="heading">
+                                <span class="titleBarText">Seleccionar Parámetros para Muestreos Compuestos</span>
+                            </div>
+                            <div class="content" style="height: 85%;">
+                                <p data-ng-if="!ngDialogData.paramList.length">No hay parámetros seleccionados</p>
+                                <div class="box-body" data-ng-if="ngDialogData.paramList.length" style="max-height: 280px; overflow: auto">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-condensed table-responsive">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 20%;">Clave de Parámetro</th>
+                                                    <th style="width: 20%;">Descripción Específica</th>
+                                                    <th style="width: 20%; text-align: center;">Cantidad de Muestreos</th>
+                                                    <th style="width: 30%; text-align: center;">Claves para muestreo compuesto</th>
+                                                    <th style="width: 10%; text-align: center;">Muestreo Compuesto</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                                <tr class="odd" data-ng-repeat="cs in complexSamplings">
+                                                    <td>{{cs.Param.ParamUniquekey}}</td>
+                                                    <td>{{cs.Param.Description}}</td>
+                                                    <td style="text-align: center;">
+                                                        <div class="input-control text" style="width: 100px; margin: 0;">
+                                                            <input type="number" placeholder="Cantidad de Muestreos" style="margin: 0;"
+                                                                   ng-disabled="!cs.check"
+                                                                   data-ng-model="cs.CantidadMuestreos"
+                                                                   data-ng-change="getComplexKeys(cs)">
+
+                                                        </div>
+
+                                                    </td>
+                                                    <td><span >{{cs.keys}}</span></td>
+                                                    <td class="text-center">
+                                                        <label class="input-control checkbox block">
+                                                            <input type="checkbox" data-ng-click="csChecked(cs)" ng-model="cs.check">
+                                                            <span class="check"></span>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    </div> -->
+
+                    <div wz-step style="min-height: 500px;" wz-title="page4">
+                        <div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+                            <label style="margin-left: 15px;" data-toggle="tooltip" title="Grupo de Matrices">Grupo de Matrices</label>
+                            <select id="basematrix-select" data-ng-change="changeBaseMtrx()"
+                                    data-ng-disabled="ngDialogData.dData.Matrixes.length>0"
+                                    data-ng-model="ngDialogData.BaseMatrix"
+                                    data-ng-options="bMtrx as bMtrx.Name for bMtrx in baseMatrixList"
+                                    style="border: 1px #d9d9d9 solid;">
+                                <option value="">Selecciona un Grupo de Matrices</option>
+                            </select>
+                        </div>
+
+                        <div class="padding10" style="margin: 15px; height: 85%; overflow-y: scroll;">
+                            <label style="margin-top: 10px;">Matrices/Submatrices del grupo seleccionado</label>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-condensed table-responsive">
+                                    <thead>
+                                        <tr role="row">
+                                            <th style="text-align: center; width: 14%;">
+                                                NVA. CLAVE
+                                            </th>
+                                            <th style="width: 50%;">
+                                                MATRIZ/SUBMATRIZ
+                                            </th>
+                                            <th style="text-align: center; width: 10%;">
+                                                MERCADO (A: ABC, &nbsp; F: FERMI, G: GMTK)
+                                            </th>
+                                            <th style="text-align: center; width: 11%;">
+                                                MATRIZ &nbsp; (2 LETRAS)
+                                            </th>
+                                            <th style="text-align: center; width: 5%;">
+                                                DESCRIPCIÓN (2 LETRAS)
+                                            </th>
+                                            <th style="text-align: center; width: 5%;">
+                                                LARGO
+                                            </th>
+                                            <th style="text-align: center; width: 5%;">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                        <tr class="odd" data-ng-repeat="mtrx in ngDialogData.BaseMatrix.Matrixes">
+                                            <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}{{mtrx.Description}}{{mtrx.SubMtrxDescription}}</td>
+                                            <td>{{mtrx.Name}}{{(mtrx.SubMatrix===''||mtrx.SubMatrix===null)?'':'/'}}{{mtrx.SubMatrix}}</td>
+                                            <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}</td>
+                                            <td style="text-align: center;">{{mtrx.Description}}</td>
+                                            <td style="text-align: center;">{{mtrx.SubMtrxDescription}}</td>
+                                            <td style="text-align: center;">{{mtrx.Description.length+mtrx.SubMtrxDescription.length+1}}</td>
+                                            <td class="text-center">
+                                                <label class="input-control checkbox block">
+                                                    <input type="checkbox" data-ng-click="mtrxChecked(mtrx)" ng-model="mtrx.check">
+                                                    <span class="check"></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div wz-step style="min-height: 500px;" wz-title="page5">
+
+                        <div class="col-lg-6">
+                            <div class="input-control select" style="width: 100%; margin-top: 10px;">
+                                <label data-toggle="tooltip" title="Disparador de los parámetros del Grupo">Disparador de los parámetros del grupo</label>
+                                <select id="parameters-select" data-ng-change=""
+                                        @*data-ng-disabled="ngDialogData.dData.Parameters.length>0"*@
+                                        data-ng-model="ngDialogData.dData.DispParam.Id"
+                                        data-ng-options="param.Id as param.Name for param in ngDialogData.dData.Parameters"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">N/A</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="input-control select" style="width: 100%; margin-top: 10px;">
+                                <label data-toggle="tooltip" title="Sucursales/Instalaciones">Sucursales/Instalaciones</label>
+                                <select id="unitreport-select"
+                                        data-ng-model="ngDialogData.dData.Sucursal.Id"
+                                        data-ng-options="suc.Id as suc.Name + '/' + suc.Region for suc in sucursales"
+                                        style="border: 1px #d9d9d9 solid;">
+                                    <option value="">Selecciona una Sucursal/Instalación</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label style="margin-left: 15px; margin-top: 20px;">
+                            Programación por días de la semana
+                        </label>
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Monday">
+                                <span class="caption">Se programa el Lunes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Tuesday">
+                                <span class="caption">Se programa el Martes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Wednesday">
+                                <span class="caption">Se programa el Miércoles</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Thursday">
+                                <span class="caption">Se programa el Jueves</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Friday">
+                                <span class="caption">Se programa el Viernes</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Saturday">
+                                <span class="caption">Se programa el Sábado</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="input-control checkbox block">
+                                <input type="checkbox"
+                                       data-ng-click=""
+                                       data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.Week.Sunday">
+                                <span class="caption">Se programa el Domingo</span>
+                                <span class="check pull-right"></span>
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="input-control select col-lg-12 col-md-12" style="width: 100%; margin-top: 30px;">
+                            <label style="margin-left: 15px;">Clasificación Química 1</label>
+                            <select id="csList-select"
+                                    data-ng-model="ngDialogData.dData.ClasificacionQuimica1.Id"
+                                    data-ng-options="cs.Id as cs.Name for cs in clasificacionesquimicas1"
+                                    style="border: 1px #d9d9d9 solid; margin-top: 10px;"></select>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-control select" style="width:100%; margin-top: 30px;">
+                                <label>Clasificación Química 2</label>
+                                <select id="csList-select"
+                                        data-ng-model="ngDialogData.dData.ClasificacionQuimica2.Id"
+                                        data-ng-options="cs.Id as cs.Name for cs in clasificacionesquimicas2"
+                                        style="border: 1px #d9d9d9 solid; margin-top: 10px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6" style="padding-right: 0; padding-left: 0;">
+                            <div class="input-control select col-lg-6 col-md-6" style="width:100%; margin-top: 30px;">
+                                <label style="margin-left: 15px;">Clasificación Química 3</label>
+                                <select id="csList-select"
+                                        data-ng-model="ngDialogData.dData.ClasificacionQuimica3.Id"
+                                        data-ng-options="cs.Id as cs.Name for cs in clasificacionesquimicas3"
+                                        style="border: 1px #d9d9d9 solid; margin-top: 10px;"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

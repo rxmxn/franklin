@@ -1,0 +1,44 @@
+﻿<div class="ngdialog-message" style="height: 500px;">
+
+	<div class="content-container">
+		<h5 style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Parámetros con el Reconocimiento: </h5>
+	    <p style="font-weight: bold; color: black;">Clave del Reconocimiento: {{ngDialogData.ack}}</p>
+        <p style="font-weight: bold; color: black;">Clave para Reporte: {{ngDialogData.ackKey}}</p>
+		<div class="input-control text"
+			 data-toggle="tooltip" title="Búsqueda por todos los elementos de la página actual">
+			<input type="text" placeholder="Filtro general pág. actual" data-ng-model="search.$">
+		</div>
+
+		<p data-ng-if="!ngDialogData.dData.length" style="padding-top: 10px;">Este Reconocimiento no presenta parámetros</p>
+	</div>
+
+	<div class="box-body" data-ng-if="ngDialogData.dData.length" style="height: 76%; overflow: auto;">
+		<div class="table-responsive">
+			<table class="table table-hover table-condensed table-responsive">
+				<thead>
+					<tr role="row">
+						<th style="width: 30%;">Parámetro</th>
+						<th style="width: 30%;">Signatarios</th>
+						<th style="width: 30%;">Eidas</th>
+					</tr>
+				</thead>
+
+				<tbody aria-relevant="all" aria-live="polite" role="alert">
+					<tr class="odd" data-ng-repeat="p in ngDialogData.dData | filter:search:strict">
+						<td>{{p.Param}}</td>
+						<td>
+							<span ng-repeat="sig in p.Signatarios">
+								{{sig}}{{p.Signatarios[p.Signatarios.length -1] !== sig ? ',' : ''}}
+							</span>
+						</td>
+						<td>
+							<span ng-repeat="e in p.Eidas">
+								{{e}}{{p.Eidas[p.Eidas.length -1] !== e ? ',' : ''}}
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

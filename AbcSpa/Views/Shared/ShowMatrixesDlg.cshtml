@@ -1,0 +1,49 @@
+﻿<div class="ngdialog-message">
+    <form>
+        <div style="margin-left: 10px; margin-right:10px;">
+            <h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+            <div class="row" style="padding-bottom: 10px;">
+                <div class="box-body" data-ng-if="ngDialogData.dData.length" style="height: 76%; overflow: auto;">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-condensed table-responsive">
+                            <thead>
+                                <tr role="row">
+	                                <th style="width: 150px; cursor: pointer; text-align: center;" 
+										ng-click="orderByField='Name'; reverseSort = !reverseSort">
+                                        NVA. CLAVE
+                                    </th>
+                                    <th style="width: 550px;">
+                                        GRUPO
+                                        <!--TODO: Poner funcionalidad de ordenar por nombre de la matriz-->
+                                    </th>
+                                    <th style="width: 550px;">
+                                        MATRIZ/SUBMATRIZ
+                                    </th>
+                                    <th style="width: 120px; text-align: center;">MERCADO (A: ABC,  F: FERMI,  G: GMTK)</th>
+                                    <th style="width: 140px; text-align: center;">MATRIZ (2 LETRAS)</th>
+                                    <th style="width: 100px; text-align: center;">DESCRIPCIÓN (2 LETRAS)</th>
+                                    <th style="width: 100px; text-align: center;">LARGO</th>
+                                </tr>
+                            </thead>
+
+                            <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                <tr class="odd" data-ng-repeat="mtrx in ngDialogData.dData
+                                    @*.slice( ((currentPage-1)*pageSize), ((currentPage)*pageSize) ) | filter:search:strict | orderBy:orderByField:reverseSort*@">
+
+
+                                    <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}{{mtrx.Description}}{{mtrx.SubMtrxDescription}}</td>
+                                    <td>{{mtrx.BaseMatrix.Name}}</td>
+                                    <td>{{mtrx.Name}}{{(mtrx.SubMatrix===''||mtrx.SubMatrix===null)?'':'/'}}{{mtrx.SubMatrix}}</td>
+                                    <td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}</td>
+                                    <td style="text-align: center;">{{mtrx.Description}}</td>
+                                    <td style="text-align: center;">{{mtrx.SubMtrxDescription}}</td>
+                                    <td style="text-align: center;">{{mtrx.Description.length+mtrx.SubMtrxDescription.length+1}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

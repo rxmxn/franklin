@@ -1,0 +1,25 @@
+﻿<div class="ngdialog-message">
+	<form>
+		<div style="margin-left: 10px; margin-right:10px;">
+			<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+			<div class="row" style="padding-bottom: 10px;">
+
+				<div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+					<textarea placeholder="Texto" type="text" style="max-width: 100%;"
+								data-ng-model="ngDialogData.dData.Description"></textarea>
+				</div>
+
+			</div>
+
+			<div class="ngdialog-buttons">
+				<button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+					<i class="fa fa-check"></i>
+				</button>
+				<button class="button cycle-button danger pull-left" ng-if="ngDialogData.dData.Id"
+				        data-ng-click="deleteNote()">
+					<span class="fa fa-eraser"></span>
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,122 @@
+﻿<div class="row">
+	<div class="col-lg-5">
+		<div class="box-body" data-ng-if="!elementsList.length">
+			<div class="scroll-panel margin-left-10">
+				<p data-ng-if="isLoading">
+					<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+				</p>
+				<p data-ng-if="!isLoading">
+					<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+				</p>
+			</div>
+		</div>
+
+		<div class="box-header" style="padding: 0;" data-ng-if="elementsList.length">
+			<div class="box-name">
+				<span ng-class="iconClass"></span>
+				<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+					Elementos: {{pageTotal}}
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-5"></div>
+
+	<div class="col-lg-2">
+		<div class="box-tools pull-right" data-ng-if="!isLoading">
+			<div class="box-name tableButtons" data-ng-if="accessLevel===1" ng-show="!isFullscreen">
+				<a href="" data-ng-click="edit(null)" data-toggle="tooltip" title="Crear nuevo">
+					<span class="fa fa-plus-circle iconStyle"></span>
+				</a>
+			</div>
+		</div>
+		<!-- <div class="box-tools pull-right" data-ng-if="!isLoading && updateFromIntelesis">
+			<div class="box-name tableButtons">
+				<a href="" data-ng-click="updateFromIntelesis()" data-toggle="tooltip" title="Actualizar">
+					<span class="fa fa-rotate-right iconStyle"></span>
+				</a>
+			</div>
+		</div> -->
+	</div>
+
+</div>
+
+<div class="row" data-ng-show="elementsList.length">
+	@*<div class="input-control text" style="margin-right: 50px; float: left;" ng-show="SearchGeneral">
+		<input type="text" placeholder="Búsqueda General" data-ng-model="searchGeneral">
+		<button class="button" data-ng-click="RefreshList(1)"
+				data-toggle="tooltip" title="Buscar por todos los elementos en la Base de Datos">
+			<span class="mif-search"></span>
+		</button>
+	</div>*@
+
+	<div class="input-control text" style="margin-left: 15px; margin-right: 50px; float: left;" ng-show="FilterGeneral"
+		 data-toggle="tooltip" title="Búsqueda por todos los elementos de la página actual">
+		<input type="text" placeholder="Filtro general pág. actual" data-ng-model="search.$">
+	</div>
+
+	@*<div class="dropdown-button place-left" style="height: 1.61rem; margin-top: 0.44rem; margin-right: 50px; width: 10.9rem;"
+		 ng-show="FilterDate">
+		<button class="button dropdown-toggle" style="height: inherit; width: inherit;">Filtrar por fecha</button>
+		<div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 280px;">
+			<div class="row">
+				<div class="col-lg-6" style="padding-right: 1px;">
+					<div class="input-control text" data-role="datepicker" style="width: 100%;"
+						 data-locale="es" data-format="dd/mm/yyyy">
+						<input type="text" ng-model="fromDate" placeholder="Desde">
+						<button class="button"><span class="mif-calendar"></span></button>
+					</div>
+				</div>
+				<div class="col-lg-6" style="padding-left: 1px;">
+					<div class="input-control text" data-role="datepicker" style="width: 100%;"
+						 data-locale="es" data-format="dd/mm/yyyy">
+						<input type="text" placeholder="Hasta" ng-model="untilDate">
+						<button class="button"><span class="mif-calendar"></span></button>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px;">
+				<div class="col-xs-12">
+					<div class="col-xs-6" style="padding: 0;">
+						<button class="button primary" type="button" data-ng-click="dateFilter()" data-toggle="tooltip" title="Filtrar" style="width: 100%;">
+							<span class="mif-search" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+							<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+							Filtrar
+						</button>
+					</div>
+					<div class="col-xs-6" style="padding: 0;">
+						<button class="button danger" type="button" data-ng-click="dateFilterRemove()" data-toggle="tooltip" title="Borrar" style="width: 100%;">
+							<span class="glyphicon glyphicon-erase" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+							<span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+							Borrar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>*@
+
+	@*<div style="float: left; margin-top: 15px; margin-right: 50px;" ng-show="FilterActive || SignatariosFilterActive">
+		<div class="row" style="margin-right: 15px; width: 223.8px; margin-left: 1px; float: left;"
+			 ng-show="FilterActive">
+			<div>
+				<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+					   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+				bootstrap-switch data-ng-model="viewDeactivated" data-ng-change="RefreshList(1)">
+				<span style="vertical-align: middle;" id="menulink">Ver elementos de baja</span>
+			</div>
+		</div>
+
+		<div class="row" style="margin-right: 15px; width: 223.8px; margin-left: 1px; float: left;"
+			 ng-show="SignatariosFilterActive">
+			<div>
+				<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+					   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+				bootstrap-switch data-ng-model="viewSignatario" data-ng-change="RefreshList(1)">
+				<span style="vertical-align: middle;" id="menulink">Ver signatarios</span>
+			</div>
+		</div>
+	</div>*@
+</div>
+
+<hr class="thin bg-grayLighter" style="margin-top: 0.5rem;">

@@ -1,0 +1,50 @@
+﻿<div class="ngdialog-message">
+    <form>
+        <div style="margin-left: 10px; margin-right:10px;">
+            <h5 style="padding-bottom: 10px;">Info sobre la norma {{ngDialogData.dData.Name}}</h5>
+            <div class="row" style="padding-bottom: 10px;">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-condensed table-responsive">
+                        <thead>
+                            <tr role="row">
+                                <th style="width: 10%; cursor: pointer;" ng-click="orderByField='Name'; reverseSort = !reverseSort">
+                                    Clave
+                                </th>
+                                <th style="width: 20%;">
+                                    Descripci&oacute;n
+                                </th>
+                                <th style="width: 15%;">
+                                    Alcance
+                                </th>
+                                <th style="width: 10%;">
+                                    Fecha de Entrada en vigor
+                                </th>
+                                <th style="width: 10%;">
+                                    Fecha de cambio de Status
+                                </th>
+                                <th style="width: 10%;">
+                                    Status
+                                </th>                            
+                            </tr>
+                        </thead>
+
+                        <tbody aria-relevant="all" aria-live="polite" role="alert">
+                            <tr class="odd">
+                                @* .slice( ((currentPage-1)*pageSize), ((currentPage)*pageSize) ) *@
+                                <td>{{ngDialogData.dData.Name}}</td>
+                                <td>{{ngDialogData.dData.Description}}</td>
+                                <td>{{ngDialogData.dData.Alcance}}</td>
+                                @*<td><ul><li ng-repeat="mtrx in norm.Matrixes">{{mtrx.Name}}</li></ul></td>*@
+                                <td>{{ngDialogData.dData.FechaEntVigor}}</td>
+                                <td>{{ngDialogData.dData.FechaCambioStatus}}</td>
+                                <td>{{ngDialogData.dData.Estado?ngDialogData.dData.Estado.Tipo:'NA'}}</td>
+                                
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

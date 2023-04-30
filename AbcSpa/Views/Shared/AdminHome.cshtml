@@ -1,0 +1,172 @@
+﻿<div class="col-lg-6" ng-show="panels[1].state" id="panel1" style="padding-left: 5px; padding-right: 5px;">
+	<div class="panel" style="width: 100%; margin-top: 10px; margin-bottom: 15px;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[1].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[1])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[1])"></span>
+		</div>
+		<div class="content" style="height: 220px; overflow: auto;" id="panel1Content">
+			<div fusioncharts width="100%"
+				 height="200px"
+				 type="pie3d"
+				 datasource="{{datasource1}}"
+				 events="events1">
+			</div>
+
+			@*<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedNameMethodAck}}</label>
+			<div class="box-body" data-ng-if="info1.length">
+				<div class="table-responsive">
+					<table class="table table-striped table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Parámetro Base</th>
+								<th>Empresa</th>
+								<th>Acción</th>
+								<th>Reconocimiento</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="ai in info1">
+							<tr class="odd" ng-repeat="ack in ai.acks">
+								<td>{{ai.Param.BaseParam}}</td>
+								<td>{{ack.Enterprise}}</td>
+								<td>{{ack.Action}}</td>
+								<td>{{ack.Ack}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>*@
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[2].state" id="panel2" style="padding-left: 5px; padding-right: 5px;">
+	<div class="panel" style="width: 100%; margin-top: 10px; margin-bottom: 15px;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[2].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[2])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[2])"></span>
+		</div>
+		<div class="content" style="height: 220px; overflow: auto;" id="panel2Content">
+			<div fusioncharts width="100%"
+			     height="200px"
+			     type="column2d"
+			     datasource="{{datasource2}}"
+			     events="events2">
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedNameSignatarios}}</label>
+			<div class="box-body" data-ng-if="info2.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+						<tr role="row">
+							<th>Nombre</th>
+							<th>Descripción</th>
+						</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert">
+						<tr class="odd" ng-repeat="sig in info2">
+							<td>{{sig.Name}}</td>
+							<td>{{sig.Description}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[3].state" id="panel3" style="padding-left: 5px; padding-right: 5px;">
+	<div class="panel" style="width: 100%; margin-top: 10px; margin-bottom: 15px;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[3].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[3])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[3])"></span>
+		</div>
+		<div class="content" style="height: 220px; overflow: auto;" id="panel3Content">
+			<div fusioncharts width="100%"
+				 height="200px"
+				 type="column2d"
+				 datasource="{{datasource3}}"
+				 events="events3">
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName3}}</label>
+			<div class="box-body" data-ng-if="info3.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Método</th>
+								<th>PB</th>
+								<th>Analista</th>
+								<th>Sucursal</th>
+								<th>Reconocimientos</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="i in info3">
+							<tr class="odd" ng-repeat="j in i.Param">
+								<td>{{i.Method}}</td>
+								<td>{{j.BaseParam}}</td>
+								<td>{{j.Analista}}</td>
+								<td>{{j.Sucursal}}</td>
+								<td>
+									<ul style="margin-left: 0; padding-left: 1rem;">
+										<li ng-repeat="ack in j.acks">{{ack.Ack}}/{{ack.Action}}</li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-6" ng-show="panels[4].state" id="panel4" style="padding-left: 5px; padding-right: 5px;">
+	<div class="panel" style="width: 100%; margin-top: 10px; margin-bottom: 15px;">
+		<div class="heading">
+			<span class="titleBarText">{{panels[4].name}}</span>
+			<span class="minimize" ng-click="minimize(panels[4])"></span>
+			<span class="{{allElemntsState?'home-restore':'home-full'}}" ng-click="full(panels[4])"></span>
+		</div>
+		<div class="content" style="height: 220px; overflow: auto;" id="panel4Content">
+			<div fusioncharts width="100%"
+				 height="200px"
+				 type="column2d"
+				 datasource="{{datasource4}}"
+				 events="events4">
+			</div>
+
+			<label class="text-center" style="width: 100%; margin-top: 30px;">{{selectedName4}}</label>
+			<div class="box-body" data-ng-if="info4.length">
+				<div class="table-responsive">
+					<table class="table table-hover table-condensed table-responsive">
+						<thead>
+							<tr role="row">
+								<th>Parámetro Base</th>
+                                <th>Analista</th>
+								<th>Reconocimiento</th>
+								<th>Sucursal</th>
+							</tr>
+						</thead>
+						<tbody aria-relevant="all" aria-live="polite" role="alert" ng-repeat="ai in info4">
+							<tr class="odd" ng-repeat="ack in ai.acks">
+								<td>{{ai.BaseParam}}</td>
+                                <td>{{ai.Analista}}</td>
+								<td>{{ack.Ack}}/{{ack.Action}}/{{ack.Enterprise}}</td>
+								<td>{{ai.Sucursal}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

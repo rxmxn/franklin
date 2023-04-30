@@ -1,0 +1,145 @@
+﻿<div class="main-scroll" style="overflow: hidden;">
+    <div class="padding10" style="position: absolute; width: 99%;">
+        <h6 class="text-light margin0 text-uppercase">
+            PAQUETES
+            <!-- <span class="ani-hover-vertical ani-slow icon mif-suitcase place-right"></span> -->
+        </h6>
+        <hr class="thin bg-grayLighter">
+    </div>
+
+    <div class="col-lg-12" style="padding-top: 2rem; height: 100%;">
+        <div class="row" style="height: 100%;">
+
+            <!-- Sidebar -->
+            @*<div ng-include="'Shared/SidebarFilter'" class="col-lg-3"></div>*@
+            <div class="col-lg-2" ng-show="panels[0].state" style="height: 100%;">
+                @Html.Partial("SidebarFilter")
+                <!-- TODO:creo que podemos hacerlo con una directiva perfectamente (talvez revisar transclude property) -->
+            </div>
+            <!-- end of Sidebar -->
+
+            <div class="col-lg-12" minimize-directive style="height: 100%;">
+                <div class="panel" style="height: 100%; padding-bottom: 3rem;" fullscreen="isFullscreen">
+
+                    <div class="heading">
+                        <span class="titleBarText">{{panels[1].name}}</span>
+                        <!--<span class="minimize" ng-if="!isFullscreen" ng-click="minimize(panels[1])"></span>-->
+                        <span class="{{isFullscreen?'restoreDown':'maximize'}}" ng-click="toggleFullScreen()"></span>
+                    </div>
+
+                    <div class="content" style="height: 95%; overflow: auto;">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="box-body" data-ng-if="!elementsList.length">
+                                    <div class="scroll-panel margin-left-10">
+                                        <p data-ng-if="isLoading">
+                                            <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                                        </p>
+                                        <p data-ng-if="!isLoading">
+                                            <i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="box-header" style="padding: 0;" data-ng-if="elementsList.length">
+                                    <div class="box-name">
+                                        <span ng-class="iconClass"></span>
+                                        <span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+                                            Elementos: {{pageTotal}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7"></div>
+                            <div class="col-lg-2">
+                                <div class="box-tools pull-right" data-ng-if="!isLoading">
+                                    <div class="box-name tableButtons" data-ng-if="!isFullscreen">
+                                        <a href="" data-ng-click="editElement(null)" data-toggle="tooltip" title="Crear nuevo">
+                                            <span class="fa fa-plus-circle iconStyle"></span>
+                                        </a>
+                                    </div>
+                                    <div class="box-name tableButtons">
+                                        <a href="" data-ng-click="my_tree.expand_all()" data-toggle="tooltip" title="Expandir todo">
+                                            <span class="icon  mif-enlarge2 iconStyle"></span>
+                                        </a>
+                                    </div>
+                                    <div class="box-name tableButtons">
+                                        <a href="" data-ng-click="my_tree.collapse_all()" data-toggle="tooltip" title="Contraer todo">
+                                            <span class="icon  mif-shrink2 iconStyle"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="thin bg-grayLighter" style="margin-top: 0.5rem;">
+                        <!-- Package Table -->
+                        <div class="box_body" data-ng-if="elementsList.length" style="height: 86%; overflow: auto;">
+                            <!--ng-style="{'height': (isFullscreen && pageTotal<=10)? '88vh':(isFullscreen && pageTotal>10)?'80vh':(!isFullscreen && pageTotal<=10)? '67vh':'60vh'}">-->
+                            <div ng-style="{'width': tableWidht}">
+                                <tree-grid tree-data="elementsList;"
+                                           tree-control="my_tree"
+                                           col-defs="col_defs"
+                                           expand-on="expanding_property"
+                                           on-select="my_tree_handler(branch)"
+                                           expand-level="3"
+                                           icon-expand="icon mif-chevron-thin-right mif-s"
+                                           icon-collapse="icon mif-chevron-thin-down mif-s"
+                                           icon-leaf="icon mif-lab"
+                                           row-actions="rowActions">
+                                </tree-grid>
+                            </div>
+
+                        </div>
+                        <!-- End of Enterprise Table -->
+
+                        <section ng-show="pageTotal > 10">
+                            @Html.Partial("BoxFooter")
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <ul class="t-menu horizontal compact" style="width: 100%; position:absolute; bottom: 0px; z-index: 999;">
+        <li ng-repeat="p in panels" style="margin-right: 3px;">
+            <a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+        </li>
+    </ul>
+
+</div>
+
+<script type="text/ng-template" id="editDialog">
+    <div class="ngdialog-message">
+        <form>
+            <div style="margin-left: 10px; margin-right:10px;">
+                <h3 style="padding-bottom: 10px;">{{dialogTitle}}</h3>
+                <div class="row" style="padding-bottom: 10px;">
+                    <div class="input-control text" style="margin-top: 30px; width: 100%;">
+                        <label>Nombre</label>
+                        <input placeholder="Nombre del paquete" type="text" style="margin-top: 10px;"
+                               data-ng-model="ngDialogData.dData.Name" unique-name="/package/CheckPackageName">
+                        <p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+                    </div>
+
+                    <div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+                        <label>Descripci&oacute;n</label>
+                        <textarea placeholder="Descripción" type="text" style="max-width: 100%;"
+                                  data-ng-model="ngDialogData.dData.Description"></textarea>
+                    </div>
+                </div>
+                <div class="ngdialog-buttons">
+                    <button class="button primary pull-right" ng-class="{disabled : isIndb}"
+                            data-ng-click="acceptDialog()">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+                    <button class="button warning pull-right"
+                            data-ng-click="closeThisDialog()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

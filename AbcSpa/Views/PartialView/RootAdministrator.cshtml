@@ -1,0 +1,134 @@
+﻿
+    <section>
+        @Html.Partial("Header")
+    </section>
+    <div style="background-color: white;" ng-app="tradingModule">
+        <div class="row" style="height: 10px;"></div>
+        <div class="row " style="margin-left: 0px;">
+            <div class="content-container">
+
+
+                @*<div class="row" style="margin: 0.5% 0 0 2%;">
+                        <div ng-include="'~/Shared/Sidebar.cshtml'"></div>
+                    </div>*@
+
+               
+                <section>
+                    @Html.Partial("Sidebar")
+                </section>
+                
+                <div class="col-md-10">
+
+                    <div class="row" style="margin: 0px">
+                        <ul class="nav nav-tabs">
+                            <li ng-class="{active : (indexActive == tab.index) ? true : false}" ng-repeat="tab in tabElement" ng-click="setIndexActive(tab.index)"><a href="">{{tab.caption}}</a></li>
+                        </ul>
+                    </div>
+                    @*<div class="row" style="margin: 0.5% 0 0 2%;" ng-include="tabElement[indexActive].url"></div>*@
+
+                    <div class="row" style="margin: 0.5% 0 0 2%;" ng-controller="treeGridController" ng-if="(indexActive == 0)">
+                        <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf="glyphicon glyphicon-globe"></tree-grid>
+                    </div>
+
+                    <div id="wrapper" class="fondo ng-scope" ng-controller="ExcelController" ng-if="(indexActive==1)">
+                        <div id="page-content-wrapper">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-3">
+
+                                        <div class="row" style="margin-top: -10px; margin-right: -48px;">
+                                            <div class="col-md-12 col-lg-12 form-group" style="margin-top: 17px;">
+                                                <span class="btn btn-success fileinput-button" style="overflow: hidden; position: relative;" ng-class="{disabled: disabled}">
+                                                    <i class="glyphicon glyphicon-open-file" data-ng-if="true"></i>
+                                                    <i class="glyphicon glyphicon-ok" data-ng-if="newProcedure.Document != null"></i>
+                                                    <span> Subir Excel</span>
+                                                    <input id="procedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng-disabled="disabled" type="file" onchange=" angular.element(this).scope().selecExcelforUpload(this.files) ">
+                                                </span>
+                                                <span style="font-weight: 300; vertical-align: middle; background-color: rgb(230, 230, 230); border-radius: 5px !important; text-align: center; padding: 8px 7px;">
+                                                    {{file_path}}
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8">
+                                        <div fusioncharts width="600" height="400" type="column2d" dataSource="{{myDataSource}}">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    SEGUNDA
+                                    <div class="col-lg-12">
+                                        <div fusioncharts
+                                             width="600"
+                                             height=" 400"
+                                             type="msline"
+                                             chart=" {{attrs}} "
+                                             categories="{{categories}}"
+                                             dataset=" {{dataset}} ">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    tercera
+                                    <div class="col-lg-12">
+                                        <div fusioncharts width="600" height="400" type="column2d" datasource="{{dataSource}}" events="events"></div>
+                                        <!-- The `selectedValue` variable is defined to store the label and the value of the data plot that is clicked. -->
+                                        <p>Selected Value:: {{ selectedValue }}</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    cuarta
+                                    <div class="col-lg-12">
+                                        <div fusioncharts width="600"
+                                             height="400"
+                                             type="pie3d"
+                                             datasource="{{pieDataSource}}">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    quinta
+                                    <div class="col-lg-12">
+                                        <div fusioncharts width="600"
+                                             height="400"
+                                             type="bubble"
+                                             datasource="{{bubleDataSource}}">
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        sexta
+                                        <div class="col-lg-12">
+                                            <div fusioncharts width="600"
+                                                 height="400"
+                                                 type="angulargauge"
+                                                 datasource="{{gaugeDataSource}}">
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

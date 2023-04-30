@@ -1,0 +1,126 @@
+﻿<section>
+    @Html.Partial("Header")
+</section>
+
+
+
+<div style="background-color: whitesmoke; height: 250px; margin-bottom: 50px;">
+    <div class="col-lg-12" style="height: 200px; margin-bottom: 25px; margin-left: 20px; margin-top: 25px;">
+        <div class="row">
+            <div class="text-justify col-lg-9" style="font-size: 18px;">
+                <h3>Empresa-Sucursal</h3>
+                <p>
+                    Los roles proporcionan una serie de permisos a los usuarios, por lo tanto, esta informaci&oacute;n es altamente sencible para garantizar que cada usuario cumpla y realice las acciones que le han asignado.
+                </p>
+                <p>
+                    Todas las funcionalidades que se ofrecen en el sistema est&aacute;n vinculadas a un permiso en espec&iacute;fico. Si&eacute;ntase libre de confeccionar los roles pertinentes, combinando los permisos que desee asignar por cada rol.
+                </p>
+                <p>
+                    En caso de existir alg&uacute;n tipo de usuario que no use la plataforma web, no le asigne permisos en su rol.
+                </p>
+            </div>
+            <div class="col-lg-3 text-center">
+                <img class="hidden-xs" src="/Content/img/matriz.png" style="height: 200px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="row">
+        <!-- Sidebar -->
+        <section>
+            @Html.Partial("SidebarFilter")
+        </section>
+        <!-- end of Sidebar -->
+
+        <div class="col-lg-9">
+            <div class="box box-success panel-shadow" style="min-height: 465px;">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        <span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 14px; margin-left: 5px;">
+                           Historial de cambios de la matriz: <span style="font-weight: bold">{{matrixName}}</span>
+                        </span>
+                    </div>
+                    <div class="box-tools pull-right" style="margin-right: 5px;">
+                        <a href="">
+                            <i class="fa fa-print" style="color: grey; font-size: 30px;"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-body" data-ng-if="!elementsList.length">
+                    <div class="scroll-panel margin-left-10">
+                        <p data-ng-if="isLoading">
+                            <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                        </p>
+                        <p data-ng-if="!isLoading">
+                            <i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+                        </p>
+                    </div>
+                </div>
+               <!-- Matrix Changes Table -->
+                <div class="box-body" data-ng-if="elementsList.length">
+                    <table st-table="roleList" class="table table-striped table-hover table-condensed table-responsive" style="width: 100%; display:block;">
+                        <thead style="display: inline-block; width: 100%; height: 40px;">
+                            <tr class="row" style="display: inline-table; margin: 0px">
+                                <th class="col-md-2" style="text-align: left !important; cursor: pointer;" ng-click="orderByField='Name'; reverseSort = !reverseSort" >
+                                    Matriz
+                                    <span ng-show="orderByField == 'Name'">
+                                        <span ng-show="!reverseSort"><i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub; margin-left: 8px;"></i></span>
+                                        <span ng-show="reverseSort"><i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub; margin-left: 8px;"></i></span>
+                                    </span>
+                                </th>
+                                <th class="col-md-4" >Descripci&oacute;n</th>
+                                <th class="col-md-2" style="cursor: pointer;" ng-click="orderByField='MatrixCreateDate'; reverseSort = !reverseSort">
+                                    Fecha de modificaci&oacute;n
+                                    <span ng-show="orderByField == 'MatrixCreateDate'" style="margin-left: 5px; width: 10px;">
+                                        <span ng-show="!reverseSort">
+                                            <i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+                                        </span>
+                                        <span ng-show="reverseSort">
+                                            <i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+                                        </span>
+                                    </span>
+                                </th>
+                                @*<th style="width: 15%;"></th>*@
+                                @*<th style="width: auto; text-align: left;">Usuario</th>*@
+                                <th class="col-md-1" >Nombre</th>
+                                @*<th style="width: auto; text-align: left;">Apellido</th>*@
+                                <th class="col-md-3" >Email</th>
+                                @*<th style="width: auto; text-align: left;">Teléfono</th>
+                                <th style="width: auto; text-align: left;">Estado</th>
+                                <th style="width: auto; text-align: left;">Rol</th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody style="height: 300px; display: inline-block; width: 100%; overflow: auto;">
+                            <tr class="row" data-ng-repeat="matrixChg in elementsList | filter:search:strict | orderBy:orderByField:reverseSort" 
+                                style="color: {{matrixChg.LastActiveStatus == true ? 'black' : 'gray'}}">
+                                <td class="col-md-2" style="text-align: left !important;">
+                                    {{matrixChg.LastMatrixName }}
+                                </td>
+                                <td class="col-md-4" style="text-align: left !important;">
+                                    {{matrixChg.LastMatrixDescription }}
+                                </td>
+                                <td class="col-md-2" >{{matrixChg.ChangeDate}}</td>
+                                <td class="col-md-1" >{{matrixChg.Name}}</td>
+                                <td class="col-md-3" ><a href="mailto: {{matrixChg.Email}}">{{matrixChg.Email}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                        <!-- End of Matrix Table -->
+
+                        @*<section>
+                            @Html.Partial("BoxFooter")
+                        </section>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+       
+
+       

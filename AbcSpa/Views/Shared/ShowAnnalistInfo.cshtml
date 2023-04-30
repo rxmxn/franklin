@@ -1,0 +1,21 @@
+﻿<div class="ngdialog-message" style="max-height: 500px;">
+
+	<div class="content-container">
+		<h5 style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Analista: {{ngDialogData.annalist}}</h5>
+	</div>
+
+	<div class="box-body" style="height: 76%; overflow: auto;">
+		<div style="height: 100px; float: right;">
+			<img ng-src="{{ngDialogData.avatarIMG}}" data-ng-if="ngDialogData.dData.Photo === null || ngDialogData.dData.Photo === ''" style="height: inherit;">
+			<img ng-src="{{ngDialogData.dData.Photo}}" data-ng-if="ngDialogData.dData.Photo != null && ngDialogData.dData.Photo !== ''" style="height: inherit;">
+		</div>
+
+		<p>Nombre(s): {{ngDialogData.dData.Name}}</p>
+		<p>Apellido Paterno: {{ngDialogData.dData.LastNameFather}}</p>
+		<p>Apellido Materno: {{ngDialogData.dData.LastNameMother}}</p>
+		<p>Descripci&oacute;n: {{ngDialogData.dData.Description === null || ngDialogData.dData.Description === '' ? 'N/A' : ngDialogData.dData.Description}}</p>
+		<p>Signatario: <span style="cursor: pointer; font-size: 1.2rem" ng-click="ngDialogData.rec(ngDialogData.dData)" class="mif-clipboard icon"></span></p>
+		<p>Tel&eacute;fono: {{ngDialogData.dData.Phone}}</p>
+		<p>Email: {{ngDialogData.dData.Email}}</p>
+	</div>
+</div>

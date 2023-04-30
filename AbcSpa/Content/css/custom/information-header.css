@@ -1,0 +1,12 @@
+﻿.info-header {
+    background-color: whitesmoke; 
+    min-height: 250px; 
+    margin-bottom: 50px;
+}
+
+.info-header .information {
+    min-height: 200px; 
+    margin-bottom: 25px; 
+    margin-left: 20px; 
+    margin-top: 25px;
+}

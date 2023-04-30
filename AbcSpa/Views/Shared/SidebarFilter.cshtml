@@ -1,0 +1,689 @@
+﻿<div class="panel" style="height: 100%; padding-bottom: 3rem;">
+    @* TODO: cambiar cuando se ponga el historial en la barra padding-bottom: 1rem; *@
+    <div class="heading">
+        <span class="titleBarText">{{panels[0].name}}</span>
+        <span class="minimize" ng-click="panels[1].state ? minimize(panels[0]) : null"></span>
+    </div>
+    <div class="content padding10" style="height: 95%; overflow-y: auto;">
+
+        <label style="font-size: small" ng-show="SearchGeneral">Buscar texto</label>
+
+        @* To show the in server side: $scope.SearchGeneral = true; *@
+        <div class="row" ng-show="SearchGeneral">
+            <div class="col-lg-12">
+                <div class="input-control text" style="width: inherit; margin-right: 10px; margin-top: 0;">
+                    <input type="text" placeholder="Búsqueda General" data-ng-model="searchGeneral">
+                    <button class="button" data-ng-click="RefreshList(1)"
+                            data-toggle="tooltip" title="Buscar por todos los elementos en la Base de Datos">
+                        <span class="mif-search"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @* END SearchGeneral *@
+
+        @* To show the filter by Matrixes and SubMatrixes: $scope.MatrixFilterActive = true; *@
+
+        <div ng-show="bMatrixFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por matrices">Grupo de matrices</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="gMatriz-select"
+                        data-ng-model="bMatrixId"
+                        data-ng-options="gMatriz.Id as gMatriz.Name for gMatriz in baseMatrixList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="MatrixFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por matrices">Matrices</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="matriz-select"
+                        data-ng-model="searchMatrix"
+                        data-ng-options="matriz.Name as matriz.Name for matriz in matrixList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="subMatrixFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por submatrices">Submatrices</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="subMatriz-select"
+                        data-ng-model="searchSubmatrix"
+                        data-ng-options="subMatrix.Name as subMatrix.Name for subMatrix in subMatrixList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="MarketFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por mercados">Mercados</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="market-select"
+                        data-ng-model="marketId"
+                        data-ng-options="market.Id as market.Name for market in marketList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="InstitutionFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por instituciones">Instituciones</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="institution-select"
+                        data-ng-model="institutionId"
+                        data-ng-options="institution.Id as institution.Name for institution in InstList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        @* END FilterActive *@
+
+        @* To show the filter parametes by GenericKey and GenericDescription: $scope.paramFilterActive = true; *@
+        <div ng-show="ParamFilterActive">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-control text" style="width: inherit; margin-right: 10px; margin-top: 0;">
+                        <input type="text" placeholder="Clave específica" data-ng-model="searchSpecificKey">
+                        <button class="button" data-ng-click="RefreshList(1)"
+                                data-toggle="tooltip" title="Buscar por clave específica en la Base de Datos">
+                            <span class="mif-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-control text" style="width: inherit; margin-right: 10px; margin-top: 0;">
+                        <input type="text" placeholder="Descripción específica" data-ng-model="searchGenericDescription">
+                        <button class="button" data-ng-click="RefreshList(1)"
+                                data-toggle="tooltip" title="Buscar por descripción específica en la Base de Datos">
+                            <span class="mif-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @* To show the filter parametes by GenericKey and GenericDescription: $scope.paramFilterActive = true; *@
+        <div ng-show="genericKeyFilterActive">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-control text" style="width: inherit; margin-right: 10px; margin-top: 0;">
+                        <input type="text" placeholder="Clave genéica" data-ng-model="searchGenericKey">
+                        <button class="button" data-ng-click="RefreshList(1)"
+                                data-toggle="tooltip" title="Buscar por clave genérica en la Base de Datos">
+                            <span class="mif-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+
+        @* Base Param Filter *@
+
+        <div ng-show="methodFilterActive">
+            <div role="presentation" class="divider" style="margin-top: 16px; border-top: 1px solid rgba(210, 210, 210, 0.87);"></div>
+            
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Instalaciones">Instalación</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="method-select"
+                        data-ng-model="methodId"
+                        data-ng-options="met.Id as met.Name for met in methodList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="baseParamFilter">
+            <div role="presentation" class="divider" style="margin-top: 16px; border-top: 1px solid rgba(210, 210, 210, 0.87);"></div>
+
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Parámetros Base disponibles">Parámetros Base</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="bp-select"
+                        data-ng-model="baseparamfiltered"
+                        data-ng-options="bp.Id as bp.Name for bp in baseparamsfilter"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+
+            @*<div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-12">
+                        <div class="col-xs-6 text-center" style="padding: 0;">
+                            <button class="button medium-button" data-ng-click="bpFilterRemove()" data-toggle="tooltip" title="Borrar">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true" data-ng-if="!initbpFilter"></span>
+                                <span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initbpFilter"></span>
+                            </button>
+                        </div>
+                        <div class="col-xs-6 text-center" style="padding: 0;">
+                            <button class="button medium-button" data-ng-click="bpFilter()" data-toggle="tooltip" title="Filtrar">
+                                <span class="mif-search" aria-hidden="true" data-ng-if="!initbpFilter"></span>
+                                <span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initbpFilter"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    <!--GroupFilter-->
+
+        <div ng-show="RegionFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por región">Región</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="region-select"
+                        data-ng-model="regionId"
+                        data-ng-options="region.Id as region.Name for region in regionList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+        </div>
+
+    <div ng-show="OfficeFilterActive">
+        <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por empresa a la que pertenece">Empresa</label>
+        <div class="input-control select" style="width: 100%; margin: 0;">
+            <select id="Office-select"
+                    data-ng-model="OfficeId"
+                    data-ng-options="Office.Id as Office.Name for Office in OfficeList"
+                    data-ng-change="RefreshList(1)"
+                    style="border: 1px #d9d9d9 solid;">
+                <option value="">Todas</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div ng-show="SucursalFilterActive">
+            <div role="presentation" class="divider" style="margin-top: 16px; border-top: 1px solid rgba(210, 210, 210, 0.87);"></div>
+
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Instalaciones">Instalación</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="sucursal-select"
+                        data-ng-model="sucursalId"
+                        data-ng-options="suc.Id as suc.Name for suc in sucursalList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="BusinessLineFilterActive">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Línea de negocio">Línea de negocio</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="busLine-select"
+                        data-ng-model="bLine"
+                        data-ng-options="BL.Id as BL.Name for BL in BusinessLineList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="TipoServFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por tipo de servicio">Tipo de Servicio</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="TServ-select"
+                        data-ng-model="tServId"
+                        data-ng-options="tServ.Id as tServ.Name for tServ in tServList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="CQ1Filter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Clasif. Quím. Nivel 1">Clasif. Quím. Nivel 1</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="CQ1-select"
+                        data-ng-model="CQ1Id"
+                        data-ng-options="CQ.Id as CQ.Name for CQ in CQ1List"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="CQ2Filter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Clasif. Quím. Nivel 2">Clasif. Quím. Nivel 2</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="CQ2-select"
+                        data-ng-model="CQ2Id"
+                        data-ng-options="CQ.Id as CQ.Name for CQ in CQ2List"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="CQ3Filter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Clasif. Quím. Nivel 3">Clasif. Quím. Nivel 3</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="CQ3-select"
+                        data-ng-model="CQ3Id"
+                        data-ng-options="CQ.Id as CQ.Name for CQ in CQ3List"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="SucRealizaFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por sucursal que Realiza">Sucursal Realiza</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="sucRe-select"
+                        data-ng-model="sucReId"
+                        data-ng-options="sucRe.Id as sucRe.Name for sucRe in sucReList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="SucVendeFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por sucursal que vende">Sucursal Vende</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="sucVen-select"
+                        data-ng-model="sucVenId"
+                        data-ng-options="sucVen.Id as sucVen.Name for sucVen in sucVenList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="RamaFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Rama">Rama</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="rama-select"
+                        data-ng-model="ramaId"
+                        data-ng-options="rama.Id as rama.Name for rama in ramaList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="CeCFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Centro de Costo">Centro de Costo</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="CeC-select"
+                        data-ng-model="CeCId"
+                        data-ng-options="CeC.Id as CeC.Name for CeC in CeCList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="AnalyticMethodFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Técnica Analítica">Técnca Analítica</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="AnalyticMethod-select"
+                        data-ng-model="AnalyticMethodId"
+                        data-ng-options="AnalyticMethod.Id as AnalyticMethod.Name for AnalyticMethod in AnalyticMethodList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+        <div ng-show="AckFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Reconocimientos">Reconocimientos</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="ack-select"
+                        data-ng-model="ackId"
+                        data-ng-options="ack.Id as ack.Name for ack in ackList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="SignatariosFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por Signatarios">Signatarios</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="signatarios-select"
+                        data-ng-model="signatariosId"
+                        data-ng-options="signatarios.Id as signatarios.Name for signatarios in signatariosList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="EIDASFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por EIDAS">EIDAS</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="EIDAS-select"
+                        data-ng-model="EIDASId"
+                        data-ng-options="EIDAS.Id as EIDAS.Name for EIDAS in EIDASList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="AnAreaFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por área analítica">Área analítica</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="AnArea-select"
+                        data-ng-model="AnAreaId"
+                        data-ng-options="AnArea.Id as AnArea.Key for AnArea in AnAreaList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="AnnalistFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar clave de analista asignado">Clave de analista asig.</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="AnnalistKey-select"
+                        data-ng-model="AnnalistId"
+                        data-ng-options="Annalist.Id as Annalist.Name for Annalist in AnnalistList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="EnvaseFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por envase">Envase</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="envase-select"
+                        data-ng-model="envaseId"
+                        data-ng-options="envase.Id as envase.Name for envase in envaseList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="preserverFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por preservador">Preservador</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="preserver-select"
+                        data-ng-model="preserverId"
+                        data-ng-options="preserver.Id as preserver.Name for preserver in preserverList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="residueFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por residue">Desecho</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="residue-select"
+                        data-ng-model="residueId"
+                        data-ng-options="residue.Id as residue.Name for residue in residueList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="materialFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por material">Material</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="material-select"
+                        data-ng-model="materialId"
+                        data-ng-options="material.Id as material.Name for material in materialList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="unidadAnaliticaFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por unidad analítica">Unidad Analítica</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="uAnalitica-select"
+                        data-ng-model="uAnaliticaId"
+                        data-ng-options="uAnalitica.Id as uAnalitica.Name for uAnalitica in uAnaliticaList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="annalistKeyFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por clave de analista asignado">Clave del analista</label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="annalistKey-select"
+                        data-ng-model="annalistKey"
+                        data-ng-options="annalist.AnnalistKey as annalist.AnnalistKey for annalist in annalistList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="ackKeyFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Filtrar por clave de la institución">Clave </label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="ackKey-select"
+                        data-ng-model="ackKey"
+                        data-ng-options="ackKey.Key as ackKey.Key for ackKey in ackKeyList"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-show="tipoEmpFilter">
+            <label style="margin-top: 10px; font-size: small;" data-toggle="tooltip" title="Tipo de institución">Tipo </label>
+            <div class="input-control select" style="width: 100%; margin: 0;">
+                <select id="tipoEmp-select"
+                        data-ng-model="tipo"
+                        data-ng-change="RefreshList(1)"
+                        style="border: 1px #d9d9d9 solid;">
+                    <option value="">Todos</option>
+                    <option value="false">Interna</option>
+                    <option value="true">Externa</option>
+                </select>
+            </div>
+        </div>
+
+        <div role="presentation" class="divider" ng-show="SearchGeneral && FilterActive"
+             style="border-top: 1px solid rgba(210, 210, 210, 0.87); margin-top: 16px;"></div>
+
+        @* To show the filter by activation: $scope.FilterActive = true; *@
+        <div ng-show="FilterActive">
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="alta" data-ng-change="getElement(f)">
+                    <span style="vertical-align: middle;" id="menulink">Ver Elem. activos</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="baja" data-ng-change="getElement(f)">
+                    <span style="vertical-align: middle;" id="menulink">Ver Elem. de baja</span>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+        @* To show the filter by activation: $scope.FilterSoloParaCotizar = true; *@
+        <div ng-show="FilterSoloParaCotizar">
+            <div role="presentation" class="divider"
+                 style="border-top: 1px solid rgba(210, 210, 210, 0.87); margin-top: 16px;"></div>
+
+            <label style="margin-top: 10px; font-size: small">Solo para cotizar</label>
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="spcSI" data-ng-change="getElement(f)">
+                    <span style="vertical-align: middle;" id="menulink">Si</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="spcNO" data-ng-change="getElement(f)">
+                    <span style="vertical-align: middle;" id="menulink">No</span>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+        @* To show the filter by signatarios: $scope.SignatariosFilterActive = true; *@
+        <div ng-show="SignatariosFilterActive">
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="viewSignatario" data-ng-change="RefreshList(1)">
+                    <span style="vertical-align: middle;" id="menulink">{{viewSignatario ? "Ver analistas" : "Ver solo signatarios"}}</span>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+        @* To show the filter by signatarios: $scope.SignatariosFilterActive = true; *@
+        <div ng-show="SucursalFilters">
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="vende" data-ng-change="RefreshList(1)">
+                    <span style="vertical-align: middle;" id="menulink">Inst. Venden</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="realiza" data-ng-change="RefreshList(1)">
+                    <span style="vertical-align: middle;" id="menulink">Inst. Realizan</span>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+        @* To show the filter by expiricy: $scope.FilterExpiredAck = true; *@
+        <div ng-show="FilterExpiredAck">
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="recVigentes" data-ng-change="RefreshList(1)">
+                    <span style="vertical-align: middle;" id="menulink">Ver Vigentes</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                    bootstrap-switch data-ng-model="recExpirados" data-ng-change="RefreshList(1)">
+                    <span style="vertical-align: middle;" id="menulink">Ver Expirados</span>
+                </div>
+            </div>
+        </div>
+        @* END FilterActive *@
+
+        @* To show the filter by date: $scope.FilterDate = true; *@
+        <div ng-show="FilterDate">
+
+            <div role="presentation" class="divider" style="margin-top: 16px; border-top: 1px solid rgba(210, 210, 210, 0.87);"></div>
+
+            <label style="margin-top: 12px; font-size: small;">Filtrar por fecha</label>
+            @*<div class="row">
+                <div class="col-lg-6" style="padding-right: 1px;">
+                    <div class="input-control text" data-role="datepicker" style="width: 100%;"
+                         data-locale="es" data-format="dd/mm/yyyy">
+                        <input type="text" ng-model="fromDate" placeholder="Desde">
+                        <button class="button"><span class="mif-calendar"></span></button>
+                    </div>
+                </div>
+                <div class="col-lg-6" style="padding-left: 1px;">
+                    <div class="input-control text" data-role="datepicker" style="width: 100%;"
+                         data-locale="es" data-format="dd/mm/yyyy">
+                        <input type="text" placeholder="Hasta" ng-model="untilDate">
+                        <button class="button"><span class="mif-calendar"></span></button>
+                    </div>
+                </div>
+                    </div>*@
+            <div class="input-control text" data-role="datepicker" style="width: 100%;"
+                 data-locale="es" data-format="dd/mm/yyyy">
+                <input type="text" ng-model="fromDate" placeholder="Desde">
+                <button class="button"><span class="mif-calendar"></span></button>
+            </div>
+
+            <div class="input-control text" data-role="datepicker" style="width: 100%;"
+                 data-locale="es" data-format="dd/mm/yyyy">
+                <input type="text" placeholder="Hasta" ng-model="untilDate">
+                <button class="button"><span class="mif-calendar"></span></button>
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-xs-12">
+                    <div class="col-xs-6 text-center" style="padding: 0;">
+                        <button class="button medium-button" data-ng-click="dateFilterRemove()" data-toggle="tooltip" title="Borrar">
+                            <span class="glyphicon glyphicon-erase" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+                            <span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 text-center" style="padding: 0;">
+                        <button class="button medium-button" data-ng-click="dateFilter()" data-toggle="tooltip" title="Filtrar">
+                            <span class="mif-search" aria-hidden="true" data-ng-if="!initDateFilter"></span>
+                            <span class="mif-spinner mif-ani-pulse" aria-hidden="true" data-ng-if="initDateFilter"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* END FilterDate *@
+
+
+    </div>
+</div>

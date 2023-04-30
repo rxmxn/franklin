@@ -1,0 +1,394 @@
+﻿<div class="ngdialog-message">
+	<form style="height: inherit;">
+		<div style="margin-left: 10px; margin-right:10px; height: inherit;" class="content-container">
+			<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+			<div class="row" style="min-height: 200px; height: inherit; overflow: auto;">
+				<div wizard on-finish="acceptDialog()" on-clicknext="nextPage()" current-step="currentStep" style="height: inherit;">
+				
+					<div wz-step style="min-height: 500px;" wz-title="page1">
+						<div class="row" style="padding-bottom: 10px;" edit-package-select-directive>
+							<div class="input-control text col-lg-3" style="margin-top: 25px;">
+								<label style="margin-left: 15px;">Nombre</label>
+								<input required="" placeholder="Nombre del paquete" type="text" style="margin-top: 10px;"
+									   data-ng-model="ngDialogData.dData.Name" unique-name="/package/CheckPackageName">
+								<p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+							</div>
+							<div class="col-md-12 col-lg-12">
+								<div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+									<label>Descripci&oacute;n</label>
+									<textarea required="" placeholder="Descripción" type="text" style="max-width: 100%; max-height: 80px;" data-ng-model="ngDialogData.dData.Description"></textarea>
+								</div>
+							</div>
+
+							@*<div class="col-md-6 col-lg-6">
+								<div class="input-control select" style="width: 100%; margin-top: 30px;"
+									 ng-if="columnList.Norm">
+									<label data-toggle="tooltip" title="Norma del paquete">Norma</label>
+									<select id="norm-select"
+											data-ng-model="ngDialogData.dData.Norm.Id"
+											data-ng-options="norm.Id as norm.Name for norm in norms"
+											style="border: 1px #d9d9d9 solid;">
+										<option value="">Selecciona una Norma</option>
+									</select>
+								</div>
+							</div>*@
+
+							<div class="col-md-12 col-lg-12">
+								<div class="input-control select" style="width: 100%; margin-top: 30px;">
+									<label data-toggle="tooltip" title="Tipos de Servicio">Tipos de Servicio</label>
+									<select id="centrocosto-select"
+											data-ng-model="ngDialogData.dData.TipoServicio.Id"
+											data-ng-options="tserv.Id as tserv.Name for tserv in tiposServicio"
+											style="border: 1px #d9d9d9 solid;">
+										<option value="">Selecciona un Tipo de Servicio</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+
+							<!-- <div class="padding20 bg-grayLighter no-phone" style="margin: 15px; margin-bottom: 0; height: 8vh; overflow-y: scroll;">
+								<p ng-if="ngDialogData.dData.Norm !== undefined && ngDialogData.dData.Norm.Id !== null">{{ngDialogData.dData.Norm.Name}}: {{ngDialogData.dData.Norm.Description}}</p>
+								<p ng-if="ngDialogData.dData.MaxPermitedLimit !== undefined && ngDialogData.dData.MaxPermitedLimit.Id !== null">{{ngDialogData.dData.MaxPermitedLimit.Name}}: {{ngDialogData.dData.MaxPermitedLimit.Description}}</p>
+							</div> -->
+						</div>
+					</div>
+                    <div wz-step style="min-height: 500px;">
+                        <div class="panel" style="width:100%; margin-top: 28px;">
+                            <div class="heading">
+                                <span class="titleBarText">Normas</span>
+                            </div>
+
+                            <div class="padding10" style="margin: 15px; height: 300px; overflow-y: scroll;">
+                              <div class="table-responsive">
+                                    <table class="table table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr role="row">
+                                                <th style="text-align: left; width: 15%;">
+                                                    Clave
+                                                </th>
+                                                <th style="width: 40%;">
+                                                    Descripción
+                                                </th>
+                                                <th style="text-align: left; width: 15%;">
+                                                    Alcance
+                                                </th>
+                                                <th style="text-align: left; width: 15%;">
+                                                    Fecha de Entrada en Vigor
+                                                </th>
+                                                <th style="text-align: left; width: 10%;">
+                                                    Status
+                                                </th>
+                                                <th style="text-align: left; width: 5%;">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                            <tr class="odd" data-ng-repeat="norm in norms">
+                                                <td style="text-align: Left;">{{norm.Name}}</td>
+                                                <td style="text-align: Left;">{{norm.Description}}</td>
+                                                <td style="text-align: Left;">{{norm.Alcance}}</td>
+                                                <td style="text-align: left;">{{norm.FechaEntVigor}}</td>
+                                                <td style="text-align: left;">{{norm.Estado.Tipo}}</td>
+                                                <td class="text-center">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox"
+                                                               data-ng-model="norm.checked"
+                                                               data-ng-click="normChecked(norm)">
+                                                        <span class="check"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+				<div wz-step style="min-height: 500px;" wz-title="page2"
+					 edit-param-select-directive>
+						<div class="panel" style="width:100%; margin-top: 10px; height: inherit;">
+						    <div class="heading">
+                                <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+                                     style="color: white; cursor: pointer;"
+                                     data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+                                    <div class="app-bar-drop-container"
+                                         data-role="dropdown"
+                                         data-toggle-element="#toggle-tiles-dropdown"
+                                         data-no-close="true"
+                                         style="width: 17rem; margin-top: 0.4rem; border: 2px solid #005696;
+									            margin-left: -8px; text-align: left;">
+                                        <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                            <!-- Comienza aqui el desplegable de filtros -->
+                                            <div class="row" style="font-size: 0.775rem;">
+                                                <div class="col-lg-12">
+                                                    <label style="font-size: small; display: block;">Búsqueda general</label>
+                                                    <div class="input-control text" style="display: inline">
+                                                        <input type="text" name="search" style="line-height: inherit; display: inline; width: inherit" placeholder="Búsqueda General" data-ng-model="pSearchGeneral">
+                                                        <button class="button" data-ng-click="searchpfunction(pSearchGeneral)" name="buttonsearch"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Buscar por todos los elementos en la Base de Datos">
+                                                            <span class="mif-search"></span>
+                                                        </button>
+
+                                                        <button class="button" data-ng-click="searchpfunction('')" name="buttonReset"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Resetear la búsqueda">
+                                                            <span class="mif-cross"></span>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Termina aqui el desplegable de filtros -->
+                                        </div>
+                                    </div>
+                                </div>
+						        <span class="titleBarText" style="margin-left: 1.2rem;">Listado de Parámetros Disponibles</span>
+						    </div>
+                           
+						    <div class="content" style="height:90%;">
+								<p data-ng-if="!ngDialogData.paramList.length">No hay parámetros disponibles</p>
+							    <div class="box-body" data-ng-if="ngDialogData.paramList.length" style="height: inherit; overflow: auto">
+							        <div ng-style="{'width': tableWidht}">
+							            <tree-grid tree-data="paramList"
+							                       tree-control="my_tree"
+							                       col-defs="ngDialogData.col_defs"
+							                       expand-on="ngDialogData.expanding_property"
+							                       on-select="my_tree_handler(branch)"
+							                       icon-expand="icon mif-chevron-thin-right mif-s"
+							                       icon-collapse="icon mif-chevron-thin-down mif-s"
+							                       icon-leaf="icon mif-lab "
+							                       row-actions="rowActions">
+							            </tree-grid>
+							        </div>
+							    </div>
+
+                                <div class="box-footer text-center" style="height: 50px;">
+                                    <div ng-show="true">
+                                        <paging class="small"
+                                                page="currentPage"
+                                                page-size="pageSize"
+                                                total="pTotal"
+                                                adjacent="1"
+                                                dots="..."
+                                                hide-if-empty="true"
+                                                show-prev-next="true"
+                                                show-first-last="true"
+                                                text-next-class="fa fa-angle-right"
+                                                text-prev-class="fa fa-angle-left"
+                                                text-first-class="fa fa-angle-double-left"
+                                                text-last-class="fa fa-angle-double-right"
+                                                text-title-page="P&aacute;gina {page}"
+                                                text-title-first="Inicio"
+                                                text-title-last="Fin"
+                                                text-title-next="Siguiente"
+                                                text-title-prev="Anterior"
+                                                paging-action="getParamPage(page, pageSize)">
+                                        </paging>
+
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+
+					<div wz-step style="min-height: 500px;" wz-title="page3">
+						<div class="panel" style="width: 100%; margin-top: 10px; height: inherit;">
+						    <div class="heading">
+                                <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown1"
+                                     style="color: white; cursor: pointer;"
+                                     data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+                                    <div class="app-bar-drop-container"
+                                         data-role="dropdown"
+                                         data-toggle-element="#toggle-tiles-dropdown1"
+                                         data-no-close="true"
+                                         style="width: 17rem; margin-top: 0.4rem; border: 2px solid #005696;
+									            margin-left: -8px; text-align: left;">
+                                        <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                            <!-- Comienza aqui el desplegable de filtros -->
+                                            <div class="row" style="font-size: 0.775rem;">
+                                                <div class="col-lg-12">
+                                                    <label style="font-size: small; display: block;">Búsqueda general</label>
+                                                    <div class="input-control text" style="display: inline">
+                                                        <input type="text" name="search" style="line-height: inherit; display: inline; width: inherit" placeholder="Búsqueda General" data-ng-model="gSearchGeneral">
+                                                        <button class="button" data-ng-click="searchGfunction(gSearchGeneral)" name="buttonsearch"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Buscar por todos los elementos en la Base de Datos">
+                                                            <span class="mif-search"></span>
+                                                        </button>
+
+                                                        <button class="button" data-ng-click="searchGfunction('')" name="buttonReset"
+                                                                data-toggle="tooltip" style="position: relative; display: inline;"
+                                                                title="Resetear la búsqueda">
+                                                            <span class="mif-cross"></span>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Termina aqui el desplegable de filtros -->
+                                        </div>
+                                    </div>
+                                </div>
+						        <span class="titleBarText" style="margin-left: 1.2rem;">Listado de Grupos Disponibles</span>
+						    </div>
+
+						    <div class="content" style="height: 90%;">
+								<p data-ng-if="!ngDialogData.groupList.length">No hay grupos disponibles</p>
+							    <div class="box-body" data-ng-if="ngDialogData.groupList.length" style="height: inherit; overflow: auto">
+							        <div ng-style="{'width': tableWidht}">
+							            <tree-grid tree-data="groupList;"
+							                       tree-control="my_tree"
+							                       col-defs="ngDialogData.col_defs"
+							                       expand-on="ngDialogData.expanding_property"
+							                       on-select="my_tree_handler(branch)"
+							                       icon-expand="icon mif-chevron-thin-right mif-s"
+							                       icon-collapse="icon mif-chevron-thin-down mif-s"
+							                       icon-leaf="icon mif-lab "
+							                       row-actions="rowActions">
+							            </tree-grid>
+							        </div>
+							    </div>
+
+                                <div class="box-footer text-center" style="height: 50px;">
+                                    <div ng-show="true">
+                                        <paging class="small"
+                                                page="gcurrentPage"
+                                                page-size="pageSize"
+                                                total="gTotal"
+                                                adjacent="1"
+                                                dots="..."
+                                                hide-if-empty="true"
+                                                show-prev-next="true"
+                                                show-first-last="true"
+                                                text-next-class="fa fa-angle-right"
+                                                text-prev-class="fa fa-angle-left"
+                                                text-first-class="fa fa-angle-double-left"
+                                                text-last-class="fa fa-angle-double-right"
+                                                text-title-page="P&aacute;gina {page}"
+                                                text-title-first="Inicio"
+                                                text-title-last="Fin"
+                                                text-title-next="Siguiente"
+                                                text-title-prev="Anterior"
+                                                paging-action="getGroupPage(page, pageSize)">
+                                        </paging>
+
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+
+					<div wz-step style="min-height: 500px;" wz-title="page4">
+						<div class="input-control select" style="width: 100%; margin-top: 30px; padding-left: 15px; padding-right: 15px;">
+							<label style="margin-left: 15px;" data-toggle="tooltip" title="Grupo de Matrices">Grupo de Matrices</label>
+							<select id="basematrix-select" data-ng-change="changeBaseMtrx()"
+									data-ng-disabled="ngDialogData.dData.Matrixes.length>0"
+									data-ng-model="ngDialogData.BaseMatrix"
+									data-ng-options="bMtrx as bMtrx.Name for bMtrx in baseMatrixList"
+									style="border: 1px #d9d9d9 solid;">
+								<option value="">Selecciona un Grupo de Matrices</option>
+							</select>
+						</div>
+
+						<div class="padding10" style="margin: 15px; height: 85%; overflow-y: scroll;">
+							<label style="margin-top: 10px;">Matrices/Submatrices del grupo seleccionado</label>
+
+							<div class="table-responsive">
+								<table class="table table-hover table-condensed table-responsive">
+									<thead>
+										<tr role="row">
+											<th style="text-align: center; width: 14%;">
+												Nva Clave
+											</th>
+											<th style="width: 50%;">
+												Matriz/Submatriz
+											</th>
+											<th style="text-align: center; width: 10%;">
+												MERCADO (A: ABC, &nbsp; F: FERMI, G: GMTK)
+											</th>
+											<th style="text-align: center; width: 11%;">
+												MATRIZ &nbsp; (2 LETRAS)
+											</th>
+											<th style="text-align: center; width: 5%;">
+												DESCRIPCIÓN (2 LETRAS)
+											</th>
+											<th style="text-align: center; width: 5%;">
+												Largo
+											</th>
+											<th style="text-align: center; width: 5%;">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody aria-relevant="all" aria-live="polite" role="alert">
+										<tr class="odd" data-ng-repeat="mtrx in ngDialogData.BaseMatrix.Matrixes">
+											<td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}{{mtrx.Description}}{{mtrx.SubMtrxDescription}}</td>
+											<td>{{mtrx.Name}}{{(mtrx.SubMatrix===''||mtrx.SubMatrix===null)?'':'/'}}{{mtrx.SubMatrix}}</td>
+											<td style="text-align: center;">{{mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='M'?'A':(mtrx.BaseMatrix.Mercado.Name.slice(0,1)==='A')?'G':'F'}}</td>
+											<td style="text-align: center;">{{mtrx.Description}}</td>
+											<td style="text-align: center;">{{mtrx.SubMtrxDescription}}</td>
+											<td style="text-align: center;">{{mtrx.Description.length+mtrx.SubMtrxDescription.length+1}}</td>
+											<td class="text-center">
+												<label class="input-control checkbox block">
+													<input type="checkbox" data-ng-click="mtrxChecked(mtrx)" ng-model="mtrx.check">
+													<span class="check"></span>
+												</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div wz-step style="min-height: 500px;" wz-title="page5">
+
+						<div class="col-lg-12">
+							<div class="input-control select" style="width: 100%; margin-top: 10px;">
+								<label data-toggle="tooltip" title="Sucursales/Instalaciones">Sucursales/Instalaciones</label>
+								<select id="unitreport-select"
+										data-ng-model="ngDialogData.dData.Sucursal.Id"
+										data-ng-options="suc.Id as suc.Name + '/' + suc.Region for suc in sucursales"
+										style="border: 1px #d9d9d9 solid;">
+									<option value="">Selecciona una Sucursal/Instalación</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-12 col-lg-12">
+							<label class="input-control checkbox block">
+								<input type="checkbox"
+									   data-ng-click=""
+									   data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.SellSeparated">
+								<span class="caption">Se vende por separado</span>
+								<span class="check pull-right"></span>
+							</label>
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="col-md-12 col-lg-12">
+							<label class="input-control checkbox block">
+								<input type="checkbox"
+									   data-ng-click=""
+									   data-toggle="tooltip" title="" data-placement="right" data-ng-model="ngDialogData.dData.CuentaEstadistica">
+								<span class="caption">Cuenta para Estadística</span>
+								<span class="check pull-right"></span>
+							</label>
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="input-control text" style="width: 100%; margin-top: 28px;">
+								<label data-toggle="tooltip" title="Decimales para Reporte" style="display: block">Decimales para Reporte</label>
+								<input placeholder="Decimales para Reporte" type="number" style="width: 100%; border: 1px #d9d9d9 solid;"
+									   data-ng-model="ngDialogData.dData.DecimalesReporte">
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

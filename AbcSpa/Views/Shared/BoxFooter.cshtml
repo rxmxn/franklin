@@ -1,0 +1,37 @@
+﻿<div class="box-footer text-center" style="height: 48px;">
+    
+    <div style="text-align: right; position: absolute; right: 0.55rem" ng-show="pageTotal > 10">
+        <label style="vertical-align: bottom; margin-bottom: 0.45rem; font-size: 0.8rem;">MOSTRAR: </label>
+        <div class="input-control select" style="width: 50px;"
+            data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">                
+            <select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSize" ng-change="RefreshList(1)">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>50</option>
+            </select>                
+        </div>
+    </div>
+    <div ng-show="pageTotal > pageSize">
+        <paging class="small"
+                page="currentPage"
+                page-size="pageSize"
+                total="pageTotal"
+                adjacent="1"
+                dots="..."
+                hide-if-empty="true"
+                show-prev-next="true"
+                show-first-last="true"
+                text-next-class="fa fa-angle-right"
+                text-prev-class="fa fa-angle-left"
+                text-first-class="fa fa-angle-double-left"
+                text-last-class="fa fa-angle-double-right"
+                text-title-page="P&aacute;gina {page}"
+                text-title-first="Inicio"
+                text-title-last="Fin"
+                text-title-next="Siguiente"
+                text-title-prev="Anterior"
+                paging-action="RefreshList(page)">
+        </paging>
+    </div>
+</div>

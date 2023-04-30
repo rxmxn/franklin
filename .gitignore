@@ -1,0 +1,9 @@
+.vs/
+AbcPersistent/bin/
+AbcPersistent/obj/
+AbcSpa/Content/uploads/Thumbs.db
+AbcSpa/bin/
+AbcSpa/obj/
+packages/
+/AbcSpa/App_Data
+/AbcSpa/Content/uploads

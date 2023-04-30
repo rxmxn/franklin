@@ -1,0 +1,86 @@
+﻿<div class="ngdialog-message" style="height: 500px;">
+	<div style="margin-left: 10px; margin-right: 10px;">
+		<h5 style="padding-bottom: 10px;">Reconocimientos Otorgados</h5>
+		<div class="row" style="min-height: 200px; overflow: auto;">
+
+			<div class="panel" style="width: 100%; margin-top: 10px; padding-left: 10px; padding-right: 10px;">
+				<div class="heading">
+					<span class="titleBarText">Reconocimientos Otorgados</span>
+				</div>
+				<div class="content" style="height: 350px; overflow-y: auto;">
+					<section>
+						<div class="row">
+							<div class="col-lg-10">
+								<div class="box-body" data-ng-if="!rOtorgs.length">
+									<div class="scroll-panel margin-left-10">
+										<p data-ng-if="isLoading">
+											<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+										</p>
+										<p data-ng-if="!isLoading">
+											<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+										</p>
+									</div>
+								</div>
+
+								<div class="box-header" style="padding: 0;" data-ng-if="rAdqs.length">
+									<div class="box-name">
+										<span class="icon mif-clipboard"></span>
+										<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+											Reconocimientos Adquiridos: {{rOtorgsTotal}}
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="box-tools pull-right">
+									<div class="box-name tableButtons">
+										<a href="" data-ng-click="addRec(ngDialogData.dData)" data-toggle="tooltip" title="Adicionar Reconocimiento">
+											<span class="fa fa-plus-circle iconStyle"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</section>
+					<div class="table-responsive" data-ng-if="rOtorgs.length">
+						<table class="table table-hover table-condensed table-responsive">
+							<thead>
+								<tr role="row">
+									<th style="width: 20%;">
+										Reconocimiento
+									</th>
+									<th style="width: 20%;">
+										Analista
+									</th>
+									<th style="width: 10%;">
+										Signatario
+									</th>
+									<th style="width: 10%; text-align: center;">
+										Parámetros
+									</th>
+								</tr>
+							</thead>
+							<tbody aria-relevant="all" aria-live="polite" role="alert">
+								<tr class="odd" data-ng-repeat="ro in rOtorgs"
+									ng-style="{'color': ro.Ack.Expired ? '#CCC7C7' : 'black'}">
+									<td>{{ro.Ack.Name}}{{ro.Enterprise !== null ? '/' + ro.Enterprise.Name : ''}}</td>
+									<td>{{ro.RecAdq.Annalist.Name}}</td>
+									<td>{{ro.RecAdq.TipoSignatario.Tipo}}</td>
+									<td style="text-align: center;"><span style="cursor: pointer; font-size: 1.2rem" ng-click="viewParams(ro.RecAdq.Annalist.Key, ro.Id, ro.Ack.Name, ro.Enterprise.Name)" class="mif-lab icon"></span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="ngdialog-buttons" style="margin-top: 20px;">
+				<button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()">
+					<i class="fa fa-check"></i>
+				</button>
+			</div>
+
+		</div>
+	</div>
+</div>

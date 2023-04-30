@@ -1,0 +1,581 @@
+﻿<ul class="sidebar {{compact}} " style="height: 100%; /*padding-left: 10px*/">
+	<li data-toggle="tooltip" title="Mostrar/Ocultar">
+		<a href="" ng-click="swap_sidebar()">
+			<span class="mif-pin icon"></span>
+			<span class="title">Ocultar</span>
+		</a>
+	</li>
+
+	@* Region *@
+	<li id="sucursales" data-toggle="tooltip" title="Instalaciones + Regiones + Mercados + Empresas" ng-if="regionAccess != -1">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[7].iconname}}"></span>
+			<span class="title">Regiones</span>
+			<span class="counter">{{counter.sucursalCount + counter.regionCount + counter.marketCount + counter.officeCount}}</span>
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(7, 'mif-library', counter.sucursalCount)" data-toggle="tooltip" title="Instalaciones">
+				<a ui-sref=".sucursal">
+					<span class="mif-library icon"></span>
+					<span class="title">Instalaciones</span>
+					<span class="counter">{{counter.sucursalCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(7, 'mif-map', counter.regionCount)" data-toggle="tooltip" title="Regiones">
+				<a ui-sref=".region">
+					<span class="mif-map icon"></span>
+					<span class="title">Regiones</span>
+					<span class="counter">{{counter.regionCount}}</span>
+				</a>
+			</li>
+
+			<li ui-sref-active="active" ng-click="iconselectedChange(7, 'mif-cabinet', counter.officeCount)" data-toggle="tooltip" title="Empresas">
+				<a ui-sref=".office">
+					<span class="mif-cabinet icon"></span>
+					<span class="title">Empresas</span>
+					<span class="counter">{{counter.officeCount}}</span>
+				</a>
+			</li>
+
+			<li ui-sref-active="active" ng-click="iconselectedChange(7, 'mif-shop', counter.marketCount)" data-toggle="tooltip" title="Mercados">
+				<a ui-sref=".market">
+					<span class="mif-shop icon"></span>
+					<span class="title">Mercados</span>
+					<span class="counter">{{counter.marketCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+	@* END Region *@
+
+	@* Users and Roles *@
+	<li id="user_roles" data-toggle="tooltip" title="Empleados + Roles" ng-if="(userAccess !== -1) && (roleAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[0].iconname}}"></span>
+			<span class="title">Seguridad</span>
+			@*<span class="counter">{{elementselected[0].count}}</span>*@
+			<span class="counter">{{counter.userCount + counter.roleCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.userCount}} + {{counter.roleCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(0, 'mif-users', counter.userCount)"
+				data-toggle="tooltip" title="Empleados">
+				<a ui-sref=".user">
+					<span class="icon mif-users"></span>
+					<span class="title">Empleados</span>
+					<span class="counter">{{counter.userCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(0, 'mif-organization', counter.roleCount)"
+				data-toggle="tooltip" title="Roles">
+				<a ui-sref=".role">
+					<span class="mif-organization icon"></span>
+					<span class="title">Roles</span>
+					<span class="counter">{{counter.roleCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" ng-if="(userAccess !== -1) && (roleAccess === -1)"
+		data-toggle="tooltip" title="Empleados">
+		<a ui-sref=".user">
+			<span class="mif-users icon"></span>
+			<span class="title">Empleados</span>
+			<span class="counter">{{counter.userCount}}</span>
+		</a>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" ng-if="(userAccess === -1) && (roleAccess !== -1)"
+		data-toggle="tooltip" title="Roles">
+		<a ui-sref=".role">
+			<span class="mif-organization icon"></span>
+			<span class="title">Roles</span>
+			<span class="counter">{{counter.roleCount}}</span>
+		</a>
+	</li>
+
+	@* END Users and Roles *@
+
+	@* Ack, Actions, Enterprises, Alcances, Ramas *@
+	<li id="reconocimientos" data-toggle="tooltip" title="Reconocimientos + Instituciones + Tipos de Reconocimientos + Alcances de Reconocimientos + Ramas" ng-if="ackAccess !== -1">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[3].iconname}}"></span>
+			<span class="title">Reconocimientos</span>
+			@*<span class="counter">{{elementselected[3].count}}</span>*@
+			<span class="counter">{{counter.enterpriseCount + counter.actionsCount + counter.ackCount + counter.alcancesCount + counter.ramaCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.enterpriseCount}} + {{counter.actionsCount}} + {{counter.ackCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(3, 'mif-clipboard', counter.ackCount)" data-toggle="tooltip" title="Reconocimientos">
+				<a ui-sref=".ack">
+					<span class="mif-clipboard icon"></span>
+					<span class="title">Reconocimientos</span>
+					<span class="counter">{{counter.ackCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(3, 'mif-location-city', counter.enterpriseCount)" data-toggle="tooltip" title="Instituciones">
+				<a ui-sref=".enterprises">
+					<span class="mif-location-city icon"></span>
+					<span class="title">Instituciones</span>
+					<span class="counter">{{counter.enterpriseCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(3, 'mif-school', counter.actionsCount)" data-toggle="tooltip" title="Tipos de Reconocimientos">
+				<a ui-sref=".actions">
+					<span class="mif-school icon"></span>
+					<span class="title">Tipos</span>
+					<span class="counter">{{counter.actionsCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(3, 'mif-unlink', counter.alcancesCount)" data-toggle="tooltip" title="Alcances de Reconocimientos">
+				<a ui-sref=".alcances">
+					<span class="mif-unlink icon"></span>
+		            <span class="title">Alcances</span>
+					<span class="counter">{{counter.alcancesCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(3, 'mif-florist', counter.ramaCount)" data-toggle="tooltip" title="Ramas" ng-if="(ramaAccess !== -1)">
+				<a ui-sref=".rama">
+					<span class="mif-florist icon"></span>
+					<span class="title">Ramas</span>
+					<span class="counter">{{counter.ramaCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+	@* End Ack, Actions, Enterprises, Alcances, Ramas *@
+
+	@* Analistas *@
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1,'', 0)" data-toggle="tooltip" title="Analistas"
+		ng-if="annalistAccess !== -1">
+		<a ui-sref=".annalist">
+			<span class="mif-user icon"></span>
+			<span class="title">Analistas</span>
+			<span class="counter">{{counter.annalistCount}}</span>
+		</a>
+	</li>
+	@* End Analistas *@
+
+    <!--Normas-->
+    <li ui-sref-active="active" ng-click="iconselectedChange(-1,'', 0)"@*ng-click="iconselectedChange(1, 'mif-traffic-cone', counter.normCount)"*@ data-toggle="tooltip" title="Normas">
+        <a ui-sref=".norm">
+            <span class="mif-traffic-cone icon"></span>
+            <span class="title">Normas</span>
+            <span class="counter">{{counter.normCount}}</span>
+        </a>
+    </li>
+<!--End Normas-->
+
+    @* AnalyticsArea, CentroCosto, UnidadAnalitica, AnnalistKey *@
+
+	<li id="analyticsarea" data-toggle="tooltip" title="Áreas Analíticas + Centros de Costo + Unidades Analíticas"
+		ng-if="analyticsareaAccess !== -1">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[4].iconname}}"></span>
+			<span class="title">Áreas Analíticas</span>
+			@*<span class="counter">{{elementselected[4].count}}</span>*@
+            <span class="counter">{{counter.centroCostoCount + counter.analyticsAreaCount + counter.unidadAnaliticaCount+counter.annalistKeyCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.annalistCount}} + {{counter.analyticsAreaCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(4, 'mif-broadcast', counter.analyticsAreaCount)" data-toggle="tooltip" title="Áreas Analíticas">
+				<a ui-sref=".analyticsarea">
+					<span class="mif-broadcast icon"></span>
+					<span class="title">Áreas Analíticas</span>
+					<span class="counter">{{counter.analyticsAreaCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(4, 'mif-creative-commons', counter.centroCostoCount)" data-toggle="tooltip" title="Centros de Costo">
+				<a ui-sref=".centrocosto">
+					<span class="mif-creative-commons icon"></span>
+					<span class="title">Centros de Costo</span>
+					<span class="counter">{{counter.centroCostoCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(4, 'mif-command', counter.unidadAnaliticaCount)" data-toggle="tooltip" title="Unidades Analíticas">
+				<a ui-sref=".unidadanalitica">
+					<span class="mif-command icon"></span>
+					<span class="title">Unidades Analíticas</span>
+					<span class="counter">{{counter.unidadAnaliticaCount}}</span>
+				</a>
+			</li>
+            <li ui-sref-active="active" ng-click="iconselectedChange(4, 'mif-key', counter.annalistKeyCount)" data-toggle="tooltip" title="Claves de Analistas">
+                <a ui-sref=".claveanalista">
+                    <span class="mif-key icon"></span>
+                    <span class="title">Claves de Analistas</span>
+                    <span class="counter">{{counter.annalistKeyCount}}</span>
+                </a>
+            </li>
+		</ul>
+	</li>
+	@* END AnalyticsArea, CentroCosto, UnidadAnalitica *@
+
+	@* Method, Container, Preserver, Residue, AnalyticsMethod, Material *@
+
+	<li id="methods" data-toggle="tooltip" title="Métodos + Envases + Preservadores + Tipos de Desechos + Métodos Analíticos + Materiales"
+		ng-if="(methodAccess !== -1) && (containerAccess !== -1) && (preserverAccess !== -1) && (residueAccess !== -1) && (analyticsmethodAccess !== -1) && (materialAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[2].iconname}}"></span>
+			<span class="title">M&eacute;todos</span>
+			@*<span class="counter">{{elementselected[2].count}}</span>*@
+			<span class="counter">{{counter.methodCount + counter.containerCount + counter.preserverCount + counter.residueCount + counter.analyticsMethodCount + counter.materialCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.methodCount}} + {{counter.containerCount}} + {{counter.preserverCount}} + {{counter.residueCount}} + {{counter.analyticsMethodCount}} + {{counter.materialCount}}</span>*@
+		</a>
+
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-list', counter.methodCount)" data-toggle="tooltip" title="Métodos">
+				<a ui-sref=".method">
+					<span class="mif-list icon"></span>
+					<span class="title">M&eacute;todos</span>
+					<span class="counter">{{counter.methodCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-gift', counter.containerCount)" data-toggle="tooltip" title="Envases">
+				<a ui-sref=".container">
+					<span class="mif-gift icon"></span>
+					<span class="title">Envases</span>
+					<span class="counter">{{counter.containerCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-magic-wand', counter.preserverCount)" data-toggle="tooltip" title="Preservadores">
+				<a ui-sref=".preserver">
+					<span class="mif-magic-wand icon"></span>
+					<span class="title">Preservadores</span>
+					<span class="counter">{{counter.preserverCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-bin', counter.residueCount)" data-toggle="tooltip" title="Tipos de Desechos">
+				<a ui-sref=".residue">
+					<span class="mif-bin icon"></span>
+					<span class="title">Tipos de Desechos</span>
+					<span class="counter">{{counter.residueCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-calculator2', counter.analyticsMethodCount)" data-toggle="tooltip" title="Técnicas Analíticas">
+				<a ui-sref=".analyticsmethod">
+					<span class="mif-calculator2 icon"></span>
+					<span class="title">T&eacute;cnicas Anal&iacute;ticas</span>
+					<span class="counter">{{counter.analyticsMethodCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(2, 'mif-cog', counter.materialCount)" data-toggle="tooltip" title="Materiales">
+				<a ui-sref=".material">
+					<span class="mif-cog icon"></span>
+					<span class="title">Materiales</span>
+					<span class="counter">{{counter.materialCount}}</span>
+				</a>
+			</li>
+            <!--Normas-->
+            <li ui-sref-active="active" ng-click="iconselectedChange(-1,'', 0)" @*ng-click="iconselectedChange(1, 'mif-traffic-cone', counter.normCount)"*@ data-toggle="tooltip" title="Status">
+                <a ui-sref=".status">
+                    <span class="mif-bookmarks icon"></span>
+                    <span class="title">Status</span>
+                    <span class="counter">{{counter.statusCount}}</span>
+                </a>
+            </li>
+            <!--End Normas-->
+		</ul>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Métodos"
+		ng-if="(methodAccess !== -1) && ((containerAccess === -1) || (preserverAccess === -1) || (residueAccess === -1) || (analyticsmethodAccess === -1) || (materialAccess === -1))">
+		<a ui-sref=".method">
+			<span class="mif-list icon"></span>
+			<span class="title">M&eacute;todos</span>
+			<span class="counter">{{counter.methodCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Envases"
+		ng-if="(containerAccess !== -1) && ((methodAccess === -1) || (preserverAccess === -1) || (residueAccess === -1) || (analyticsmethodAccess === -1) || (materialAccess === -1))">
+		<a ui-sref=".container">
+			<span class="mif-gift icon"></span>
+			<span class="title">Envases</span>
+			<span class="counter">{{counter.containerCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Preservadores"
+		ng-if="(preserverAccess !== -1) && ((containerAccess === -1) || (methodAccess === -1) || (residueAccess === -1) || (analyticsmethodAccess === -1) || (materialAccess === -1))">
+		<a ui-sref=".preserver">
+			<span class="mif-magic-wand icon"></span>
+			<span class="title">Preservadores</span>
+			<span class="counter">{{counter.preserverCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Tipos de Desechos"
+		ng-if="(residueAccess !== -1) && ((containerAccess === -1) || (preserverAccess === -1) || (methodAccess === -1) || (analyticsmethodAccess === -1) || (materialAccess === -1))">
+		<a ui-sref=".residue">
+			<span class="mif-bin icon"></span>
+			<span class="title">Tipos de Desechos</span>
+			<span class="counter">{{counter.residueCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Métodos Analíticos"
+		ng-if="(analyticsmethodAccess !== -1) && ((containerAccess === -1) || (preserverAccess === -1) || (residueAccess === -1) || (methodAccess === -1) || (materialAccess === -1))">
+		<a ui-sref=".analyticsmethod">
+			<span class="mif-calculator2 icon"></span>
+			<span class="title">M&eacute;todos Anal&iacute;ticos</span>
+			<span class="counter">{{counter.analyticsMethodCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Materiales"
+		ng-if="(materialAccess !== -1) && ((containerAccess === -1) || (preserverAccess === -1) || (residueAccess === -1) || (methodAccess === -1) || (analyticsmethodAccess === -1))">
+		<a ui-sref=".material">
+			<span class="mif-cog icon"></span>
+			<span class="title">Materiales</span>
+			<span class="counter">{{counter.materialCount}}</span>
+		</a>
+	</li>
+
+	@* END Method, Container, Preserver, Residue, AnalyticsMethod, Material *@
+
+	@* Clasificaciones Quimicas *@
+
+	<li id="clasificacionquimica" data-toggle="tooltip" title="Clasificaciones Químicas"
+		ng-if="(clasificacionquimicaAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[8].iconname}}"></span>
+			<span class="title">Clas. Químicas</span>
+			@*<span class="counter">{{elementselected[1].count}}</span>*@
+			<span class="counter">{{counter.clasificacionQuimica1Count + counter.clasificacionQuimica2Count +  counter.clasificacionQuimica3Count}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.baseParamCount}} + {{counter.baseParamFamilyCount}} + {{counter.measureUnitCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(8, 'mif-weather', counter.clasificacionQuimica1Count)" data-toggle="tooltip" title="Clasificaciones Químicas 1">
+				<a ui-sref=".clasificacionquimica1">
+					<span class="mif-weather icon"></span>
+					<span class="title">Clas. Químicas 1</span>
+					<span class="counter">{{counter.clasificacionQuimica1Count}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(8, 'mif-weather2', counter.clasificacionQuimica2Count)" data-toggle="tooltip" title="Clasificaciones Químicas 2">
+				<a ui-sref=".clasificacionquimica2">
+					<span class="mif-weather2 icon"></span>
+					<span class="title">Clas. Químicas 2</span>
+					<span class="counter">{{counter.clasificacionQuimica2Count}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(8, 'mif-weather3', counter.clasificacionQuimica3Count)" data-toggle="tooltip" title="Clasificaciones Químicas 3">
+				<a ui-sref=".clasificacionquimica3">
+					<span class="mif-weather3 icon"></span>
+					<span class="title">Clas. Químicas 3</span>
+					<span class="counter">{{counter.clasificacionQuimica3Count}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	@* END Clasificaciones Quimicas *@
+
+	@* BaseParam, MeasureUnit *@
+
+	<li id="baseparameters" data-toggle="tooltip" title="Parámetros Base"
+		ng-if="(baseparamAccess !== -1) && (measureunitsAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[5].iconname}}"></span>
+			<span class="title">Par&aacute;metros Base</span>
+			@*<span class="counter">{{elementselected[1].count}}</span>*@
+			<span class="counter">{{counter.baseParamCount + counter.measureUnitCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.baseParamCount}} + {{counter.baseParamFamilyCount}} + {{counter.measureUnitCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(5, 'mif-air', counter.baseParamCount)" data-toggle="tooltip" title="Parámetros Base">
+				<a ui-sref=".baseparam">
+					<span class="mif-air icon"></span>
+					<span class="title">Parámetros Bases</span>
+					<span class="counter">{{counter.baseParamCount}}</span>
+				</a>
+			</li>
+			@*<li ui-sref-active="active" ng-click="iconselectedChange(5, 'mif-windy', counter.measureUnitCount)" data-toggle="tooltip" title="Familias de parámetros">
+					<a ui-sref=".baseparamfamily">
+						<span class="mif-windy icon"></span>
+						<span class="title">Familias</span>
+						<span class="counter">{{counter.baseParamFamilyCount}}</span>
+					</a>
+				</li>*@
+			<li ui-sref-active="active" ng-click="iconselectedChange(5, 'mif-multitrack-audio', counter.measureUnitCount)" data-toggle="tooltip" title="Unidades para Reporte">
+				<a ui-sref=".units">
+					<span class="mif-multitrack-audio icon"></span>
+					<span class="title">Unidades</span>
+					<span class="counter">{{counter.measureUnitCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Parámetros Base"
+		ng-if="(baseparamAccess !== -1) && (measureunitsAccess === -1)">
+		<a ui-sref=".baseparam">
+			<span class="mif-air icon"></span>
+			<span class="title">Parámetros Base</span>
+			<span class="counter">{{counter.baseParamCount}}</span>
+		</a>
+	</li>
+	@*<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Familias de parámetros"
+			ng-if="(baseparamfamilyAccess !== -1) && ((baseparamAccess === -1) || (measureunitsAccess === -1))">
+			<a ui-sref=".baseparamfamily">
+				<span class="mif-windy icon"></span>
+				<span class="title">Familias</span>
+				<span class="counter">{{counter.baseParamFamilyCount}}</span>
+			</a>
+		</li>*@
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Unidades para Reporte"
+		ng-if="(measureunitsAccess !== -1) && (baseparamAccess === -1)">
+		<a ui-sref=".units">
+			<span class="mif-multitrack-audio icon"></span>
+			<span class="title">Unidades</span>
+			<span class="counter">{{counter.measureUnitCount}}</span>
+		</a>
+	</li>
+
+	@* END BaseParam, BaseParamFamily, MeasureUnit, MeasureUnitReport *@
+
+	@* Parameter, Group, Package, Norm, Currency *@
+
+	<li id="parameters" data-toggle="tooltip" title="Parámetros"
+		ng-if="(paramAccess !== -1) && (packageAccess !== -1) && (groupAccess !== -1) && (normAccess !== -1) && (currencyAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[1].iconname}}"></span>
+			<span class="title">Par&aacute;metros</span>
+			@*<span class="counter">{{elementselected[1].count}}</span>*@
+			<span class="counter">{{counter.paramCount + counter.groupCount + counter.packageCount @*+ counter.normCount*@ + counter.currencyCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.paramCount}} + {{counter.groupCount}} + {{counter.packageCount}} + {{counter.normCount}} + {{counter.currencyCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(1, 'mif-lab', counter.paramCount)" data-toggle="tooltip" title="Parámetros">
+				<a ui-sref=".param">
+					<span class="mif-lab icon"></span>
+					<span class="title">Parámetros</span>
+					<span class="counter">{{counter.paramCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(1, 'mif-stack', counter.groupCount)" data-toggle="tooltip" title="Grupos">
+				<a ui-sref=".groups">
+					<span class="mif-stack icon"></span>
+					<span class="title">Grupos</span>
+					<span class="counter">{{counter.groupCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(1, 'mif-suitcase', counter.packageCount)" data-toggle="tooltip" title="Paquetes">
+				<a ui-sref=".package">
+					<span class="mif-suitcase icon"></span>
+					<span class="title">Paquetes</span>
+					<span class="counter">{{counter.packageCount}}</span>
+				</a>
+			</li>
+
+			<li ui-sref-active="active" ng-click="iconselectedChange(1, 'mif-thermometer2', counter.maxPermitedLimitCount)" data-toggle="tooltip" title="Límite máximo permisible">
+				<a ui-sref=".lmp">
+					<span class="mif-thermometer2 icon"></span>
+					<span class="title">Límites Permisibles</span>
+					<span class="counter">{{counter.maxPermitedLimitCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(1, 'mif-coins', counter.currencyCount)" data-toggle="tooltip" title="Monedas">
+				<a ui-sref=".currency">
+					<span class="mif-coins icon"></span>
+					<span class="title">Monedas</span>
+					<span class="counter">{{counter.currencyCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Paquetes"
+		ng-if="(packageAccess !== -1) && ((paramAccess === -1) || (groupAccess === -1) || (normAccess === -1) || (currencyAccess === -1))">
+		<a ui-sref=".package">
+			<span class="mif-suitcase icon"></span>
+			<span class="title">Paquetes</span>
+			<span class="counter">{{counter.packageCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Grupos"
+		ng-if="(groupAccess !== -1) && ((paramAccess === -1) || (packageAccess === -1) || (normAccess === -1) || (currencyAccess === -1))">
+		<a ui-sref=".groups">
+			<span class="mif-stack icon"></span>
+			<span class="title">Grupos</span>
+			<span class="counter">{{counter.groupCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Parámetros"
+		ng-if="(paramAccess !== -1) && ((groupAccess === -1) || (packageAccess === -1) || (normAccess === -1) || (currencyAccess === -1))">
+		<a ui-sref=".param">
+			<span class="mif-lab icon"></span>
+			<span class="title">Parámetros</span>
+			<span class="counter">{{counter.paramCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Normas"
+		ng-if="(normAccess !== -1) && ((groupAccess === -1) || (packageAccess === -1) || (paramAccess === -1) || (currencyAccess === -1))">
+		<a ui-sref=".norm">
+			<span class="mif-traffic-cone icon"></span>
+			<span class="title">Normas</span>
+			<span class="counter">{{counter.normCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Monedas"
+		ng-if="(currencyAccess !== -1) && ((groupAccess === -1) || (packageAccess === -1) || (paramAccess === -1) || (normAccess === -1))">
+		<a ui-sref=".currency">
+			<span class="mif-coins icon"></span>
+			<span class="title">Monedas</span>
+			<span class="counter">{{counter.currencyCount}}</span>
+		</a>
+	</li>
+	@* END Parameter, Group, Package, Norm, Currency *@
+
+	@* Matrix, BaseMatrix *@
+	<li id="matrixes" data-toggle="tooltip" title="Matrices + Grupo de Matrices"
+		ng-if="(matrixAccess !== -1) && (basematrixAccess !== -1)">
+		<a class="dropdown-toggle">
+			<span class="icon {{elementselected[6].iconname}}"></span>
+			<span class="title">Matrices</span>
+			@*<span class="counter">{{elementselected[6].count}}</span>*@
+			<span class="counter">{{counter.matrixCount + counter.basematrixCount}}</span>
+			@*<span class="counter" ng-if="!compact">{{counter.matrixCount}} + {{counter.basematrixCount}}</span>*@
+		</a>
+		<ul class="sidebar" data-role="dropdown">
+			<li ui-sref-active="active" ng-click="iconselectedChange(6, 'mif-windy4', counter.matrixCount)" data-toggle="tooltip" title="Matriz">
+				<a ui-sref=".matrixes">
+					<span class="mif-windy4 icon"></span>
+					<span class="title">Matrices</span>
+					<span class="counter">{{counter.matrixCount}}</span>
+				</a>
+			</li>
+			<li ui-sref-active="active" ng-click="iconselectedChange(6, 'mif-windy2', counter.basematrixCount)" data-toggle="tooltip" title="Grupo de Matrices">
+				<a ui-sref=".basematrix">
+					<span class="mif-windy2 icon"></span>
+					<span class="title">Grupo de Matrices</span>
+					<span class="counter">{{counter.basematrixCount}}</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Matriz"
+		ng-if="(matrixAccess !== -1) && (basematrixAccess === -1)">
+		<a ui-sref=".matrixes">
+			<span class="mif-windy4 icon"></span>
+			<span class="title">Matrices</span>
+			<span class="counter">{{counter.matrixCount}}</span>
+		</a>
+	</li>
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Matrices Genéricas"
+		ng-if="(matrixAccess === -1) && (basematrixAccess !== -1)">
+		<a ui-sref=".basematrix">
+			<span class="mif-windy2 icon"></span>
+			<span class="title">Matrices Genéricas</span>
+			<span class="counter">{{counter.basematrixCount}}</span>
+		</a>
+	</li>
+	@* END Matrix, BaseMatrix *@
+
+	<li ui-sref-active="active" ng-click="iconselectedChange(-1, '', 0)" data-toggle="tooltip" title="Tipos de Servicio"
+		ng-if="(tiposervicioAccess !== -1)">
+		<a ui-sref=".tiposervicio">
+			<span class="mif-folder icon"></span>
+			<span class="title">Tipos de Servicio</span>
+			<span class="counter">{{counter.tiposervicioCount}}</span>
+		</a>
+	</li>
+
+</ul>

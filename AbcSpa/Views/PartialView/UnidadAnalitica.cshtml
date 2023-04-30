@@ -1,0 +1,192 @@
+﻿<div class="main-scroll">
+    <div class="padding10" style="position: absolute; width: 99%;">
+        <h6 class="text-light margin0 text-uppercase">
+            Unidades Analíticas
+            <!-- <span class="ani-hover-vertical ani-slow icon mif-command place-right"></span> -->
+        </h6>
+        <hr class="thin bg-grayLighter">
+    </div>
+
+    <div class="col-lg-12" style="padding-top: 2rem; height: 100%;">
+        <div class="row" style="height: 100%;">
+
+            <!-- Sidebar -->
+            @*<div ng-include="'Shared/SidebarFilter'" class="col-lg-3"></div>*@
+            <div class="col-lg-2" ng-show="panels[0].state" style="height: 100%;">
+                @Html.Partial("SidebarFilter")
+                <!-- TODO:creo que podemos hacerlo con una directiva perfectamente (talvez revisar transclude property) -->
+            </div>
+            <!-- end of Sidebar -->
+
+            <div class="col-lg-12" minimize-directive style="height: 100%;">
+                <div class="panel" style="height: 100%; padding-bottom: 3rem;">
+
+                    <div class="heading">
+                        <span class="titleBarText">{{panels[1].name}}</span>
+                        <!--<span class="minimize" ng-click="minimize(panels[1])"></span>-->
+                    </div>
+
+                    <div class="content" style="height: 95%; overflow: auto;">
+                        <section>
+                            @Html.Partial("BoxHeader")
+                        </section>
+
+                        <!-- Enterprise Table -->
+                        <div class="box-body" data-ng-if="elementsList.length" style="height: 76%; overflow: auto;">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-condensed table-responsive">
+                                    <thead>
+                                        <tr role="row">
+                                            <th style="width: 20%; cursor: pointer;" ng-click="orderByField='Key'; reverseSort = !reverseSort"
+                                                data-toggle="tooltip" title="Clave de la Unidad Analítica">
+                                                Clave
+                                                <span ng-show="orderByField == 'Key'" style="margin-left: 5px; width: 10px;">
+                                                    <span ng-show="!reverseSort">
+                                                        <i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+                                                    </span>
+                                                    <span ng-show="reverseSort">
+                                                        <i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+                                                    </span>
+                                                </span>
+                                            </th>
+                                            <th style="width: 50%">
+                                                Descripci&oacute;n
+                                            </th>
+                                            <th style="width: 20%; cursor: pointer;" ng-click="orderByField='AnnalistKey'; reverseSort = !reverseSort">
+                                                Claves de Analistas
+                                                <span ng-show="orderByField == 'AnnalistKey'" style="margin-left: 5px; width: 10px;">
+                                                    <span ng-show="!reverseSort">
+                                                        <i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+                                                    </span>
+                                                    <span ng-show="reverseSort">
+                                                        <i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+                                                    </span>
+                                                </span>
+                                            </th>
+                                            <th style="width: 5%; text-align: center;">Editar</th>
+                                            <th style="width: 5%; text-align: center;">Dar baja/alta</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                        <tr class="odd" data-ng-repeat="ua in elementsList.slice( ((currentPage-1)*pageSize), ((currentPage)*pageSize) ) | filter:search:strict | orderBy:orderByField:reverseSort">
+                                            @* .slice( ((currentPage-1)*pageSize), ((currentPage)*pageSize) ) *@
+                                            <td>{{ua.Key}}</td>
+                                            <td>{{ua.Description}}</td>
+                                            <td>
+                                                <span ng-repeat="ak in ua.AnnalistKeys">
+                                                    {{ak.Clave}}{{ua.AnnalistKeys[ua.AnnalistKeys.length -1].Clave !== ak.Clave ? ',' : ''}}
+                                                </span>
+                                            </td>
+                                            <td ng-if="accessLevel === 1" style="text-align: center;">
+                                                <a href="" data-ng-click="edit(ua)" data-toggle="tooltip" title="Editar">
+                                                    <span class="icon mif-pencil" style="color: #1b6eae; font-size: 1rem;"></span>
+                                                </a>
+                                            </td>
+                                            <td ng-if="accessLevel === 1" style="text-align: center;">
+                                                <a href="" data-toggle="tooltip" title="{{ua.Active ? 'Dar baja' : 'Dar alta'}}" data-ng-click="setActivation(ua, !ua.Active)">
+                                                    <i ng-class="[ua.Active ? 'fa fa-thumbs-down' : 'fa fa-thumbs-up']"
+                                                       ng-style="{'color': ua.Active ?'red':'green'}" style="font-size:24px;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of Enterprise Table -->
+
+                        <section>
+                            @Html.Partial("BoxFooter")
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <ul class="t-menu horizontal compact taskbar_panels">
+        <li ng-repeat="p in panels" style="margin-right: 3px;">
+            <a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+        </li>
+    </ul>
+
+</div>
+
+<script type="text/ng-template" id="editDialog">
+    <div class="ngdialog-message">
+        <form>
+            <div style="margin-left: 10px; margin-right:10px;">
+                <h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+                <div class="row" style="min-height: 200px; height: 500px; overflow: auto;">
+
+                    <div wizard on-finish="acceptDialog()">
+
+                        <div wz-step style="min-height: 500px; max-height: 500px; height: 450px !important;">
+                            <div class="col-md-6 col-lg-6" style="padding-left: 0; padding-right: 5px;">
+                                <div class="input-control text" style="margin-top: 30px; width: 100%;">
+                                    <label>Clave de la Unidad Analítica</label>
+                                    <input placeholder="Clave de la Unidad Analítica" type="text"
+                                           style="margin-top: 10px; padding: 0 0 0 0.3125rem"
+                                           data-ng-model="ngDialogData.dData.Key">
+                                    @* TODO: adicionar comprobacion de unique *@
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12" style="padding:0;">
+                                <div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+                                    <label>Descripci&oacute;n</label>
+                                    <textarea placeholder="Descripción" type="text" style="max-width: 100%;"
+                                              data-ng-model="ngDialogData.dData.Description"></textarea>
+                                </div>
+                            </div>
+                                                                                    
+                        </div>
+
+                        <div wz-step style="min-height: 500px; max-height: 500px;">
+                            <div class="panel" style="width:100%; margin-top: 10px;">
+                                <div class="heading">
+                                    <span class="titleBarText">Claves de Analista</span>
+                                </div>
+                                <div class="content" style="height:350px; overflow-y:auto;">
+
+                                    <div class="box-body" data-ng-if="annalistkeyList.length" style="height: 76%; overflow: auto;">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover table-condensed table-responsive">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th style="width: 95%; cursor: pointer; text-align: Left;" ng-click="orderByField='Name'; reverseSort = !reverseSort">
+                                                            Claves
+                                                        </th>
+                                                        <th style="width: 5%;">&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                                    <tr class="odd" data-ng-repeat="ak in annalistkeyList">
+                                                        <td style="text-align: Left;">
+                                                            {{ak.Clave}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <label class="input-control checkbox block">
+                                                                <input type="checkbox" @*data-ng-click="regionChecked(suc)"*@ ng-model="ak.checked">
+                                                                <span class="check"></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

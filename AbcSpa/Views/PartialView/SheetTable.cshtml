@@ -1,0 +1,611 @@
+﻿<div class="main-scroll" style="overflow: hidden;">
+    <div class="padding10" style="position: absolute; width: 97%;">
+        <h6 class="text-light margin0" style="margin-left: 1.25rem;">
+            ELEMENTOS
+            <!-- <span class="ani-hover-vertical ani-slow icon mif-home place-right placeRigthHeaderIcon"></span> -->
+        </h6>
+
+        @*<hr class="thin bg-grayLighter" style="margin-left: 0.3rem">*@
+    </div>
+    <div style="height: 100%;" ng-style="{'padding-bottom': (taskbar===true) ? 2.3 + 'rem' : 0}">
+        <div class="col-lg-12" style="height: 100%; padding-top: 2rem; overflow: auto;">
+            <div class="row" style="margin: 0; height: 100%;">
+                <div class="col-lg-12" style="padding: 0; height: 100%;" minimize-sheet>
+
+                    <div ng-show="panels[0].state" style="margin-bottom: 10px;">
+                        <div class="panel">
+                            <div class="heading">
+                                <span class="titleBarText">{{panels[0].name}}</span>
+                                <span class="minimize" ng-click="minimize(panels[0])"></span>
+                            </div>
+                            <div class="content padding10">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row" style="margin-left: 15px;">
+                                            <label style="margin-right: 15px;">Instalaciones</label>
+                                            <input type="checkbox" name="mycheckbox" data-on-color="primary" data-off-color="success" data-on="success" data-label-width="1"
+                                                   data-on-text="<span class='icon mif-dollars'></span>" data-off-text="<span class='icon mif-clipboard'></span>" data-size="mini"
+                                            bootstrap-switch data-ng-model="RecVR" data-ng-change="RecVRChange(RecVR)">
+                                            <span style="vertical-align: middle;" id="menulink">{{RecVR === true ? 'Venden/Realizan' : 'Reconocimientos'}}</span>
+                                        </div>
+                                        <hr class="thin bg-grayLighter">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Línea de Negocio</label>
+                                        <hr class="thin bg-grayLighter">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Matrices</label>
+                                        <hr class="thin bg-grayLighter">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Clasificaciones Químicas</label>
+                                        <hr class="thin bg-grayLighter">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;">{{RecVR === true ? 'Venden/Realizan' : 'Reconocimientos'}}</button>
+                                            <div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 280px;">
+                                                <div class="clearfix" data-ng-repeat="selection in instalacion1">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" ng-model="selection.selected"
+                                                               data-ng-click="selectInstalacion1(selection)"
+                                                               data-placement="right">
+                                                        <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                            <span class="col-md-12">
+                                                                {{selection.name}}
+                                                            </span>
+                                                        </span>
+                                                        <span class="check pull-right col-md-1"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                    ng-disabled="!(instalacion2.length>0)">
+                                                {{RecVR === true ? 'Venden' : 'Con Rec.'}}
+                                            </button>
+                                            <div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                <div class="clearfix" data-ng-repeat="selection in instalacion2">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" ng-model="selection.selected"
+                                                               data-ng-click="selectElement(selection, 'sucursal')"
+                                                               data-placement="right">
+                                                        <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                            <span class="col-md-12">
+                                                                {{selection.name}}
+                                                            </span>
+                                                        </span>
+                                                        <span class="check pull-right col-md-1"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                    ng-disabled="!(instalacion3.length>0)">
+                                                {{RecVR === true ? 'Realizan' : 'Sin Rec.'}}
+                                            </button>
+                                            <div class="split-content d-menu padding10" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                <div class="clearfix" data-ng-repeat="selection in instalacion3">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" ng-model="selection.selected"
+                                                               data-ng-click="selectElement(selection, 'sucursal')"
+                                                               data-placement="right">
+                                                        <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                            <span class="col-md-12">
+                                                                {{selection.name}}
+                                                            </span>
+                                                        </span>
+                                                        <span class="check pull-right col-md-1"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                    ng-disabled="!(markets.length>0)">
+                                                Mercado
+                                            </button>
+                                            <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                <div class="clearfix" data-ng-repeat="selection in markets">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" ng-model="selection.selected"
+                                                               data-ng-click="selectElement(selection, 'market')"
+                                                               data-placement="right">
+                                                        <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                            <span class="col-md-12">
+                                                                {{selection.name}}
+                                                            </span>
+                                                        </span>
+                                                        <span class="check pull-right col-md-1"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                    ng-disabled="!(matrixes.length>0)">
+                                                Matrices
+                                            </button>
+                                            <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                <div class="clearfix" data-ng-repeat="selection in matrixes">
+                                                    <label class="input-control checkbox block">
+                                                        <input type="checkbox" ng-model="selection.selected"
+                                                               data-ng-click="selectElement(selection, 'matrix')"
+                                                               data-placement="right">
+                                                        <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                            <span class="col-md-12">
+                                                                {{selection.name}}
+                                                            </span>
+                                                        </span>
+                                                        <span class="check pull-right col-md-1"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                            <button class="button dropdown-toggle" style="height: inherit; width: inherit;">
+                                                @*ng-disabled="!(clasquims.length>0)"*@
+                                                Clas. Químicas
+                                            </button>
+                                            <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 1050px; max-width: 500px;">
+
+                                                <div class="col-lg-4">
+                                                    <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                                        <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                                ng-disabled="!(clasquims1.length>0)">
+                                                            Nivel 1
+                                                        </button>
+                                                        <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                            <div class="clearfix" data-ng-repeat="selection in clasquims1">
+                                                                <label class="input-control checkbox block">
+                                                                    <input type="checkbox" ng-model="selection.selected"
+                                                                           data-ng-click="selectElement(selection, 'clasquim1')"
+                                                                           data-placement="right">
+                                                                    <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                                        <span class="col-md-12">
+                                                                            {{selection.name}}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="check pull-right col-md-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                                        <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                                ng-disabled="!(clasquims2.length>0)">
+                                                            Nivel 2
+                                                        </button>
+                                                        <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                            <div class="clearfix" data-ng-repeat="selection in clasquims2">
+                                                                <label class="input-control checkbox block">
+                                                                    <input type="checkbox" ng-model="selection.selected"
+                                                                           data-ng-click="selectElement(selection, 'clasquim2')"
+                                                                           data-placement="right">
+                                                                    <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                                        <span class="col-md-12">
+                                                                            {{selection.name}}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="check pull-right col-md-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="dropdown-button" style="height: 1.61rem; margin-top: 0.455rem; width: 100%; float: left;">
+                                                        <button class="button dropdown-toggle" style="height: inherit; width: inherit;"
+                                                                ng-disabled="!(clasquims3.length>0)">
+                                                            Nivel 3
+                                                        </button>
+                                                        <div class="split-content d-menu padding10 place-right" data-role="dropdown" data-no-close="true" style="width: 350px; max-width: 500px;">
+                                                            <div class="clearfix" data-ng-repeat="selection in clasquims3">
+                                                                <label class="input-control checkbox block">
+                                                                    <input type="checkbox" ng-model="selection.selected"
+                                                                           data-ng-click="selectElement(selection, 'clasquim3')"
+                                                                           data-placement="right">
+                                                                    <span class="caption col-md-10" style="margin: 0; padding: 0;">
+                                                                        <span class="col-md-12">
+                                                                            {{selection.name}}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="check pull-right col-md-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-repeat="fp in filteredPanels" ng-style="{'height': fp.state ?'100%':'0', 'margin-bottom': fp.state ? '10px':'0'}">
+                        <div ng-show="fp.state" style="height: 100%;">
+                            <div class="panel" style="height: 100%;" fullscreen="fp.isFullscreen">
+                                <div class="heading">
+                                    <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown-{{fp.index}}"
+                                         style="color: white; cursor: pointer;"
+                                         data-toggle="tooltip" title="Filtrar elementos de {{fp.name}}">
+                                        <div class="app-bar-drop-container"
+                                             data-role="dropdown"
+                                             data-toggle-element="#toggle-tiles-dropdown-{{fp.index}}"
+                                             data-no-close="true"
+                                             style="width: 10.2rem; margin-top: 0.4rem; border: 2px solid #005696;
+											 margin-left: -8px; text-align: left;">
+                                            <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                                <div class="row" style="font-size: 0.775rem;">
+                                                    <div class="col-lg-12">
+                                                        <label style="margin: 10px 0px 0px 0;">Elementos a mostrar</label>
+                                                        <div style="display: block; margin: 5px 5px 10px 0;">
+                                                            <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                            bootstrap-switch data-ng-model="fp.viewParameters" data-ng-change="fp.RefreshList(1)">
+                                                            <span style="vertical-align: middle;" id="menulink">Ver Parámetros</span>
+                                                        </div>
+                                                        <div style="display: block; margin: 5px 5px 10px 0;">
+                                                            <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                            bootstrap-switch data-ng-model="fp.viewGroups" data-ng-change="fp.RefreshList(1)">
+                                                            <span style="vertical-align: middle;" id="menulink">Ver Grupos</span>
+                                                        </div>
+                                                        <div style="display: block; margin: 5px 5px 10px 0;">
+                                                            <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                                   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                            bootstrap-switch data-ng-model="fp.viewPackages" data-ng-change="fp.RefreshList(1)">
+                                                            <span style="vertical-align: middle;" id="menulink">Ver Paquetes</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="titleBarText" style="margin-left: 1.825rem;">{{fp.name}}</span>
+                                    <span class="minimize" ng-if="!fp.isFullscreen" ng-click="minimize(panels[fp.index])"
+                                          style="right: 2.625rem;"
+                                          data-toggle="tooltip" title="Minimizar {{fp.name}}"></span>
+                                    <span class="{{fp.isFullscreen?'restoreDown':'maximize'}}" ng-click="fp.toggleFullScreen()"
+                                          data-toggle="tooltip" title="{{fp.isFullscreen?'Restaurar ' + fp.name:'Maximizar ' + fp.name}}"></span>
+                                </div>
+                                <div class="content" style="padding: 0; overflow: auto; height: 94%;">
+
+                                    <div class="box-body" data-ng-if="!fp.elementsList.length" style="padding: 5px;">
+                                        <div class="scroll-panel margin-left-10">
+                                            <p data-ng-if="fp.isLoading">
+                                                <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                                            </p>
+                                            <p data-ng-if="!fp.isLoading">
+                                                <i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Elements Table -->
+                                    <div class="box-body" data-ng-if="fp.elementsList.length"
+                                         ng-style="{'height': (fp.page_total<=10)? '96%': '90%'}">
+
+                                        <div class="row" style="margin: 0;">
+                                            <div class="box-name tableActiveDeactiveElementText">
+                                                <span class="icon mif-flow-cascade"></span>
+                                                <span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+                                                    {{boxHeaderTitleActive}}: {{fp.page_total}}
+                                                </span>
+                                            </div>
+
+                                            <div class="box-tools pull-right" style="margin-right: 0.2rem;">
+
+                                                <div ng-if="!fp.isFullscreen" class="box-name tableButtons">
+                                                    <a href="" data-ng-click="fp.printReportDialog(true)" data-toggle="tooltip" title="{{(fp.generatingEXCELFile || fp.generatingPDFFile)?'Generando archivo, por favor espere':'Generar archivo excel'}}">
+                                                        <span class="icon {{(fp.generatingEXCELFile)?'mif-spinner mif-ani-spin':'mif-file-excel'}} iconStyle"></span>
+                                                    </a>
+                                                </div>
+                                                <div ng-if="!fp.isFullscreen" class="box-name tableButtons" data-ng-disabled="fp.generatingPDFFile || fp.generatingEXCELFile">
+                                                    <a href="" data-ng-click="fp.printReportDialog(false)" data-toggle="tooltip" title="{{(fp.generatingPDFFile || fp.generatingEXCELFile)?'Generando archivo, por favor espere':'Generar archivo pdf'}}">
+                                                        <span class="icon  {{(fp.generatingPDFFile)?'mif-spinner mif-ani-spin':'mif-file-pdf'}} iconStyle"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="box-name tableButtons">
+                                                    <a href="" data-ng-click="fp.my_tree.expand_all()" data-toggle="tooltip" title="Expandir todo">
+                                                        <span class="icon  mif-enlarge2 iconStyle"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="box-name tableButtons">
+                                                    <a href="" data-ng-click="fp.my_tree.collapse_all()" data-toggle="tooltip" title="Contraer todo">
+                                                        <span class="icon  mif-shrink2 iconStyle"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr class="thin bg-grayLighter" style="margin-top: 0.3rem;">
+
+                                        <div id="tableContainer" class="box-body" style="padding: 0; overflow: auto;"
+                                             ng-style="{'height': (fp.page_total<=10)? '100%': '95%'}">
+                                            <div ng-style="{'width': tableWidth+'px'}">
+                                                <tree-grid tree-data="fp.elementsList"
+                                                           tree-control="fp.my_tree"
+                                                           col-defs="col_defs"
+                                                           expand-on="expanding_property"
+                                                           expand-level="3"
+                                                           icon-expand="icon mif-chevron-thin-right mif-s"
+                                                           icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                           icon-leaf="icon mif-lab">
+                                                </tree-grid>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End of Elements Table -->
+
+                                    <section ng-show="fp.page_total > 10">
+                                        <div class="box-footer text-center" style="height: 48px;">
+
+                                            <div style="text-align: right; position: absolute; right: 0.55rem" ng-show="fp.page_total > 10">
+                                                <label style="vertical-align: bottom; margin-bottom: 0.45rem; font-size: 0.8rem;">MOSTRAR: </label>
+                                                <div class="input-control select" style="width: 50px;"
+                                                     data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+                                                    <select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="fp.page_size" ng-change="fp.RefreshList(1)">
+                                                        <option>10</option>
+                                                        <option>20</option>
+                                                        <option>30</option>
+                                                        <option>50</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div ng-show="fp.page_total > fp.page_size">
+                                                <paging class="small"
+                                                        page="fp.current_page"
+                                                        page-size="fp.page_size"
+                                                        total="fp.page_total"
+                                                        adjacent="1"
+                                                        dots="..."
+                                                        hide-if-empty="true"
+                                                        show-prev-next="true"
+                                                        show-first-last="true"
+                                                        text-next-class="fa fa-angle-right"
+                                                        text-prev-class="fa fa-angle-left"
+                                                        text-first-class="fa fa-angle-double-left"
+                                                        text-last-class="fa fa-angle-double-right"
+                                                        text-title-page="P&aacute;gina {page}"
+                                                        text-title-first="Inicio"
+                                                        text-title-last="Fin"
+                                                        text-title-next="Siguiente"
+                                                        text-title-prev="Anterior"
+                                                        paging-action="fp.RefreshList(page)">
+                                                </paging>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* ng-style="{'height': !panels[0].state || isFullscreen?'100%':'75%'}" *@
+                    <div class="panel" style="height: 100%;" ng-show="panels[1].state" fullscreen="isFullscreen">
+
+                        <div class="heading">
+                            <div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+                                 style="color: white; cursor: pointer;"
+                                 data-toggle="tooltip" title="Filtrar elementos de Tabla Principal">
+                                <div class="app-bar-drop-container"
+                                     data-role="dropdown"
+                                     data-toggle-element="#toggle-tiles-dropdown"
+                                     data-no-close="true"
+                                     style="width: 50rem; margin-top: 0.4rem; border: 2px solid #005696;
+									 margin-left: -8px; text-align: left;">
+                                    <div class="tile-container bg-white fg-dark" style="padding: 10px;">
+                                        <!-- Comienza aqui el desplegable de filtros -->
+                                        <div class="row" style="font-size: 0.775rem;">
+                                            <div class="col-lg-4">
+                                                <label style="/*margin: 10px 0px 0px 0;*/">Elementos a mostrar</label>
+                                                <div style="display: block; margin: 5px 5px 10px 0;">
+                                                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                    bootstrap-switch data-ng-model="viewParameters" data-ng-change="RefreshList(1)">
+                                                    <span style="vertical-align: middle;" id="menulink">Ver Parámetros</span>
+                                                </div>
+                                                <div style="display: block; margin: 5px 5px 10px 0; ">
+                                                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                    bootstrap-switch data-ng-model="viewGroups" data-ng-change="RefreshList(1)">
+                                                    <span style="vertical-align: middle;" id="menulink">Ver Grupos</span>
+                                                </div>
+                                                <div style="display: block; margin: 5px 5px 10px 0; width: 100%;">
+                                                    <input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+                                                           data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+                                                    bootstrap-switch data-ng-model="viewPackages" data-ng-change="RefreshList(1)">
+                                                    <span style="vertical-align: middle;" id="menulink">Ver Paquetes</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="input-control text" style="margin-right: 10px; margin-top: 0; width: 100%;">
+                                                    <input type="text" placeholder="Búsqueda por clave específica"
+                                                           list="sugSpecKey"
+                                                           data-ng-change="getSpecificKeySug()"
+                                                           data-ng-model="specificKey" style="line-height: inherit;">
+                                                    <datalist id="sugSpecKey">
+                                                        <option data-ng-repeat="specificKey in specificKeyList" value="{{specificKey}}"></option>
+                                                    </datalist>
+                                                </div>
+
+                                                <div class="input-control text" style=" margin-right: 10px; margin-top: 0; width: 100%;">
+                                                    <input type="text" placeholder="Búsqueda por Descripción específica."
+                                                           data-ng-model="specificDescription"
+                                                           list="sugSpecDesc"
+                                                           data-ng-change="getSpecificDescriptionSug()"
+                                                           style="line-height: inherit;">
+                                                    <datalist id="sugSpecDesc">
+                                                        <option data-ng-repeat="specificDesc in specificDescList" value="{{specificDesc}}"></option>
+                                                    </datalist>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="input-control text" style=" width: 100%; margin: 0;">
+                                                   <input type="text" list="sugMethod" placeholder="Búsqueda por método"
+                                                           style="border-radius: 0; line-height: inherit;"
+                                                           data-ng-model="searchMethod"
+                                                           data-ng-change="" />
+                                                   <datalist id="sugMethod">
+                                                        <option data-ng-repeat="met in methodList" value="{{met}}"></option>
+                                                    </datalist>
+                                                </div>
+
+                                                <div class="input-control text" style="width: 100%; margin: 5px 0 0 0;">
+                                                   <input type="text" list="sugGenericKey" placeholder="Búsqueda por clave genérica"
+                                                           style="border-radius: 0; line-height: inherit;"
+                                                           data-ng-model="searchGenericKey"
+                                                           data-ng-change="" />
+                                                    <datalist id="sugGenericKey">
+                                                        <option data-ng-repeat="genericKey in genericKeyList" value="{{genericKey}}"></option>
+                                                    </datalist>
+                                                </div>
+
+                                                <div class="input-control text" style="float: right; ">
+                                                    <button class="button" data-ng-click="ResetFilter()"
+                                                            style="float: right; position: relative;"
+                                                            data-toggle="tooltip" title="Borrar campos de búsqueda">
+                                                        <span class="mif-cross"></span>
+                                                    </button>
+
+                                                    <button class="button" data-ng-click="RefreshList(1)"
+                                                            style="float: right; margin-right: 5px; position: relative;"
+                                                            data-toggle="tooltip" title="Buscar en Base de datos">
+                                                        <span class="mif-search"></span>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+                                        <!-- Termina aqui el desplegable de filtros -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="titleBarText" style="margin-left: 1.825rem;">{{panels[1].name}}</span>
+                            <span class="minimize" ng-if="!isFullscreen" ng-click="minimize(panels[1])"
+                                  style="right: 2.625rem;"
+                                  data-toggle="tooltip" title="Minimizar Tabla Principal"></span>
+                            <span class="{{isFullscreen?'restoreDown':'maximize'}}" ng-click="toggleFullScreen()"
+                                  data-toggle="tooltip" title="{{isFullscreen?'Restaurar Tabla Principal':'Maximizar Tabla Principal'}}"></span>
+                        </div>
+                        @* ng-style="{'height': !panels[0].state?'94%':'90%'}" *@
+                        <div class="content" id="panelBody" style="padding: 0; overflow: auto; height: 94%;">
+                            <div class="box-body" data-ng-if="!elementsList.length" style="padding: 5px;">
+                                <div class="scroll-panel margin-left-10">
+                                    <p data-ng-if="isLoading">
+                                        <i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+                                    </p>
+                                    <p data-ng-if="!isLoading">
+                                        <i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Elements Table -->
+                            <div id="panelBody2" class="box-body" data-ng-if="elementsList.length"
+                                 ng-style="{'height': (pageTotal<=10)? '96%': '90%'}">
+
+                                <div class="row" style="margin: 0;">
+                                    @*<div class="box-header" style="padding: 0; ">*@
+                                    <div class="box-name tableActiveDeactiveElementText">
+                                        <span class="icon mif-flow-cascade"></span>
+                                        <span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+                                            Elementos: {{pageTotal}}
+                                        </span>
+                                    </div>
+                                    @*</div>*@
+
+                                    <div class="box-tools pull-right" style="margin-right: 0.2rem;">
+                                        @*<button ng-disabled="reporting" ng-click="" class="button primary">Crear reporte</button>*@
+                                        <div ng-if="!isFullscreen" class="box-name tableButtons">
+                                            <a href="" data-ng-click="printReportDialog(true)" data-toggle="tooltip" title="{{(generatingEXCELFile || generatingPDFFile)?'Generando archivo, por favor espere':'Generar archivo excel'}}">
+                                                <span class="icon {{(generatingEXCELFile)?'mif-spinner mif-ani-spin':'mif-file-excel'}} iconStyle"></span>
+                                            </a>
+                                        </div>
+                                        <div ng-if="!isFullscreen" class="box-name tableButtons" data-ng-disabled="generatingPDFFile || generatingEXCELFile">
+                                            <a href="" data-ng-click="printReportDialog(false)" data-toggle="tooltip" title="{{(generatingPDFFile || generatingEXCELFile)?'Generando archivo, por favor espere':'Generar archivo pdf'}}">
+                                                <span class="icon  {{(generatingPDFFile)?'mif-spinner mif-ani-spin':'mif-file-pdf'}} iconStyle"></span>
+                                            </a>
+                                        </div>
+                                        <div class="box-name tableButtons">
+                                            <a href="" data-ng-click="my_tree.expand_all()" data-toggle="tooltip" title="Expandir todo">
+                                                <span class="icon  mif-enlarge2 iconStyle"></span>
+                                            </a>
+                                        </div>
+                                        <div class="box-name tableButtons">
+                                            <a href="" data-ng-click="my_tree.collapse_all()" data-toggle="tooltip" title="Contraer todo">
+                                                <span class="icon  mif-shrink2 iconStyle"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr class="thin bg-grayLighter" style="margin-top: 0.3rem;">
+
+                                <div id="tableContainer" class="box-body" style="padding: 0; overflow: auto;"
+                                     ng-style="{'height': (pageTotal<=10)? '100%': '95%'}">
+                                    <div ng-style="{'width': tableWidth+'px'}">
+                                        <tree-grid tree-data="elementsList"
+                                                   tree-control="my_tree"
+                                                   col-defs="col_defs"
+                                                   expand-on="expanding_property"
+                                                   on-select="my_tree_handler(branch)"
+                                                   expand-level="3"
+                                                   icon-expand="icon mif-chevron-thin-right mif-s"
+                                                   icon-collapse="icon mif-chevron-thin-down mif-s"
+                                                   icon-leaf="icon mif-lab">
+                                        </tree-grid>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End of Elements Table -->
+
+                            <section ng-show="pageTotal > 10">
+                                @Html.Partial("BoxFooter")
+                            </section>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <ul class="t-menu horizontal compact" style="width: 100%; position:absolute; bottom: 0; z-index: 999;" ng-if="taskbar">
+        <li ng-repeat="p in panels" style="margin-right: 3px;">
+            <a href="" ng-if="!p.state" ng-click="minimize(p)">{{p.name}}</a>
+        </li>
+    </ul>
+
+</div>

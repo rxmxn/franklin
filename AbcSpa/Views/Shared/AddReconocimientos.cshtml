@@ -1,0 +1,188 @@
+﻿<div class="ngdialog-message">
+	<form>
+		<div style="margin-left: 10px; margin-right: 10px;">
+			<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+			<div class="row" style="min-height: 200px; height: 500px; overflow: auto;">
+				<div wizard on-finish="acceptDialog()" on-clicknext="nextPage()" current-step="currentStep">
+
+					<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page1">
+						<div class="col-md-12 col-lg-12" style="padding-right: 0; padding-left: 5px; margin-top: 10px;">
+							<div class="input-control select" style="width: 100%; margin-top: 10px; padding-left: 10px; padding-right: 15px;">
+								<label data-toggle="tooltip" title="Empresa/Mercado a la que se otorga el reconocimiento" style="margin-left: 10px;">Empresa/Mercado</label>
+								<select id="office-select"
+										data-ng-model="ngDialogData.officeId"
+										data-ng-options="office.Id as office.Name + '/' + office.Mercado for office in ngDialogData.offices"
+										style="border: 1px #d9d9d9 solid;">
+									<option value="">Selecciona una Empresa/Mercado</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-4 col-lg-4">
+							<div class="input-control select" style="width: 100%; margin-top: 30px;">
+								<label data-toggle="tooltip" title="Reconocimientos">Reconocimientos</label>
+								<select id="ack-select"
+										data-ng-model="ack"
+										data-ng-options="ack as ack.Name for ack in acks"
+										style="border: 1px #d9d9d9 solid;"
+										ng-change="ackChanged(ack)">
+									<option value="">Selecciona un Reconocimiento</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-4 col-lg-4">
+							<div class="input-control select" style="width: 100%; margin-top: 30px;">
+								<label data-toggle="tooltip" title="Instituciones">Instituciones</label>
+								<select id="enterprise-select"
+										data-ng-model="enterprise"
+										data-ng-options="ent as ent.Name + ' (' + (ent.Tipo === 0 ? 'Externa' : 'Interna') + ')' for ent in enterprises"
+										style="border: 1px #d9d9d9 solid;"
+										ng-change="entChanged(enterprise)">
+									<option value="">Selecciona una Institución</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-4 col-lg-4">
+							<div class="input-control select" style="width: 100%; margin-top: 30px;">
+								<label data-toggle="tooltip" title="Instituciones">Tipo</label>
+								<select id="level-select"
+										data-ng-model="nivelAdquirido"
+										style="border: 1px #d9d9d9 solid;"
+										ng-change="levelChanged(nivelAdquirido)">
+									<option value="">Selecciona Tipo Reconocimiento</option>
+									<option value="1">Interno</option>
+									<option value="0">Externo</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="padding20 bg-grayLighter no-phone" style="margin: 15px; height: 280px; overflow-y: scroll;">
+							<div ng-repeat="a in selectionArray">
+								<label class="input-control radio small-check">
+									<input type="radio" name="select-rec" data-ng-click="selectionChanged(a)">
+									<span class="check"></span>
+									<span class="caption">{{a.Ack.Name}}/{{a.Ent.Name}} ({{a.Ent.Tipo === 0 ? 'Externa' : 'Interna'}})</span>
+								</label>
+								<div class="clearfix"></div>
+							</div>
+							<span>(De no seleccionar ningún reconocimiento, se seleccionará el primer elemento de la lista)</span>
+						</div>
+					</div>
+
+					<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page2">
+						<div class="panel" style="width:100%; margin-top: 10px;">
+							<div class="heading">
+								<span class="titleBarText">Analistas Disponibles</span>
+							</div>
+							<div class="content" style="height: 360px; overflow-y: auto;">
+								<span>
+									Nota: Si un analista no puede ser seleccionado, es debido a que todos
+									sus parámetros están acreditados.
+								</span>
+								<div class="table-responsive">
+									<table class="table table-hover table-condensed table-responsive">
+										<thead>
+										<tr role="row">
+											<th style="width: 5%; text-align: center;">Foto</th>
+											<th style="width: 20%;">Nombre</th>
+											<th style="width: 25%;">Tipo Signatario</th>
+											<th style="width: 15%; text-align: center;">Rec. Actuales</th>
+											<th style="width: 10%;">&nbsp;</th>
+										</tr>
+										</thead>
+										<tbody aria-relevant="all" aria-live="polite" role="alert">
+										<tr class="odd" data-ng-repeat="an in annalists">
+											<td style="text-align: center !important;">
+												<img data-ng-if="an.Photo === '' || an.Photo === null" ng-src="/Content/img/{{an.Gender === false ? 'usermale.jpg' : 'female.jpg' }}" style="width: 42px; height: 42px;"/>
+												<img data-ng-if="an.Photo !== '' && an.Photo !== null" ng-src="{{an.Photo}}" style="width: auto; height: 42px;"/>
+											</td>
+											<td>{{an.Name}}</td>
+											<td>
+												<div class="input-control select" style="width: 100%;">
+													<select id="tipo-sig-select"
+													        data-ng-model="an.tipoSignatario"
+													        data-ng-options="ts.Id as ts.Name for ts in tiposSig"
+													        data-ng-change="checkAnnalist(an)"
+													        style="border: 1px #d9d9d9 solid; margin: 0; width: 220px;"
+													        ng-disabled="tipoSigDisabled">
+														<option value="">Selecciona Tipo Signatario</option>
+													</select>
+												</div>
+											</td>
+											<td style="text-align: center;"><span style="cursor: pointer; font-size: 1.2rem" ng-click="viewRecAdqs(an)" class="mif-clipboard icon"></span></td>
+											<td class="text-center">
+												<label class="input-control checkbox block">
+													<input type="checkbox" data-ng-click="annalistChecked(an)" ng-model="an.checked"
+													       ng-disabled="!(an.Params.length > 0)">
+													<span class="check"></span>
+												</label>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div wz-step style="min-height: 500px; max-height: 500px;" wz-title="page3">
+						<div class="panel" style="width:100%; margin-top: 10px;">
+							<div class="heading">
+								<span class="titleBarText">Asignar Parámetros Reconocidos por Analista</span>
+							</div>
+							<div class="content" style="height: 360px; overflow-y: auto;">
+								<span>
+									Nota: En esta tabla se muestran solamente los parámetros de cada
+									analista que aún no se han acreditado.
+								</span>
+								<div class="table-responsive">
+									<table class="table table-hover table-condensed table-responsive">
+										<thead>
+											<tr role="row">
+												<th style="width: 5%; text-align: center;">Foto</th>
+												<th style="width: 20%;">Nombre</th>
+												<th style="width: 20%;">Parámetro</th>
+												<th style="width: 20%;">Método</th>
+												<th style="width: 10%;">&nbsp;</th>
+											</tr>
+										</thead>
+										<tbody aria-relevant="all" aria-live="polite" role="alert"
+											   data-ng-repeat="an in annalistToAck">
+											<tr>
+												<td style="text-align: center !important;">
+													<img data-ng-if="an.Annalist.Photo === ''" ng-src="/Content/img/{{an.Annalist.Gender === false ? 'usermale.jpg' : 'female.jpg' }}" style="width: 42px; height: 42px;" />
+													<img data-ng-if="an.Annalist.Photo !== ''" ng-src="{{an.Annalist.Photo}}" style="width: auto; height: 42px;" />
+												</td>
+												<td>{{an.Annalist.Name}}</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr class="odd" data-ng-repeat="p in an.Annalist.Params">
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>{{p.ParamUniquekey}}</td>
+												<td>{{p.Metodo}}</td>
+												<td class="text-center">
+													<label class="input-control checkbox block">
+														<input type="checkbox" data-ng-click="paramChecked(p)" ng-model="p.checked">
+														<span class="check"></span>
+													</label>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

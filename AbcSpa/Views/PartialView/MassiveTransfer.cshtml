@@ -1,0 +1,348 @@
+﻿<div class="main-scroll">
+	<div class="padding10" style="position: absolute; width: 99%;">
+		<h6 class="text-light margin0 text-uppercase">
+			Transferencia Masiva de elementos entre Instalaciones.
+			<!-- <span class="ani-hover-spanner ani-fast icon mif-settings-ethernet place-right"></span> -->
+		</h6>
+		<hr class="thin bg-grayLighter">
+	</div>
+
+	<div class="col-lg-12" two-panels-directive style="padding-top: 2rem; height: 100%;">
+		<div class="row" style="height: 100%;">
+
+			<div class="col-lg-5b" style="text-align: center;">
+				<div class="input-control select" style="width: 100%; margin-top: 30px;">
+					<label data-toggle="tooltip" title="Sucursal 1">Sucursal 1</label>
+					<select id="unitreport-select"
+							data-ng-model="sucursal1"
+							data-ng-options="suc as suc.Name + '/' + suc.Region.Name for suc in sucursales"
+							style="border: 1px #d9d9d9 solid;"
+							ng-change="RefreshList(1, 1, sucursal1.Id)">
+						<option value="">Selecciona una Sucursal</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-lg-2b" style="text-align: center;">
+				
+			</div>
+
+			<div class="col-lg-5b" style="text-align: center;">
+				<div class="input-control select" style="width: 100%; margin-top: 30px;">
+					<label data-toggle="tooltip" title="Sucursal 2">Sucursal 2</label>
+					<select id="unitreport-select"
+							data-ng-model="sucursal2"
+							data-ng-options="suc as suc.Name + '/' + suc.Region.Name for suc in sucursales"
+							style="border: 1px #d9d9d9 solid;"
+							ng-change="RefreshList(1, 2, sucursal2.Id)">
+						<option value="">Selecciona una Sucursal</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-lg-5b" id="panel0" style="height: 90%;">
+				<div class="panel" style="height: 100%; padding-bottom: 3rem;">
+
+					<div class="heading">
+						<div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown"
+							 style="color: white; cursor: pointer;"
+							 data-toggle="tooltip" title="Filtrar elementos">
+							<div class="app-bar-drop-container"
+								 data-role="dropdown"
+								 data-toggle-element="#toggle-tiles-dropdown"
+								 data-no-close="true"
+								 style="width: 10.2rem; margin-top: 0.4rem; border: 2px solid #005696;
+									 margin-left: -8px; text-align: left;">
+								<div class="tile-container bg-white fg-dark" style="padding: 10px;">
+									<!-- Comienza aqui el desplegable de filtros -->
+									<div class="row" style="font-size: 0.775rem;">
+										<div class="col-lg-12">
+											<label style="margin: 10px 0px 0px 0;">Elementos a mostrar</label>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewParameters1" data-ng-change="RefreshList(1, 1, sucursal1.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Parámetros</span>
+											</div>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewGroups1" data-ng-change="RefreshList(1, 1, sucursal1.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Grupos</span>
+											</div>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewPackages1" data-ng-change="RefreshList(1, 1, sucursal1.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Paquetes</span>
+											</div>
+										</div>
+									</div>
+									<!-- Termina aqui el desplegable de filtros -->
+								</div>
+							</div>
+						</div>
+						<span class="titleBarText" style="margin-left: 1.825rem;">{{sucursal1.Name}}</span>
+					</div>
+
+					<div class="content" id="panelBody" style="padding: 0; overflow: auto; height: 94%;">
+						<div class="box-body" data-ng-if="!elementsList1.length" style="padding: 5px;">
+							<div class="scroll-panel margin-left-10">
+								<p data-ng-if="isLoading1">
+									<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+								</p>
+								<p data-ng-if="!isLoading1">
+									<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+								</p>
+							</div>
+						</div>
+						<!-- Elements Table -->
+						<div id="panelBody2" class="box-body" data-ng-if="elementsList1.length"
+							 ng-style="{'height': '90%'}">
+
+							<div class="row" style="margin: 0;">
+								<div class="box-name tableActiveDeactiveElementText">
+									<span class="icon mif-flow-cascade"></span>
+									<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+										Elementos: {{pageTotal1}}
+									</span>
+								</div>
+
+								<div class="box-tools pull-right" style="margin-right: 0.2rem;">
+									<div class="box-name tableButtons">
+										<a href="" data-ng-click="my_tree.expand_all()" data-toggle="tooltip" title="Expandir todo">
+											<span class="icon  mif-enlarge2 iconStyle"></span>
+										</a>
+									</div>
+									<div class="box-name tableButtons">
+										<a href="" data-ng-click="my_tree.collapse_all()" data-toggle="tooltip" title="Contraer todo">
+											<span class="icon  mif-shrink2 iconStyle"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<hr class="thin bg-grayLighter" style="margin-top: 0.3rem;">
+
+							<div id="tableContainer" class="box-body" style="padding: 0; overflow: auto;"
+								 ng-style="{'height': '95%'}">
+								<div ng-style="{'width': (tableWidht<1200)?'1200px':tableWidht+'px'}">
+									<tree-grid tree-data="elementsList1"
+											   tree-control="my_tree"
+											   col-defs="col_defs"
+											   expand-on="expanding_property"
+											   on-select="my_tree_handler(branch)"
+											   expand-level="3"
+											   icon-expand="icon mif-chevron-thin-right mif-s"
+											   icon-collapse="icon mif-chevron-thin-down mif-s"
+									           icon-leaf="icon mif-lab"
+											   row-actions="rowActions1">
+									</tree-grid>
+								</div>
+							</div>
+						</div>
+
+						<!-- End of Elements Table -->
+
+						<section ng-show="pageTotal1 > 10">
+							<div class="box-footer text-center" style="height: 48px;">
+
+								<div style="text-align: right; position: absolute; right: 15px;" ng-show="pageTotal1 > 10">
+									<label style="vertical-align: bottom;">Mostrar: </label>
+									<div class="input-control select" style="width: 50px;"
+										 data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+										<select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSize1" ng-change="RefreshList(1, 1, sucursal1.Id)">
+											<option>10</option>
+											<option>20</option>
+											<option>30</option>
+											<option>50</option>
+										</select>
+									</div>
+								</div>
+
+								<paging class="small"
+										page="currentPage1"
+										page-size="pageSize1"
+										total="pageTotal1"
+										adjacent="1"
+										dots="..."
+										hide-if-empty="true"
+										show-prev-next="true"
+										show-first-last="true"
+										text-next-class="fa fa-angle-right"
+										text-prev-class="fa fa-angle-left"
+										text-first-class="fa fa-angle-double-left"
+										text-last-class="fa fa-angle-double-right"
+										text-title-page="P&aacute;gina {page}"
+										text-title-first="Inicio"
+										text-title-last="Fin"
+										text-title-next="Siguiente"
+										text-title-prev="Anterior"
+										paging-action="RefreshList(page, 1, sucursal1.Id)">
+								</paging>
+
+							</div>
+						</section>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-2b" style="text-align: center; height: 15rem; margin-top: 15rem;">
+				<button class="button cycle-button medium-button" data-ng-click="makeTransfer()"
+				        ng-disabled="(sucursal1.Id === sucursal2.Id) || 
+						(sucursal1.Id === 0) || (sucursal2.Id === 0) || 
+						(sucursal1 === null) || (sucursal2 === null)">
+					<span class="icon mif-settings-ethernet mif-2x"></span>
+				</button>
+			</div>
+
+			<div class="col-lg-5b" id="panel1" style="height: 90%;">
+				<div class="panel" style="height: 100%; padding-bottom: 3rem;">
+
+					<div class="heading">
+						<div class="app-bar-element icon mif-search" id="toggle-tiles-dropdown2"
+							 style="color: white; cursor: pointer;"
+							 data-toggle="tooltip" title="Filtrar elementos">
+							<div class="app-bar-drop-container"
+								 data-role="dropdown"
+								 data-toggle-element="#toggle-tiles-dropdown2"
+								 data-no-close="true"
+								 style="width: 10.2rem; margin-top: 0.4rem; border: 2px solid #005696;
+									 margin-left: -8px; text-align: left;">
+								<div class="tile-container bg-white fg-dark" style="padding: 10px;">
+									<!-- Comienza aqui el desplegable de filtros -->
+									<div class="row" style="font-size: 0.775rem;">
+										<div class="col-lg-12">
+											<label style="margin: 10px 0px 0px 0;">Elementos a mostrar</label>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewParameters2" data-ng-change="RefreshList(1, 2, sucursal2.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Parámetros</span>
+											</div>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewGroups2" data-ng-change="RefreshList(1, 2, sucursal2.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Grupos</span>
+											</div>
+											<div style="display: block; margin: 5px 5px 10px 0;">
+												<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+													   data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+												bootstrap-switch data-ng-model="viewPackages2" data-ng-change="RefreshList(1, 2, sucursal2.Id)">
+												<span style="vertical-align: middle;" id="menulink">Ver Paquetes</span>
+											</div>
+										</div>
+									</div>
+									<!-- Termina aqui el desplegable de filtros -->
+								</div>
+							</div>
+						</div>
+						<span class="titleBarText" style="margin-left: 1.825rem;">{{sucursal2.Name}}</span>
+					</div>
+
+					<div class="content" id="panelBody12" style="padding: 0; overflow: auto; height: 94%;">
+						<div class="box-body" data-ng-if="!elementsList2.length" style="padding: 5px;">
+							<div class="scroll-panel margin-left-10">
+								<p data-ng-if="isLoading2">
+									<i class="fa fa-spinner fa-spin" style="color: black;"></i> Cargando Datos. Espere, por favor.
+								</p>
+								<p data-ng-if="!isLoading2">
+									<i class="glyphicon glyphicon-exclamation-sign" style="color: dimgray;"></i> No existen resultados.
+								</p>
+							</div>
+						</div>
+						<!-- Elements Table -->
+						<div id="panelBody22" class="box-body" data-ng-if="elementsList2.length"
+							 ng-style="{'height': '90%'}">
+
+							<div class="row" style="margin: 0;">
+								<div class="box-name tableActiveDeactiveElementText">
+									<span class="icon mif-flow-cascade"></span>
+									<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 0.75rem; margin-left: 5px;">
+										Elementos: {{pageTotal2}}
+									</span>
+								</div>
+
+								<div class="box-tools pull-right" style="margin-right: 0.2rem;">
+									<div class="box-name tableButtons">
+										<a href="" data-ng-click="my_tree2.expand_all()" data-toggle="tooltip" title="Expandir todo">
+											<span class="icon  mif-enlarge2 iconStyle"></span>
+										</a>
+									</div>
+									<div class="box-name tableButtons">
+										<a href="" data-ng-click="my_tree2.collapse_all()" data-toggle="tooltip" title="Contraer todo">
+											<span class="icon  mif-shrink2 iconStyle"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<hr class="thin bg-grayLighter" style="margin-top: 0.3rem;">
+
+							<div id="tableContainer2" class="box-body" style="padding: 0; overflow: auto;"
+								 ng-style="{'height': '95%'}">
+								<div ng-style="{'width': (tableWidht<1200)?'1200px':tableWidht+'px'}">
+									<tree-grid tree-data="elementsList2"
+											   tree-control="my_tree2"
+											   col-defs="col_defs"
+											   expand-on="expanding_property"
+											   on-select="my_tree_handler(branch)"
+											   expand-level="3"
+											   icon-expand="icon mif-chevron-thin-right mif-s"
+											   icon-collapse="icon mif-chevron-thin-down mif-s"
+									           icon-leaf="icon mif-lab"
+											   row-actions="rowActions2">
+									</tree-grid>
+								</div>
+							</div>
+						</div>
+
+						<!-- End of Elements Table -->
+
+						<section ng-show="pageTotal2 > 10">
+							<div class="box-footer text-center" style="height: 48px;">
+
+								<div style="text-align: right; position: absolute; right: 15px;" ng-show="pageTotal2 > 10">
+									<label style="vertical-align: bottom;">Mostrar: </label>
+									<div class="input-control select" style="width: 50px;"
+										 data-toggle="tooltip" title="Cantidad de elementos a mostrar por página">
+										<select style="border: 1px #d9d9d9 solid; width: 50px;" ng-model="pageSize2" ng-change="RefreshList(1, 2, sucursal2.Id)">
+											<option>10</option>
+											<option>20</option>
+											<option>30</option>
+											<option>50</option>
+										</select>
+									</div>
+								</div>
+
+								<paging class="small"
+										page="currentPage2"
+										page-size="pageSize2"
+										total="pageTotal2"
+										adjacent="1"
+										dots="..."
+										hide-if-empty="true"
+										show-prev-next="true"
+										show-first-last="true"
+										text-next-class="fa fa-angle-right"
+										text-prev-class="fa fa-angle-left"
+										text-first-class="fa fa-angle-double-left"
+										text-last-class="fa fa-angle-double-right"
+										text-title-page="P&aacute;gina {page}"
+										text-title-first="Inicio"
+										text-title-last="Fin"
+										text-title-next="Siguiente"
+										text-title-prev="Anterior"
+										paging-action="RefreshList(page, 2, sucursal2.Id)">
+								</paging>
+
+							</div>
+						</section>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

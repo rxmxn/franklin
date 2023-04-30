@@ -1,0 +1,92 @@
+﻿    @*XXXNUEVOXXX*@
+    <div class="ngdialog-message">
+        <br />
+
+        <div class="box box-info">
+            <div class="box-header">
+                <h4 class="box-title">Opciones de Impresi&oacute;n.</h4>
+            </div>
+            <div class="box-body">
+                <div class="col-md-8" style="padding: 0px; margin-bottom: 10px;">
+                    <a class="btn btn-default" href="" data-ng-click="ngDialogData.options = [true,true,true,true,true,true,true,true,true]">
+                        <i class="fa fa-check-square pull-menu"></i> Seleccionar Todo
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" id="checkboxBD" data-on-color="success" data-off-color="primary" data-on-text="EXCEL" data-off-text="PDF" data-size="mini"
+                           data-ng-model="ngDialogData.isExcel" bootstrap-switch>
+                </div>
+                <br/>
+                <div>
+                    <label>Secciones del Reporte</label>
+                </div>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[0]=!ngDialogData.options[0]">
+                        <i class="pull-menu fa {{ngDialogData.options[0] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Solicitud de Muestreo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[1]=!ngDialogData.options[1]">
+                        <i class="pull-menu fa {{ngDialogData.options[1] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Muestreo Completo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[2]=!ngDialogData.options[2]">
+                        <i class="pull-menu fa {{ngDialogData.options[2] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Hojas de Campo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[3]=!ngDialogData.options[3]">
+                        <i class="pull-menu fa {{ngDialogData.options[3] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Cadenas
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[4]=!ngDialogData.options[4]">
+                        <i class="pull-menu fa {{ngDialogData.options[4] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Bit&aacute;cora
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[5]=!ngDialogData.options[5]">
+                        <i class="pull-menu fa {{ngDialogData.options[5] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Croquis del Muestreo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[6]=!ngDialogData.options[6]">
+                        <i class="pull-menu fa {{ngDialogData.options[6] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Mapas del Muestreo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[7]=!ngDialogData.options[7]">
+                        <i class="pull-menu fa {{ngDialogData.options[7] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Fotos del Muestreo
+                    </a>
+                </p>
+                <p>
+                    <a href="" data-ng-click="ngDialogData.options[8]=!ngDialogData.options[8]">
+                        <i class="pull-menu fa {{ngDialogData.options[8] == true ? 'fa-check-square' : 'fa-square-o'}}"></i>
+                        Evidencia
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="ngdialog-buttons">
+            <button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+                <i class="fa fa-check"></i>
+            </button>
+            @*<button class="button primary pull-right" ng-class="{disabled : isIndb}"
+                    data-ng-click="acceptDialog()">
+                <i class="fa fa-check"></i> Aceptar
+            </button>
+            <button class="button warning pull-right"
+                    data-ng-click="closeThisDialog()">
+                Cancelar
+            </button>*@
+        </div>
+    </div>

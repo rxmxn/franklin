@@ -1,0 +1,127 @@
+﻿<div class="app-bar fixed-top" data-role="appbar" data-flexstyle="sidebar2" ng-controller="navCtrl">
+
+	<a class="app-bar-element branding" href="">ABCadmin</a>
+	<span class="app-bar-divider"></span>
+
+	<ul class="app-bar-menu small-dropdown">
+		<li ui-sref-active="active" ng-show="!isLogged">
+			<a ui-sref="login">
+				<span class="ani-hover-vertical ani-slow icon mif-key"></span>
+				Login
+			</a>
+		</li>
+		@* Descomentarear cuando se vaya a implementar. *@
+		@*<li ui-sref-active="active" ng-show="!isLogged">
+			<a ui-sref="contact">
+				<span class="ani-hover-shake ani-slow icon mif-mail"></span>
+				Contáctenos
+			</a>
+		</li>*@
+
+		<li ui-sref-active="active" ng-show="isLogged">
+			<a ui-sref=".home">
+				<span class="ani-hover-vertical ani-slow icon mif-home"></span>
+				Sistema
+			</a>
+		</li>
+		<li ui-sref-active="active" ng-show="isLogged && (viewCharts !== -1)">
+			<a ui-sref=".charts">
+				<span class="ani-hover-spin ani-slow icon mif-help"></span>
+				Gráficos
+			</a>
+		</li>
+		<li ui-sref-active="active" ng-show="isLogged && (viewUserAccess !== -1)">
+			<a ui-sref=".useraccess">
+				<span class="ani-hover-spanner ani-fast icon mif-user-check"></span>
+				Bitácora Accesos
+			</a>
+		</li>
+		<li ui-sref-active="active" ng-show="isLogged && (viewAudit !== -1)">
+			<a ui-sref=".audit">
+				<span class="ani-hover-horizontal icon mif-shareable"></span>
+				Bitácora Cambios
+			</a>
+		</li>
+		<li ui-sref-active="active" ng-show="isLogged && (viewAudit !== -1)">
+			<a ui-sref=".massivetransfer">
+				<span class="ani-hover-horizontal icon mif-settings-ethernet"></span>
+				Transferencias
+			</a>
+		</li>
+		<li ng-if="isLogged" style="padding-left: 10px;">
+			<span class="dropdown-toggle"><span class="ani-hover-flash mif-spell-check icon"></span> Lista Tareas</span>
+			<div class="app-bar-drop-container {{sidebarOn ? 'place-right' : 'place-left'}} no-margin-top block-shadow fg-dark"
+			     data-role="dropdown" data-no-close="true" style="width: 400px;">
+				<div class="content" style="height: 550px; overflow-y: auto;" ng-controller="NotesCtrl">
+
+					<div class="box-header">
+						<div class="box-name">
+							<span class="icon mif-spell-check"></span>
+							<span style="color: rgb(31, 31, 32); text-transform: uppercase; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-size: 14px; margin-left: 5px;">
+								{{viewDeactivated === false ? boxHeaderTitleActive : boxHeaderTitleDeactive}}: {{pageTotal}}
+							</span>
+						</div>
+						<div class="box-tools pull-right" style="top: 0;">
+							<button class="cycle-button mini-button" data-ng-click="edit(null)">
+								<span class="icon mif-plus" style="color: gray"></span>
+							</button>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div style="height: 400px; overflow-y: auto; margin-top: 10px;">
+						<div class="clearfix" data-ng-repeat="note in elementsList" style="margin-top: 10px; margin-right: 10px;">
+							<label class="input-control checkbox block" style="font-size: inherit;">
+								<input type="checkbox" data-ng-click="setActivation(note, !note.Done)" data-placement="right" ng-model="note.Done">
+								<span class="caption col-md-10" style="margin: 0; padding: 0;">
+									<a href="" data-ng-click="edit(note)" data-toggle="tooltip" title="Editar"
+									   class="col-md-1">
+										<i class="fa fa-pencil" style="font-size: 10px;"></i>
+									</a>
+									<span class="col-md-10" style="text-align: justify; margin-bottom: 10px;">{{note.Description}}</span>
+								</span>
+								<span class="check pull-right col-md-2"></span>
+							</label>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="row" style="position: absolute; left: 20px; bottom: 5px;">
+						<div style="width: 100%; margin-left: 10px;">
+							<input type="checkbox" name="mycheckbox" data-on-color="primary" data-on="success" data-label-width="1"
+							       data-on-text="<i class='glyphicon glyphicon-ok'></i>" data-off-text="<i class='glyphicon glyphicon-remove'></i>" data-size="mini"
+							       bootstrap-switch data-ng-model="viewDeactivated" data-ng-change="RefreshList(1)">
+							<span style="vertical-align: middle;" id="menulink">Ver tareas realizadas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div class="app-bar-pullbutton automatic"></div>
+
+	<ul class="app-bar-menu place-right" data-flexdirection="reverse" ng-if="isLogged === true">
+		@*<li class="input-control select" ng-if="employee.UserName !== 'root'" style="margin: 0;">
+				<select id="sucursal-select" current-sucursal-combo-directive
+						ng-model="sucursalSelected"
+						data-ng-options="sucursal for sucursal in sucursales"
+						style="border: 1px #d9d9d9 solid; height: 30px; font-size: medium;
+						margin: 0; padding: 0; line-height: initial;">
+					<option value="">Selecciona una Sucursal</option>
+				</select>
+			</li>*@
+		<li style="padding-left: 10px;">
+			<span class="dropdown-toggle"><span class="mif-user icon"></span> {{employee.UserName}}</span>
+			<div class="app-bar-drop-container place-right no-margin-top block-shadow fg-dark"
+			     data-role="dropdown" data-no-close="true" style="width: 220px;">
+				<img ng-src="{{sessionAvatar}}" style="width: 100%; height: auto;">
+				<div class="padding10">
+					<ul class="unstyled-list fg-dark">
+						@* TODO: implementar una pagina para que cada usuario pueda editar o ver su perfil *@
+						@*<li><a href="" class="fg-white1 fg-hover-yellow">Perfil</a></li>*@
+						<li><a href="" class="fg-white2 fg-hover-yellow" ng-click="closeSession()">Cerrar Sesi&oacute;n</a></li>
+					</ul>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+</div>

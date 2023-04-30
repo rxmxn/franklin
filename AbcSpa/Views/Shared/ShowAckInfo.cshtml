@@ -1,0 +1,17 @@
+﻿<div class="ngdialog-message" style="max-height: 500px;">
+
+	<div class="content-container">
+		<h5 style="padding-bottom: 10px; font-weight: bold; color: #52677a; display: inline">Reconocimiento: {{ngDialogData.ack}}</h5>
+	</div>
+
+	<div class="box-body" style="height: 76%; overflow: auto;">
+		<p>Clave del Reconocimiento: <a href="" ng-click="ngDialogData.rec(ngDialogData.dData.Id, ngDialogData.dData.Name, ngDialogData.dData.Key)">{{ngDialogData.dData.Name}}</a></p>
+		<p>Descripci&oacute;n: {{ngDialogData.dData.Description === null || ngDialogData.dData.Description === '' ? 'N/A' : ngDialogData.dData.Description}}</p>
+		<p>Institucion que lo emite: {{ngDialogData.dData.Enterprises[0].Name}}</p>
+		<p>Tipo de Reconocimiento: {{ngDialogData.dData.Accion.Name}}</p>
+		<p>Vigencia: {{ngDialogData.dData.VigenciaInicial}} - {{ngDialogData.dData.VigenciaFinal}}</p>
+		<p>Rama: {{ngDialogData.dData.Enterprises[0].Rama.Name}}</p>
+		<p>Clave para Reporte: {{ngDialogData.ack}}</p>
+		<p>Alcance del Reconocimiento: {{ngDialogData.dData.Alcance.Name ? ngDialogData.dData.Alcance.Name : '-'}}</p>
+	</div>
+</div>

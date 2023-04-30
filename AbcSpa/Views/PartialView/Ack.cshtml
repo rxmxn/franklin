@@ -1,0 +1,317 @@
+﻿<div class="main-scroll">
+	<div class="padding10" style="position: absolute; width: 99%;">
+		<h6 class="text-light margin0 text-uppercase">
+			Reconocimientos
+			<!-- <span class="ani-hover-vertical ani-slow icon mif-clipboard place-right"></span> -->
+		</h6>
+		<hr class="thin bg-grayLighter">
+	</div>
+
+	<div class="col-lg-12" style="padding-top: 2rem; height: 100%;">
+		<div class="row" style="height: 100%;">
+
+			<!-- Sidebar -->
+			@*<div ng-include="'Shared/SidebarFilter'" class="col-lg-3"></div>*@
+			<div class="col-lg-2" ng-show="panels[0].state" style="height: 100%;">
+				@Html.Partial("SidebarFilter")
+				<!-- TODO:creo que podemos hacerlo con una directiva perfectamente (talvez revisar transclude property) -->
+			</div>
+			<!-- end of Sidebar -->
+
+			<div class="col-lg-12" minimize-directive style="height: 100%;">
+				<div class="panel" style="height: 100%; padding-bottom: 3rem;">
+
+					<div class="heading">
+						<span class="titleBarText">{{panels[1].name}}</span>
+						<!--<span class="minimize" ng-click="minimize(panels[1])"></span>-->
+					</div>
+
+					<div class="content" style="height: 95%; overflow: auto;">
+						<section>
+							@Html.Partial("BoxHeader")
+						</section>
+
+						<!-- Enterprise Table -->
+						<div class="box-body" data-ng-if="elementsList.length" style="height: 76%; overflow: auto;">
+							<div class="table-responsive" style="width: 1950px;">
+								<table class="table table-striped table-hover table-condensed table-responsive">
+									<thead>
+										<tr role="row">
+											<th style="width: 250px; cursor: pointer;" ng-click="orderByField='Name'; reverseSort = !reverseSort">
+												Clave del Reconocimiento
+												<span ng-show="orderByField == 'Name'" style="margin-left: 5px; width: 10px;">
+													<span ng-show="!reverseSort">
+														<i class="glyphicon glyphicon-sort-by-attributes" style="color: black; vertical-align: sub;"></i>
+													</span>
+													<span ng-show="reverseSort">
+														<i class="glyphicon glyphicon-sort-by-attributes-alt" style="color: black; vertical-align: sub;"></i>
+													</span>
+												</span>
+											</th>
+											<th style="width: 200px;">
+												Descripci&oacute;n
+											</th>
+											<th style="width: 200px;">
+												Institución que lo emite
+											</th>											
+											<th style="width: 200px;">
+												Tipo de Reconocimiento
+											</th>											
+											<th style="width: 200px;">
+												Vigencia
+											</th>
+											<th style="width: 100px;">
+												Estatus
+											</th>
+											<th style="width: 100px;">
+												Rama
+											</th>
+											<th style="width: 150px;">
+												Clave para Reporte
+											</th>
+											<th style="width: 200px;">
+												Alcance del Reconocimiento
+											</th>
+											<th style="width: 50px;">
+												PDF
+											</th>
+											@*<th style="width: 100px;">
+													Estado
+												</th>*@
+											<th style="width: 80px; text-align: center;" ng-if="accessLevel === 1">Editar</th>
+											<th style="width: 100px; text-align: center;" ng-if="accessLevel === 1">Dar baja/alta</th>
+										</tr>
+									</thead>
+
+									<tbody aria-relevant="all" aria-live="polite" role="alert">
+										<tr class="odd" data-ng-repeat="ac in elementsList | filter:search:strict | orderBy:orderByField:reverseSort"
+											ng-style="{'color': ac.Expired ? '#CCC7C7' : 'black'}">
+											@* .slice( ((currentPage-1)*pageSize), ((currentPage)*pageSize) ) *@
+											<td>
+												<a href="" data-ng-click="viewAckParams(ac.Id, ac.Name, ac.Key)" 
+												   data-toggle="tooltip" title="Ver parámetros que tengan este Reconocimiento">
+													{{ac.Name}}
+												</a>
+											</td>
+											<td>{{ac.Description}}</td>
+											<td>{{ac.Enterprise.Name}}</td>
+											<td>{{ac.Accion.Name}}</td>
+											<td>{{ac.VigenciaInicial}} - {{ac.VigenciaFinal}}</td>
+											<td ng-style="{'color': ac.Alerta > ac.AlertaDias || ac.AlertaDias === 0 ? 'green' : ac.Alerta <= ac.AlertaDias && ac.Alerta > 0 ? 'orange' : 'red'}">{{ac.Alerta > ac.AlertaDias || ac.AlertaDias === 0 ? "Vigente" : ac.Alerta <= ac.AlertaDias && ac.Alerta > 0 ? "Próximo a Vencer" : "Vencido"}} <span class="icon mif-notification" data-toggle="tooltip" title="Vence en {{ac.Alerta}} días" ng-if="ac.VigenciaFinal"></span></td>
+											<td>{{ac.Enterprise.Rama.Name}}</td>
+											<td>{{ac.Key}}</td>
+											<td>{{ac.Alcance.Name}}</td>
+											<td>
+												<a href="" ng-click="getPdf(ac.Pdf)" ng-if="ac.Pdf">
+													<span class="icon mif-file-pdf" style="color: #1b6eae; font-size: 1rem;"></span>
+												</a>
+											</td>
+											@*<td>{{ac.Estado === 0 ? 'Alta' : ac.Estado === 1 ? 'Baja' : ac.Estado === 2 ? 'Cancelación' : 'Suspensión'}}</td>*@
+											<td ng-if="accessLevel === 1" style="text-align: center;">
+												<a href="" data-ng-click="edit(ac)" data-toggle="tooltip" title="Editar">
+                                                    <span class="icon mif-pencil" style="color: #1b6eae; font-size: 1rem;"></span>
+												</a>
+											</td>
+											<td ng-if="accessLevel === 1" style="text-align: center;">
+												<a href="" data-toggle="tooltip" title="{{ac.Active ? 'Dar baja' : 'Dar alta'}}" data-ng-click="setActivation(ac, !ac.Active)">
+													<i ng-class="[ac.Active ? 'fa fa-thumbs-down' : 'fa fa-thumbs-up']"
+													   ng-style="{'color': ac.Active ?'red':'green'}" style="font-size:24px;"></i>
+												</a>
+											</td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<!-- End of Enterprise Table -->
+
+						<section>
+							@Html.Partial("BoxFooter")
+						</section>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<ul class="t-menu horizontal compact taskbar_panels">
+		<li ng-repeat="p in panels" style="margin-right: 3px;">
+			<a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+		</li>
+	</ul>
+
+</div>
+
+<script type="text/ng-template" id="editDialog">
+	<div class="ngdialog-message">
+		<form>
+			<div style="margin-left: 10px; margin-right:10px;">
+				<h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+				<div class="col-md-6 col-lg-6">
+					<div class="row" style="padding-bottom: 10px;">
+						<div class="input-control text" style="margin-top: 30px; width: 100%;">
+							<label>Clave del Reconocimiento</label>
+							<input placeholder="Clave del Reconocimiento" type="text" style="margin-top: 10px;"
+								   data-ng-model="ngDialogData.dData.Name" unique-name="/ack/CheckAckName">
+							<p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+						</div>
+
+						<div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+							<label>Descripci&oacute;n</label>
+							<textarea placeholder="Descripción" type="text" style="max-width: 100%;"
+									  data-ng-model="ngDialogData.dData.Description"></textarea>
+						</div>
+
+						<div class="input-control text" style="margin-top: 30px; width: 100%;">
+							<label>Clave para Reporte</label>
+							<input placeholder="Clave para Reporte" type="text" style="margin-top: 10px;"
+								   data-ng-model="ngDialogData.dData.Key">
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="col-md-12 col-lg-12" style="margin-top: 10px; padding-left: 0;    padding-right: 0;">
+							<div class="input-control text" style="width: 100%;">
+								<input type="text" ng-model="ngDialogData.dData.Pdf" placeholder="Pdf de Reconocimiento">
+								<button class="button fileinput-button" ng-class="{disabled: disabled}" style="overflow: hidden;"><span class="mif-file-upload"></span><input name="pdf" accept="application/*" ng-disabled="disabled" type="file" onchange="angular.element(this).scope().selectPdfforUpload(this.files)"></button>
+							</div>
+
+							<!-- <a href="{{ngDialogData.dData.Pdf}}">{{ngDialogData.dData.Pdf}}</a> -->
+						</div>
+			
+						<div class="clearfix"></div>
+
+						<div class="col-md-12 col-lg-12" style="margin-top: 20px; padding-left: 0;    padding-right: 0;">
+							<label>Vigencia</label>
+							<div class="clearfix"></div>
+							<div class="col-md-6 col-lg-6" style="padding-left: 0; padding-right: 5px;">
+								<div class="input-control text" data-role="datepicker" style="width: 100%;"
+									 data-locale="es" data-format="dd/mm/yyyy">
+									<input type="text" ng-model="ngDialogData.dData.VigenciaInicial" placeholder="Desde">
+									<button class="button"><span class="mif-calendar"></span></button>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6" style="padding-left: 5px; padding-right: 0;">
+								<div class="input-control text" data-role="datepicker" style="width: 100%;"
+									 data-locale="es" data-format="dd/mm/yyyy">
+									<input type="text" placeholder="Hasta" ng-model="ngDialogData.dData.VigenciaFinal">
+									<button class="button"><span class="mif-calendar"></span></button>
+								</div>
+							</div>
+						</div>					
+
+						<div class="clearfix"></div>
+
+						<div class="input-control text" style="margin-top: 30px; width: 100%;">
+							<label>Alerta en Días</label>
+							<input placeholder="Alerta en Días" type="number" style="margin-top: 10px;"
+								   data-ng-model="ngDialogData.dData.AlertaDias">
+						</div>
+
+						
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6">
+
+					@*<div class="input-control select" style="width: 100%; margin-top: 10px;">
+							<label data-toggle="tooltip" title="Estado">Estado</label>
+							<select id="level-select"
+									data-ng-model="ngDialogData.dData.Estado"
+									style="border: 1px #d9d9d9 solid;">
+								<option value="0">Alta</option>
+								<option value="1">Baja</option>
+								<option value="2">Cancelaci&oacute;n</option>
+								<option value="3">Suspensi&oacute;n</option>
+							</select>
+						</div>*@
+
+					<div class="input-control select" style="width: 100%; margin-top: 35px;">
+						<label data-toggle="tooltip" title="Tipo de Reconocimineto">Tipo de Reconocimineto</label>
+						<select id="tipo-select"
+								data-ng-model="ngDialogData.dData.Accion.Id"
+								data-ng-options="a.Id as a.Name for a in actions"
+								style="border: 1px #d9d9d9 solid;">
+							<option value="">Selecciona un Tipo</option>
+						</select>
+					</div>
+
+					<div class="input-control select" style="width: 100%; margin-top: 45px;">
+						<label data-toggle="tooltip" title="Alcance del Reconocimineto">Alcance del Reconocimineto</label>
+						<select id="tipo-select"
+								data-ng-model="ngDialogData.dData.Alcance.Id"
+								data-ng-options="a.Id as a.Name for a in alcances"
+								style="border: 1px #d9d9d9 solid;">
+							<option value="">Selecciona Alcance</option>
+						</select>
+					</div>
+					
+					<div class="panel" style="width:100%; margin-top: 30px;">
+						<div class="heading">
+							<span class="titleBarText">Listado de Instituciones y Ramas</span>
+						</div>
+						<div class="content" style="height:240px; overflow-y:auto;">
+							@*<span>Sólamente se mostrarán las instituciones que no están asociadas a otro reconocimiento.</span>
+							<span ng-if="anyDisabled">Si se impide seleccionar otra Institución es debido a que ya la seleccionada ha emitido este reconocimiento.</span>*@
+							<div class="table-responsive">
+								<table class="table table-hover table-condensed table-responsive">
+									<thead>
+										<tr role="row">
+											<th style="width: 10%;">&nbsp;</th>
+											<th style="width: 45%; text-align: center;">
+												Institución
+											</th>
+											<th style="width: 45%; text-align: center;">
+												Rama
+											</th>
+										</tr>
+									</thead>
+									<tbody aria-relevant="all" aria-live="polite" role="alert" style="overflow-y: scroll;">
+										<tr class="odd" data-ng-repeat="e in enterprises">
+											<td class="text-center">
+												<label class="input-control radio small-check">
+													<input type="radio" name="select-e"
+													       data-ng-click="entActive(e)"
+														   ng-checked="e.selected" @*ng-disabled="e.disable !== undefined && !e.disable"*@>
+													<span class="check"></span>
+												</label>
+											</td>
+											<td style="text-align: center;">{{e.Name}}</td>
+											<td style="text-align: center;">
+												<div class="input-control select" style="width: 100%; margin-top: 10px;">
+													<select id="tipo-select"
+															data-ng-model="e.Rama.Id"
+															data-ng-options="a.Id as a.Name for a in ramas"
+															style="border: 1px #d9d9d9 solid; margin-top: 0;" @*ng-disabled="e.disable !== undefined && !e.disable"*@>
+														<option value="">Selecciona Rama</option>
+													</select>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- <label class="input-control checkbox block"
+								   data-ng-repeat="ent in enterprises">
+								<input type="checkbox" ng-disabled="ent.disabled" data-ng-click="entActive(ent)"
+									   data-placement="right" ng-model="ent.checked">
+								<span class="caption">{{ent.Name}} ({{ent.Accion.Name}})</span>
+								<span class="check pull-right"></span>
+							</label> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div class="ngdialog-buttons">
+					<button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+						<i class="fa fa-check"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>

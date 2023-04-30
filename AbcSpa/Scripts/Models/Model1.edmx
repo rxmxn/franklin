@@ -1,0 +1,2249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="abcbdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AckSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="ActionsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Ack_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="AnalystEnterprises">
+          <Key>
+            <PropertyRef Name="Analyst_Id" />
+            <PropertyRef Name="Enterprise_Id" />
+          </Key>
+          <Property Name="Analyst_Id" Type="int" Nullable="false" />
+          <Property Name="Enterprise_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnalysticsAreaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnalysticsAreaKey" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="EnterpriseAnalysticsArea_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="AnalystSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AnalyticsMethodSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BaseParamFamilySet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BaseParamSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PrintInResultRepot" Type="bit" Nullable="false" />
+          <Property Name="ParamFamily_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="ContainerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Material" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EnterpriseActions">
+          <Key>
+            <PropertyRef Name="Enterprise_Id" />
+            <PropertyRef Name="Actions_Id" />
+          </Key>
+          <Property Name="Enterprise_Id" Type="int" Nullable="false" />
+          <Property Name="Actions_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EnterpriseSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="GroupParameters">
+          <Key>
+            <PropertyRef Name="Group_Id" />
+            <PropertyRef Name="Parameter_Id" />
+          </Key>
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+          <Property Name="Parameter_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="MarketSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Region_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="MatrixChangesSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+          <Property Name="LastMatrixName" Type="nvarchar(max)" />
+          <Property Name="LastMatrixDescription" Type="nvarchar(max)" />
+          <Property Name="LastActiveStatus" Type="bit" />
+          <Property Name="Matrix_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="MatrixParameters">
+          <Key>
+            <PropertyRef Name="Matrix_Id" />
+            <PropertyRef Name="Parameter_Id" />
+          </Key>
+          <Property Name="Matrix_Id" Type="int" Nullable="false" />
+          <Property Name="Parameter_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatrixSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="MatrixCreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Office_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="MethodSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="RequiredVolume" Type="float" Nullable="false" />
+          <Property Name="MinimumVolume" Type="float" Nullable="false" />
+          <Property Name="Formula" Type="nvarchar(max)" />
+          <Property Name="InternetPublish" Type="bit" />
+          <Property Name="DeliverTime" Type="int" Nullable="false" />
+          <Property Name="DetectionLimit_Value" Type="float" Nullable="false" />
+          <Property Name="DetectionLimit_Decimals" Type="int" Nullable="false" />
+          <Property Name="CuantificationLimit_Value" Type="float" Nullable="false" />
+          <Property Name="CuantificationLimit_Decimals" Type="int" Nullable="false" />
+          <Property Name="Uncertainty_Value" Type="float" Nullable="false" />
+          <Property Name="Uncertainty_Decimals" Type="int" Nullable="false" />
+          <Property Name="MaxTimeBeforeAnalysis" Type="int" Nullable="false" />
+          <Property Name="LabDeliverTime" Type="int" Nullable="false" />
+          <Property Name="QcObj_HasQc" Type="bit" Nullable="false" />
+          <Property Name="QcObj_UpperLimit" Type="int" Nullable="false" />
+          <Property Name="QcObj_LowerLimit" Type="int" Nullable="false" />
+          <Property Name="ReportTime" Type="int" Nullable="false" />
+          <Property Name="AnalysisTime" Type="int" Nullable="false" />
+          <Property Name="AnalyticsMethod_Id" Type="int" />
+          <Property Name="Container_Id" Type="int" />
+          <Property Name="Preserver_Id" Type="int" />
+          <Property Name="Residue_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="NormSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Checked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfficeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Market_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="PackageGroups">
+          <Key>
+            <PropertyRef Name="Package_Id" />
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="Package_Id" Type="int" Nullable="false" />
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageParameters">
+          <Key>
+            <PropertyRef Name="Package_Id" />
+            <PropertyRef Name="Parameter_Id" />
+          </Key>
+          <Property Name="Package_Id" Type="int" Nullable="false" />
+          <Property Name="Parameter_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="JustQuotePrice" Type="bit" />
+          <Property Name="Norm_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="ParameterAcks">
+          <Key>
+            <PropertyRef Name="Parameter_Id" />
+            <PropertyRef Name="Ack_Id" />
+          </Key>
+          <Property Name="Parameter_Id" Type="int" Nullable="false" />
+          <Property Name="Ack_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParameterSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaxPermitedLimit" Type="int" Nullable="false" />
+          <Property Name="PerTurnCapacity" Type="int" Nullable="false" />
+          <Property Name="PerWeekCapacity" Type="int" Nullable="false" />
+          <Property Name="AutolabAssignedAreaKey" Type="nvarchar(max)" />
+          <Property Name="AutolabAssignedAreaName" Type="nvarchar(max)" />
+          <Property Name="GaramUniquekey" Type="nvarchar(max)" />
+          <Property Name="GenericKeyForStatistic" Type="nvarchar(max)" />
+          <Property Name="Analista_Id" Type="int" />
+          <Property Name="BaseParam_Id" Type="int" />
+          <Property Name="CentoCosto_Id" Type="int" />
+          <Property Name="Metodo_Id" Type="int" />
+          <Property Name="Precio_Id" Type="int" />
+          <Property Name="Unit_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="PreserverSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Prices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RegionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="ResidueSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="RightRoles">
+          <Key>
+            <PropertyRef Name="Right_RightId" />
+            <PropertyRef Name="Role_RoleId" />
+          </Key>
+          <Property Name="Right_RightId" Type="int" Nullable="false" />
+          <Property Name="Role_RoleId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RightSet">
+          <Key>
+            <PropertyRef Name="RightId" />
+          </Key>
+          <Property Name="RightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RoleSet">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SessionLogSet">
+          <Key>
+            <PropertyRef Name="SessionLogId" />
+          </Key>
+          <Property Name="SessionLogId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Key" Type="nvarchar(max)" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="UserPassword" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="UserCreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Role_RoleId" Type="smallint" />
+        </EntityType>
+        <Association Name="FK_dbo_ActionsSet_dbo_AckSet_Ack_Id">
+          <End Role="AckSet" Type="Self.AckSet" Multiplicity="0..1" />
+          <End Role="ActionsSet" Type="Self.ActionsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AckSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionsSet">
+              <PropertyRef Name="Ack_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AnalystEnterprises_dbo_AnalystSet_Analyst_Id">
+          <End Role="AnalystSet" Type="Self.AnalystSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnalystEnterprises" Type="Self.AnalystEnterprises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalystSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnalystEnterprises">
+              <PropertyRef Name="Analyst_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AnalystEnterprises_dbo_EnterpriseSet_Enterprise_Id">
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnalystEnterprises" Type="Self.AnalystEnterprises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpriseSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnalystEnterprises">
+              <PropertyRef Name="Enterprise_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id">
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="0..1" />
+          <End Role="AnalysticsAreaSet" Type="Self.AnalysticsAreaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpriseSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnalysticsAreaSet">
+              <PropertyRef Name="EnterpriseAnalysticsArea_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id">
+          <End Role="BaseParamFamilySet" Type="Self.BaseParamFamilySet" Multiplicity="0..1" />
+          <End Role="BaseParamSet" Type="Self.BaseParamSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseParamFamilySet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BaseParamSet">
+              <PropertyRef Name="ParamFamily_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EnterpriseActions_dbo_ActionsSet_Actions_Id">
+          <End Role="ActionsSet" Type="Self.ActionsSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EnterpriseActions" Type="Self.EnterpriseActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnterpriseActions">
+              <PropertyRef Name="Actions_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EnterpriseActions_dbo_EnterpriseSet_Enterprise_Id">
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EnterpriseActions" Type="Self.EnterpriseActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpriseSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnterpriseActions">
+              <PropertyRef Name="Enterprise_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_GroupParameters_dbo_GroupSet_Group_Id">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupParameters" Type="Self.GroupParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupParameters">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_GroupParameters_dbo_ParameterSet_Parameter_Id">
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupParameters" Type="Self.GroupParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupParameters">
+              <PropertyRef Name="Parameter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MarketSet_dbo_RegionSet_Region_Id">
+          <End Role="RegionSet" Type="Self.RegionSet" Multiplicity="0..1" />
+          <End Role="MarketSet" Type="Self.MarketSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarketSet">
+              <PropertyRef Name="Region_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id">
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="0..1" />
+          <End Role="MatrixChangesSet" Type="Self.MatrixChangesSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatrixSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixChangesSet">
+              <PropertyRef Name="Matrix_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="0..1" />
+          <End Role="MatrixChangesSet" Type="Self.MatrixChangesSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixChangesSet">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixParameters_dbo_MatrixSet_Matrix_Id">
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatrixParameters" Type="Self.MatrixParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatrixSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixParameters">
+              <PropertyRef Name="Matrix_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixParameters_dbo_ParameterSet_Parameter_Id">
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatrixParameters" Type="Self.MatrixParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixParameters">
+              <PropertyRef Name="Parameter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id">
+          <End Role="OfficeSet" Type="Self.OfficeSet" Multiplicity="0..1" />
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixSet">
+              <PropertyRef Name="Office_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id">
+          <End Role="AnalyticsMethodSet" Type="Self.AnalyticsMethodSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalyticsMethodSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="AnalyticsMethod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_ContainerSet_Container_Id">
+          <End Role="ContainerSet" Type="Self.ContainerSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContainerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Container_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id">
+          <End Role="PreserverSet" Type="Self.PreserverSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PreserverSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Preserver_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id">
+          <End Role="ResidueSet" Type="Self.ResidueSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResidueSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Residue_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OfficeSet_dbo_MarketSet_Market_Id">
+          <End Role="MarketSet" Type="Self.MarketSet" Multiplicity="0..1" />
+          <End Role="OfficeSet" Type="Self.OfficeSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarketSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OfficeSet">
+              <PropertyRef Name="Market_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageGroups_dbo_GroupSet_Group_Id">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PackageGroups" Type="Self.PackageGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageGroups">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageGroups_dbo_PackageSet_Package_Id">
+          <End Role="PackageSet" Type="Self.PackageSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PackageGroups" Type="Self.PackageGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PackageSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageGroups">
+              <PropertyRef Name="Package_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageParameters_dbo_PackageSet_Package_Id">
+          <End Role="PackageSet" Type="Self.PackageSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PackageParameters" Type="Self.PackageParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PackageSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageParameters">
+              <PropertyRef Name="Package_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageParameters_dbo_ParameterSet_Parameter_Id">
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PackageParameters" Type="Self.PackageParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageParameters">
+              <PropertyRef Name="Parameter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageSet_dbo_NormSet_Norm_Id">
+          <End Role="NormSet" Type="Self.NormSet" Multiplicity="0..1" />
+          <End Role="PackageSet" Type="Self.PackageSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NormSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSet">
+              <PropertyRef Name="Norm_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterAcks_dbo_AckSet_Ack_Id">
+          <End Role="AckSet" Type="Self.AckSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ParameterAcks" Type="Self.ParameterAcks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AckSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterAcks">
+              <PropertyRef Name="Ack_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterAcks_dbo_ParameterSet_Parameter_Id">
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ParameterAcks" Type="Self.ParameterAcks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterAcks">
+              <PropertyRef Name="Parameter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id">
+          <End Role="AnalysticsAreaSet" Type="Self.AnalysticsAreaSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalysticsAreaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="CentoCosto_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id">
+          <End Role="AnalystSet" Type="Self.AnalystSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalystSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Analista_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id">
+          <End Role="BaseParamSet" Type="Self.BaseParamSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseParamSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="BaseParam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id">
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MethodSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Metodo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_Prices_Precio_Id">
+          <End Role="Prices" Type="Self.Prices" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Precio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id">
+          <End Role="UnitSet" Type="Self.UnitSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Unit_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RightRoles_dbo_RightSet_Right_RightId">
+          <End Role="RightSet" Type="Self.RightSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RightRoles" Type="Self.RightRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RightSet">
+              <PropertyRef Name="RightId" />
+            </Principal>
+            <Dependent Role="RightRoles">
+              <PropertyRef Name="Right_RightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RightRoles_dbo_RoleSet_Role_RoleId">
+          <End Role="RoleSet" Type="Self.RoleSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RightRoles" Type="Self.RightRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleSet">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RightRoles">
+              <PropertyRef Name="Role_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SessionLogSet_dbo_UserSet_User_Id">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="0..1" />
+          <End Role="SessionLogSet" Type="Self.SessionLogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SessionLogSet">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserSet_dbo_RoleSet_Role_RoleId">
+          <End Role="RoleSet" Type="Self.RoleSet" Multiplicity="0..1" />
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleSet">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="Role_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="abcbdModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AckSet" EntityType="Self.AckSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionsSet" EntityType="Self.ActionsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnalystEnterprises" EntityType="Self.AnalystEnterprises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnalysticsAreaSet" EntityType="Self.AnalysticsAreaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnalystSet" EntityType="Self.AnalystSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnalyticsMethodSet" EntityType="Self.AnalyticsMethodSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BaseParamFamilySet" EntityType="Self.BaseParamFamilySet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BaseParamSet" EntityType="Self.BaseParamSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContainerSet" EntityType="Self.ContainerSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnterpriseActions" EntityType="Self.EnterpriseActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnterpriseSet" EntityType="Self.EnterpriseSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupParameters" EntityType="Self.GroupParameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupSet" EntityType="Self.GroupSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketSet" EntityType="Self.MarketSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatrixChangesSet" EntityType="Self.MatrixChangesSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatrixParameters" EntityType="Self.MatrixParameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatrixSet" EntityType="Self.MatrixSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MethodSet" EntityType="Self.MethodSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NormSet" EntityType="Self.NormSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfficeSet" EntityType="Self.OfficeSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageGroups" EntityType="Self.PackageGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageParameters" EntityType="Self.PackageParameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageSet" EntityType="Self.PackageSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParameterAcks" EntityType="Self.ParameterAcks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParameterSet" EntityType="Self.ParameterSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreserverSet" EntityType="Self.PreserverSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prices" EntityType="Self.Prices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionSet" EntityType="Self.RegionSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResidueSet" EntityType="Self.ResidueSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RightRoles" EntityType="Self.RightRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RightSet" EntityType="Self.RightSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleSet" EntityType="Self.RoleSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionLogSet" EntityType="Self.SessionLogSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitSet" EntityType="Self.UnitSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSet" EntityType="Self.UserSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_ActionsSet_dbo_AckSet_Ack_Id" Association="Self.FK_dbo_ActionsSet_dbo_AckSet_Ack_Id">
+            <End Role="AckSet" EntitySet="AckSet" />
+            <End Role="ActionsSet" EntitySet="ActionsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AnalystEnterprises_dbo_AnalystSet_Analyst_Id" Association="Self.FK_dbo_AnalystEnterprises_dbo_AnalystSet_Analyst_Id">
+            <End Role="AnalystSet" EntitySet="AnalystSet" />
+            <End Role="AnalystEnterprises" EntitySet="AnalystEnterprises" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AnalystEnterprises_dbo_EnterpriseSet_Enterprise_Id" Association="Self.FK_dbo_AnalystEnterprises_dbo_EnterpriseSet_Enterprise_Id">
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+            <End Role="AnalystEnterprises" EntitySet="AnalystEnterprises" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id" Association="Self.FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id">
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+            <End Role="AnalysticsAreaSet" EntitySet="AnalysticsAreaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id" Association="Self.FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id">
+            <End Role="BaseParamFamilySet" EntitySet="BaseParamFamilySet" />
+            <End Role="BaseParamSet" EntitySet="BaseParamSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EnterpriseActions_dbo_ActionsSet_Actions_Id" Association="Self.FK_dbo_EnterpriseActions_dbo_ActionsSet_Actions_Id">
+            <End Role="ActionsSet" EntitySet="ActionsSet" />
+            <End Role="EnterpriseActions" EntitySet="EnterpriseActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EnterpriseActions_dbo_EnterpriseSet_Enterprise_Id" Association="Self.FK_dbo_EnterpriseActions_dbo_EnterpriseSet_Enterprise_Id">
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+            <End Role="EnterpriseActions" EntitySet="EnterpriseActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_GroupParameters_dbo_GroupSet_Group_Id" Association="Self.FK_dbo_GroupParameters_dbo_GroupSet_Group_Id">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="GroupParameters" EntitySet="GroupParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_GroupParameters_dbo_ParameterSet_Parameter_Id" Association="Self.FK_dbo_GroupParameters_dbo_ParameterSet_Parameter_Id">
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+            <End Role="GroupParameters" EntitySet="GroupParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MarketSet_dbo_RegionSet_Region_Id" Association="Self.FK_dbo_MarketSet_dbo_RegionSet_Region_Id">
+            <End Role="RegionSet" EntitySet="RegionSet" />
+            <End Role="MarketSet" EntitySet="MarketSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id" Association="Self.FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id">
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+            <End Role="MatrixChangesSet" EntitySet="MatrixChangesSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id" Association="Self.FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="MatrixChangesSet" EntitySet="MatrixChangesSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixParameters_dbo_MatrixSet_Matrix_Id" Association="Self.FK_dbo_MatrixParameters_dbo_MatrixSet_Matrix_Id">
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+            <End Role="MatrixParameters" EntitySet="MatrixParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixParameters_dbo_ParameterSet_Parameter_Id" Association="Self.FK_dbo_MatrixParameters_dbo_ParameterSet_Parameter_Id">
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+            <End Role="MatrixParameters" EntitySet="MatrixParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id" Association="Self.FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id">
+            <End Role="OfficeSet" EntitySet="OfficeSet" />
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id" Association="Self.FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id">
+            <End Role="AnalyticsMethodSet" EntitySet="AnalyticsMethodSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_ContainerSet_Container_Id" Association="Self.FK_dbo_MethodSet_dbo_ContainerSet_Container_Id">
+            <End Role="ContainerSet" EntitySet="ContainerSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id" Association="Self.FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id">
+            <End Role="PreserverSet" EntitySet="PreserverSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id" Association="Self.FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id">
+            <End Role="ResidueSet" EntitySet="ResidueSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OfficeSet_dbo_MarketSet_Market_Id" Association="Self.FK_dbo_OfficeSet_dbo_MarketSet_Market_Id">
+            <End Role="MarketSet" EntitySet="MarketSet" />
+            <End Role="OfficeSet" EntitySet="OfficeSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageGroups_dbo_GroupSet_Group_Id" Association="Self.FK_dbo_PackageGroups_dbo_GroupSet_Group_Id">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="PackageGroups" EntitySet="PackageGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageGroups_dbo_PackageSet_Package_Id" Association="Self.FK_dbo_PackageGroups_dbo_PackageSet_Package_Id">
+            <End Role="PackageSet" EntitySet="PackageSet" />
+            <End Role="PackageGroups" EntitySet="PackageGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageParameters_dbo_PackageSet_Package_Id" Association="Self.FK_dbo_PackageParameters_dbo_PackageSet_Package_Id">
+            <End Role="PackageSet" EntitySet="PackageSet" />
+            <End Role="PackageParameters" EntitySet="PackageParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageParameters_dbo_ParameterSet_Parameter_Id" Association="Self.FK_dbo_PackageParameters_dbo_ParameterSet_Parameter_Id">
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+            <End Role="PackageParameters" EntitySet="PackageParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageSet_dbo_NormSet_Norm_Id" Association="Self.FK_dbo_PackageSet_dbo_NormSet_Norm_Id">
+            <End Role="NormSet" EntitySet="NormSet" />
+            <End Role="PackageSet" EntitySet="PackageSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterAcks_dbo_AckSet_Ack_Id" Association="Self.FK_dbo_ParameterAcks_dbo_AckSet_Ack_Id">
+            <End Role="AckSet" EntitySet="AckSet" />
+            <End Role="ParameterAcks" EntitySet="ParameterAcks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterAcks_dbo_ParameterSet_Parameter_Id" Association="Self.FK_dbo_ParameterAcks_dbo_ParameterSet_Parameter_Id">
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+            <End Role="ParameterAcks" EntitySet="ParameterAcks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id" Association="Self.FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id">
+            <End Role="AnalysticsAreaSet" EntitySet="AnalysticsAreaSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id" Association="Self.FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id">
+            <End Role="AnalystSet" EntitySet="AnalystSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id" Association="Self.FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id">
+            <End Role="BaseParamSet" EntitySet="BaseParamSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id" Association="Self.FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id">
+            <End Role="MethodSet" EntitySet="MethodSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_Prices_Precio_Id" Association="Self.FK_dbo_ParameterSet_dbo_Prices_Precio_Id">
+            <End Role="Prices" EntitySet="Prices" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id" Association="Self.FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id">
+            <End Role="UnitSet" EntitySet="UnitSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RightRoles_dbo_RightSet_Right_RightId" Association="Self.FK_dbo_RightRoles_dbo_RightSet_Right_RightId">
+            <End Role="RightSet" EntitySet="RightSet" />
+            <End Role="RightRoles" EntitySet="RightRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RightRoles_dbo_RoleSet_Role_RoleId" Association="Self.FK_dbo_RightRoles_dbo_RoleSet_Role_RoleId">
+            <End Role="RoleSet" EntitySet="RoleSet" />
+            <End Role="RightRoles" EntitySet="RightRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SessionLogSet_dbo_UserSet_User_Id" Association="Self.FK_dbo_SessionLogSet_dbo_UserSet_User_Id">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="SessionLogSet" EntitySet="SessionLogSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserSet_dbo_RoleSet_Role_RoleId" Association="Self.FK_dbo_UserSet_dbo_RoleSet_Role_RoleId">
+            <End Role="RoleSet" EntitySet="RoleSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="abcbdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AckSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="ActionsSet" Relationship="Self.FK_dbo_ActionsSet_dbo_AckSet_Ack_Id" FromRole="AckSet" ToRole="ActionsSet" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.ParameterAcks" FromRole="AckSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="ActionsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Ack_Id" Type="Int32" />
+          <NavigationProperty Name="AckSet" Relationship="Self.FK_dbo_ActionsSet_dbo_AckSet_Ack_Id" FromRole="ActionsSet" ToRole="AckSet" />
+          <NavigationProperty Name="EnterpriseSet" Relationship="Self.EnterpriseActions" FromRole="ActionsSet" ToRole="EnterpriseSet" />
+        </EntityType>
+        <EntityType Name="AnalysticsAreaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnalysticsAreaKey" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterpriseAnalysticsArea_Id" Type="Int32" />
+          <NavigationProperty Name="EnterpriseSet" Relationship="Self.FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id" FromRole="AnalysticsAreaSet" ToRole="EnterpriseSet" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id" FromRole="AnalysticsAreaSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="AnalystSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id" FromRole="AnalystSet" ToRole="ParameterSet" />
+          <NavigationProperty Name="EnterpriseSet" Relationship="Self.AnalystEnterprises" FromRole="AnalystSet" ToRole="EnterpriseSet" />
+        </EntityType>
+        <EntityType Name="AnalyticsMethodSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MethodSet" Relationship="Self.FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id" FromRole="AnalyticsMethodSet" ToRole="MethodSet" />
+        </EntityType>
+        <EntityType Name="BaseParamFamilySet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BaseParamSet" Relationship="Self.FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id" FromRole="BaseParamFamilySet" ToRole="BaseParamSet" />
+        </EntityType>
+        <EntityType Name="BaseParamSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrintInResultRepot" Type="Boolean" Nullable="false" />
+          <Property Name="ParamFamily_Id" Type="Int32" />
+          <NavigationProperty Name="BaseParamFamilySet" Relationship="Self.FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id" FromRole="BaseParamSet" ToRole="BaseParamFamilySet" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id" FromRole="BaseParamSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="ContainerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Material" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MethodSet" Relationship="Self.FK_dbo_MethodSet_dbo_ContainerSet_Container_Id" FromRole="ContainerSet" ToRole="MethodSet" />
+        </EntityType>
+        <EntityType Name="EnterpriseSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="AnalysticsAreaSet" Relationship="Self.FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id" FromRole="EnterpriseSet" ToRole="AnalysticsAreaSet" />
+          <NavigationProperty Name="AnalystSet" Relationship="Self.AnalystEnterprises" FromRole="EnterpriseSet" ToRole="AnalystSet" />
+          <NavigationProperty Name="ActionsSet" Relationship="Self.EnterpriseActions" FromRole="EnterpriseSet" ToRole="ActionsSet" />
+        </EntityType>
+        <EntityType Name="MarketSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Region_Id" Type="Int32" />
+          <NavigationProperty Name="RegionSet" Relationship="Self.FK_dbo_MarketSet_dbo_RegionSet_Region_Id" FromRole="MarketSet" ToRole="RegionSet" />
+          <NavigationProperty Name="OfficeSet" Relationship="Self.FK_dbo_OfficeSet_dbo_MarketSet_Market_Id" FromRole="MarketSet" ToRole="OfficeSet" />
+        </EntityType>
+        <EntityType Name="MatrixChangesSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastMatrixName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastMatrixDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastActiveStatus" Type="Boolean" />
+          <Property Name="Matrix_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="MatrixSet" Relationship="Self.FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id" FromRole="MatrixChangesSet" ToRole="MatrixSet" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id" FromRole="MatrixChangesSet" ToRole="UserSet" />
+        </EntityType>
+        <EntityType Name="MatrixSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="MatrixCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Office_Id" Type="Int32" />
+          <NavigationProperty Name="MatrixChangesSet" Relationship="Self.FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id" FromRole="MatrixSet" ToRole="MatrixChangesSet" />
+          <NavigationProperty Name="OfficeSet" Relationship="Self.FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id" FromRole="MatrixSet" ToRole="OfficeSet" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.MatrixParameters" FromRole="MatrixSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="MethodSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="RequiredVolume" Type="Double" Nullable="false" />
+          <Property Name="MinimumVolume" Type="Double" Nullable="false" />
+          <Property Name="Formula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InternetPublish" Type="Boolean" />
+          <Property Name="DeliverTime" Type="Int32" Nullable="false" />
+          <Property Name="DetectionLimit_Value" Type="Double" Nullable="false" />
+          <Property Name="DetectionLimit_Decimals" Type="Int32" Nullable="false" />
+          <Property Name="CuantificationLimit_Value" Type="Double" Nullable="false" />
+          <Property Name="CuantificationLimit_Decimals" Type="Int32" Nullable="false" />
+          <Property Name="Uncertainty_Value" Type="Double" Nullable="false" />
+          <Property Name="Uncertainty_Decimals" Type="Int32" Nullable="false" />
+          <Property Name="MaxTimeBeforeAnalysis" Type="Int32" Nullable="false" />
+          <Property Name="LabDeliverTime" Type="Int32" Nullable="false" />
+          <Property Name="QcObj_HasQc" Type="Boolean" Nullable="false" />
+          <Property Name="QcObj_UpperLimit" Type="Int32" Nullable="false" />
+          <Property Name="QcObj_LowerLimit" Type="Int32" Nullable="false" />
+          <Property Name="ReportTime" Type="Int32" Nullable="false" />
+          <Property Name="AnalysisTime" Type="Int32" Nullable="false" />
+          <Property Name="AnalyticsMethod_Id" Type="Int32" />
+          <Property Name="Container_Id" Type="Int32" />
+          <Property Name="Preserver_Id" Type="Int32" />
+          <Property Name="Residue_Id" Type="Int32" />
+          <NavigationProperty Name="AnalyticsMethodSet" Relationship="Self.FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id" FromRole="MethodSet" ToRole="AnalyticsMethodSet" />
+          <NavigationProperty Name="ContainerSet" Relationship="Self.FK_dbo_MethodSet_dbo_ContainerSet_Container_Id" FromRole="MethodSet" ToRole="ContainerSet" />
+          <NavigationProperty Name="PreserverSet" Relationship="Self.FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id" FromRole="MethodSet" ToRole="PreserverSet" />
+          <NavigationProperty Name="ResidueSet" Relationship="Self.FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id" FromRole="MethodSet" ToRole="ResidueSet" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id" FromRole="MethodSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="NormSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Checked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PackageSet" Relationship="Self.FK_dbo_PackageSet_dbo_NormSet_Norm_Id" FromRole="NormSet" ToRole="PackageSet" />
+        </EntityType>
+        <EntityType Name="OfficeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Market_Id" Type="Int32" />
+          <NavigationProperty Name="MarketSet" Relationship="Self.FK_dbo_OfficeSet_dbo_MarketSet_Market_Id" FromRole="OfficeSet" ToRole="MarketSet" />
+          <NavigationProperty Name="MatrixSet" Relationship="Self.FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id" FromRole="OfficeSet" ToRole="MatrixSet" />
+        </EntityType>
+        <EntityType Name="PackageSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="JustQuotePrice" Type="Boolean" />
+          <Property Name="Norm_Id" Type="Int32" />
+          <NavigationProperty Name="NormSet" Relationship="Self.FK_dbo_PackageSet_dbo_NormSet_Norm_Id" FromRole="PackageSet" ToRole="NormSet" />
+          <NavigationProperty Name="GroupSet" Relationship="abcbdModel.PackageGroups" FromRole="PackageSet" ToRole="GroupSet" />
+          <NavigationProperty Name="ParameterSet" Relationship="abcbdModel.PackageParameters" FromRole="PackageSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="ParameterSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaxPermitedLimit" Type="Int32" Nullable="false" />
+          <Property Name="PerTurnCapacity" Type="Int32" Nullable="false" />
+          <Property Name="PerWeekCapacity" Type="Int32" Nullable="false" />
+          <Property Name="AutolabAssignedAreaKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AutolabAssignedAreaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GaramUniquekey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GenericKeyForStatistic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Analista_Id" Type="Int32" />
+          <Property Name="BaseParam_Id" Type="Int32" />
+          <Property Name="CentoCosto_Id" Type="Int32" />
+          <Property Name="Metodo_Id" Type="Int32" />
+          <Property Name="Precio_Id" Type="Int32" />
+          <Property Name="Unit_Id" Type="Int32" />
+          <NavigationProperty Name="AnalysticsAreaSet" Relationship="Self.FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id" FromRole="ParameterSet" ToRole="AnalysticsAreaSet" />
+          <NavigationProperty Name="AnalystSet" Relationship="Self.FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id" FromRole="ParameterSet" ToRole="AnalystSet" />
+          <NavigationProperty Name="BaseParamSet" Relationship="Self.FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id" FromRole="ParameterSet" ToRole="BaseParamSet" />
+          <NavigationProperty Name="MethodSet" Relationship="Self.FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id" FromRole="ParameterSet" ToRole="MethodSet" />
+          <NavigationProperty Name="Prices" Relationship="Self.FK_dbo_ParameterSet_dbo_Prices_Precio_Id" FromRole="ParameterSet" ToRole="Prices" />
+          <NavigationProperty Name="UnitSet" Relationship="Self.FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id" FromRole="ParameterSet" ToRole="UnitSet" />
+          <NavigationProperty Name="MatrixSet" Relationship="Self.MatrixParameters" FromRole="ParameterSet" ToRole="MatrixSet" />
+          <NavigationProperty Name="AckSet" Relationship="Self.ParameterAcks" FromRole="ParameterSet" ToRole="AckSet" />
+          <NavigationProperty Name="GroupSet" Relationship="abcbdModel.GroupParameters" FromRole="ParameterSet" ToRole="GroupSet" />
+          <NavigationProperty Name="PackageSet" Relationship="abcbdModel.PackageParameters" FromRole="ParameterSet" ToRole="PackageSet" />
+        </EntityType>
+        <EntityType Name="PreserverSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="MethodSet" Relationship="Self.FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id" FromRole="PreserverSet" ToRole="MethodSet" />
+        </EntityType>
+        <EntityType Name="Prices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_Prices_Precio_Id" FromRole="Prices" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="RegionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="MarketSet" Relationship="Self.FK_dbo_MarketSet_dbo_RegionSet_Region_Id" FromRole="RegionSet" ToRole="MarketSet" />
+        </EntityType>
+        <EntityType Name="ResidueSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="MethodSet" Relationship="Self.FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id" FromRole="ResidueSet" ToRole="MethodSet" />
+        </EntityType>
+        <EntityType Name="RightSet">
+          <Key>
+            <PropertyRef Name="RightId" />
+          </Key>
+          <Property Name="RightId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RoleSet" Relationship="Self.RightRoles" FromRole="RightSet" ToRole="RoleSet" />
+        </EntityType>
+        <EntityType Name="RoleSet">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_dbo_UserSet_dbo_RoleSet_Role_RoleId" FromRole="RoleSet" ToRole="UserSet" />
+          <NavigationProperty Name="RightSet" Relationship="Self.RightRoles" FromRole="RoleSet" ToRole="RightSet" />
+        </EntityType>
+        <EntityType Name="SessionLogSet">
+          <Key>
+            <PropertyRef Name="SessionLogId" />
+          </Key>
+          <Property Name="SessionLogId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_dbo_SessionLogSet_dbo_UserSet_User_Id" FromRole="SessionLogSet" ToRole="UserSet" />
+        </EntityType>
+        <EntityType Name="UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ParameterSet" Relationship="Self.FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id" FromRole="UnitSet" ToRole="ParameterSet" />
+        </EntityType>
+        <EntityType Name="UserSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Role_RoleId" Type="Int16" />
+          <NavigationProperty Name="MatrixChangesSet" Relationship="Self.FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id" FromRole="UserSet" ToRole="MatrixChangesSet" />
+          <NavigationProperty Name="RoleSet" Relationship="Self.FK_dbo_UserSet_dbo_RoleSet_Role_RoleId" FromRole="UserSet" ToRole="RoleSet" />
+          <NavigationProperty Name="SessionLogSet" Relationship="Self.FK_dbo_SessionLogSet_dbo_UserSet_User_Id" FromRole="UserSet" ToRole="SessionLogSet" />
+        </EntityType>
+        <Association Name="FK_dbo_ActionsSet_dbo_AckSet_Ack_Id">
+          <End Role="AckSet" Type="Self.AckSet" Multiplicity="0..1" />
+          <End Role="ActionsSet" Type="Self.ActionsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AckSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionsSet">
+              <PropertyRef Name="Ack_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id">
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="0..1" />
+          <End Role="AnalysticsAreaSet" Type="Self.AnalysticsAreaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpriseSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnalysticsAreaSet">
+              <PropertyRef Name="EnterpriseAnalysticsArea_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id">
+          <End Role="AnalysticsAreaSet" Type="Self.AnalysticsAreaSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalysticsAreaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="CentoCosto_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id">
+          <End Role="AnalystSet" Type="Self.AnalystSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalystSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Analista_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id">
+          <End Role="AnalyticsMethodSet" Type="Self.AnalyticsMethodSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalyticsMethodSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="AnalyticsMethod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id">
+          <End Role="BaseParamFamilySet" Type="Self.BaseParamFamilySet" Multiplicity="0..1" />
+          <End Role="BaseParamSet" Type="Self.BaseParamSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseParamFamilySet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BaseParamSet">
+              <PropertyRef Name="ParamFamily_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id">
+          <End Role="BaseParamSet" Type="Self.BaseParamSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseParamSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="BaseParam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_ContainerSet_Container_Id">
+          <End Role="ContainerSet" Type="Self.ContainerSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContainerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Container_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MarketSet_dbo_RegionSet_Region_Id">
+          <End Role="RegionSet" Type="Self.RegionSet" Multiplicity="0..1" />
+          <End Role="MarketSet" Type="Self.MarketSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarketSet">
+              <PropertyRef Name="Region_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OfficeSet_dbo_MarketSet_Market_Id">
+          <End Role="MarketSet" Type="Self.MarketSet" Multiplicity="0..1" />
+          <End Role="OfficeSet" Type="Self.OfficeSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarketSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OfficeSet">
+              <PropertyRef Name="Market_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id">
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="0..1" />
+          <End Role="MatrixChangesSet" Type="Self.MatrixChangesSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatrixSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixChangesSet">
+              <PropertyRef Name="Matrix_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="0..1" />
+          <End Role="MatrixChangesSet" Type="Self.MatrixChangesSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixChangesSet">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id">
+          <End Role="OfficeSet" Type="Self.OfficeSet" Multiplicity="0..1" />
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MatrixSet">
+              <PropertyRef Name="Office_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id">
+          <End Role="PreserverSet" Type="Self.PreserverSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PreserverSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Preserver_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id">
+          <End Role="ResidueSet" Type="Self.ResidueSet" Multiplicity="0..1" />
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResidueSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MethodSet">
+              <PropertyRef Name="Residue_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id">
+          <End Role="MethodSet" Type="Self.MethodSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MethodSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Metodo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PackageSet_dbo_NormSet_Norm_Id">
+          <End Role="NormSet" Type="Self.NormSet" Multiplicity="0..1" />
+          <End Role="PackageSet" Type="Self.PackageSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NormSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSet">
+              <PropertyRef Name="Norm_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_Prices_Precio_Id">
+          <End Role="Prices" Type="Self.Prices" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Precio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id">
+          <End Role="UnitSet" Type="Self.UnitSet" Multiplicity="0..1" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterSet">
+              <PropertyRef Name="Unit_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserSet_dbo_RoleSet_Role_RoleId">
+          <End Role="RoleSet" Type="Self.RoleSet" Multiplicity="0..1" />
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleSet">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="Role_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SessionLogSet_dbo_UserSet_User_Id">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="0..1" />
+          <End Role="SessionLogSet" Type="Self.SessionLogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SessionLogSet">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AnalystEnterprises">
+          <End Role="AnalystSet" Type="Self.AnalystSet" Multiplicity="*" />
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="*" />
+        </Association>
+        <Association Name="EnterpriseActions">
+          <End Role="ActionsSet" Type="Self.ActionsSet" Multiplicity="*" />
+          <End Role="EnterpriseSet" Type="Self.EnterpriseSet" Multiplicity="*" />
+        </Association>
+        <Association Name="MatrixParameters">
+          <End Role="MatrixSet" Type="Self.MatrixSet" Multiplicity="*" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+        </Association>
+        <Association Name="ParameterAcks">
+          <End Role="AckSet" Type="Self.AckSet" Multiplicity="*" />
+          <End Role="ParameterSet" Type="Self.ParameterSet" Multiplicity="*" />
+        </Association>
+        <Association Name="RightRoles">
+          <End Role="RightSet" Type="Self.RightSet" Multiplicity="*" />
+          <End Role="RoleSet" Type="Self.RoleSet" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="abcbdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AckSet" EntityType="Self.AckSet" />
+          <EntitySet Name="ActionsSet" EntityType="Self.ActionsSet" />
+          <EntitySet Name="AnalysticsAreaSet" EntityType="Self.AnalysticsAreaSet" />
+          <EntitySet Name="AnalystSet" EntityType="Self.AnalystSet" />
+          <EntitySet Name="AnalyticsMethodSet" EntityType="Self.AnalyticsMethodSet" />
+          <EntitySet Name="BaseParamFamilySet" EntityType="Self.BaseParamFamilySet" />
+          <EntitySet Name="BaseParamSet" EntityType="Self.BaseParamSet" />
+          <EntitySet Name="ContainerSet" EntityType="Self.ContainerSet" />
+          <EntitySet Name="EnterpriseSet" EntityType="Self.EnterpriseSet" />
+          <EntitySet Name="MarketSet" EntityType="Self.MarketSet" />
+          <EntitySet Name="MatrixChangesSet" EntityType="Self.MatrixChangesSet" />
+          <EntitySet Name="MatrixSet" EntityType="Self.MatrixSet" />
+          <EntitySet Name="MethodSet" EntityType="Self.MethodSet" />
+          <EntitySet Name="NormSet" EntityType="Self.NormSet" />
+          <EntitySet Name="OfficeSet" EntityType="Self.OfficeSet" />
+          <EntitySet Name="PackageSet" EntityType="Self.PackageSet" />
+          <EntitySet Name="ParameterSet" EntityType="Self.ParameterSet" />
+          <EntitySet Name="PreserverSet" EntityType="Self.PreserverSet" />
+          <EntitySet Name="Prices" EntityType="Self.Prices" />
+          <EntitySet Name="RegionSet" EntityType="Self.RegionSet" />
+          <EntitySet Name="ResidueSet" EntityType="Self.ResidueSet" />
+          <EntitySet Name="RightSet" EntityType="Self.RightSet" />
+          <EntitySet Name="RoleSet" EntityType="Self.RoleSet" />
+          <EntitySet Name="SessionLogSet" EntityType="Self.SessionLogSet" />
+          <EntitySet Name="UnitSet" EntityType="Self.UnitSet" />
+          <EntitySet Name="UserSet" EntityType="Self.UserSet" />
+          <AssociationSet Name="FK_dbo_ActionsSet_dbo_AckSet_Ack_Id" Association="Self.FK_dbo_ActionsSet_dbo_AckSet_Ack_Id">
+            <End Role="AckSet" EntitySet="AckSet" />
+            <End Role="ActionsSet" EntitySet="ActionsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id" Association="Self.FK_dbo_AnalysticsAreaSet_dbo_EnterpriseSet_EnterpriseAnalysticsArea_Id">
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+            <End Role="AnalysticsAreaSet" EntitySet="AnalysticsAreaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id" Association="Self.FK_dbo_ParameterSet_dbo_AnalysticsAreaSet_CentoCosto_Id">
+            <End Role="AnalysticsAreaSet" EntitySet="AnalysticsAreaSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id" Association="Self.FK_dbo_ParameterSet_dbo_AnalystSet_Analista_Id">
+            <End Role="AnalystSet" EntitySet="AnalystSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id" Association="Self.FK_dbo_MethodSet_dbo_AnalyticsMethodSet_AnalyticsMethod_Id">
+            <End Role="AnalyticsMethodSet" EntitySet="AnalyticsMethodSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id" Association="Self.FK_dbo_BaseParamSet_dbo_BaseParamFamilySet_ParamFamily_Id">
+            <End Role="BaseParamFamilySet" EntitySet="BaseParamFamilySet" />
+            <End Role="BaseParamSet" EntitySet="BaseParamSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id" Association="Self.FK_dbo_ParameterSet_dbo_BaseParamSet_BaseParam_Id">
+            <End Role="BaseParamSet" EntitySet="BaseParamSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_ContainerSet_Container_Id" Association="Self.FK_dbo_MethodSet_dbo_ContainerSet_Container_Id">
+            <End Role="ContainerSet" EntitySet="ContainerSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MarketSet_dbo_RegionSet_Region_Id" Association="Self.FK_dbo_MarketSet_dbo_RegionSet_Region_Id">
+            <End Role="RegionSet" EntitySet="RegionSet" />
+            <End Role="MarketSet" EntitySet="MarketSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OfficeSet_dbo_MarketSet_Market_Id" Association="Self.FK_dbo_OfficeSet_dbo_MarketSet_Market_Id">
+            <End Role="MarketSet" EntitySet="MarketSet" />
+            <End Role="OfficeSet" EntitySet="OfficeSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id" Association="Self.FK_dbo_MatrixChangesSet_dbo_MatrixSet_Matrix_Id">
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+            <End Role="MatrixChangesSet" EntitySet="MatrixChangesSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id" Association="Self.FK_dbo_MatrixChangesSet_dbo_UserSet_User_Id">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="MatrixChangesSet" EntitySet="MatrixChangesSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id" Association="Self.FK_dbo_MatrixSet_dbo_OfficeSet_Office_Id">
+            <End Role="OfficeSet" EntitySet="OfficeSet" />
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id" Association="Self.FK_dbo_MethodSet_dbo_PreserverSet_Preserver_Id">
+            <End Role="PreserverSet" EntitySet="PreserverSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id" Association="Self.FK_dbo_MethodSet_dbo_ResidueSet_Residue_Id">
+            <End Role="ResidueSet" EntitySet="ResidueSet" />
+            <End Role="MethodSet" EntitySet="MethodSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id" Association="Self.FK_dbo_ParameterSet_dbo_MethodSet_Metodo_Id">
+            <End Role="MethodSet" EntitySet="MethodSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PackageSet_dbo_NormSet_Norm_Id" Association="Self.FK_dbo_PackageSet_dbo_NormSet_Norm_Id">
+            <End Role="NormSet" EntitySet="NormSet" />
+            <End Role="PackageSet" EntitySet="PackageSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_Prices_Precio_Id" Association="Self.FK_dbo_ParameterSet_dbo_Prices_Precio_Id">
+            <End Role="Prices" EntitySet="Prices" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id" Association="Self.FK_dbo_ParameterSet_dbo_UnitSet_Unit_Id">
+            <End Role="UnitSet" EntitySet="UnitSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserSet_dbo_RoleSet_Role_RoleId" Association="Self.FK_dbo_UserSet_dbo_RoleSet_Role_RoleId">
+            <End Role="RoleSet" EntitySet="RoleSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SessionLogSet_dbo_UserSet_User_Id" Association="Self.FK_dbo_SessionLogSet_dbo_UserSet_User_Id">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="SessionLogSet" EntitySet="SessionLogSet" />
+          </AssociationSet>
+          <AssociationSet Name="AnalystEnterprises" Association="Self.AnalystEnterprises">
+            <End Role="AnalystSet" EntitySet="AnalystSet" />
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+          </AssociationSet>
+          <AssociationSet Name="EnterpriseActions" Association="Self.EnterpriseActions">
+            <End Role="ActionsSet" EntitySet="ActionsSet" />
+            <End Role="EnterpriseSet" EntitySet="EnterpriseSet" />
+          </AssociationSet>
+          <AssociationSet Name="MatrixParameters" Association="Self.MatrixParameters">
+            <End Role="MatrixSet" EntitySet="MatrixSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="ParameterAcks" Association="Self.ParameterAcks">
+            <End Role="AckSet" EntitySet="AckSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="RightRoles" Association="Self.RightRoles">
+            <End Role="RightSet" EntitySet="RightSet" />
+            <End Role="RoleSet" EntitySet="RoleSet" />
+          </AssociationSet>
+          <EntitySet Name="GroupSet" EntityType="abcbdModel.GroupSet" />
+          <AssociationSet Name="GroupParameters" Association="abcbdModel.GroupParameters">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+          <AssociationSet Name="PackageGroups" Association="abcbdModel.PackageGroups">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="PackageSet" EntitySet="PackageSet" />
+          </AssociationSet>
+          <AssociationSet Name="PackageParameters" Association="abcbdModel.PackageParameters">
+            <End Role="PackageSet" EntitySet="PackageSet" />
+            <End Role="ParameterSet" EntitySet="ParameterSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GroupSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="ParameterSet" Relationship="abcbdModel.GroupParameters" FromRole="GroupSet" ToRole="ParameterSet" />
+          <NavigationProperty Name="PackageSet" Relationship="abcbdModel.PackageGroups" FromRole="GroupSet" ToRole="PackageSet" />
+        </EntityType>
+        <Association Name="GroupParameters">
+          <End Type="abcbdModel.GroupSet" Role="GroupSet" Multiplicity="*" />
+          <End Type="abcbdModel.ParameterSet" Role="ParameterSet" Multiplicity="*" />
+        </Association>
+        <Association Name="PackageGroups">
+          <End Type="abcbdModel.GroupSet" Role="GroupSet" Multiplicity="*" />
+          <End Type="abcbdModel.PackageSet" Role="PackageSet" Multiplicity="*" />
+        </Association>
+        <Association Name="PackageParameters">
+          <End Type="abcbdModel.PackageSet" Role="PackageSet" Multiplicity="*" />
+          <End Type="abcbdModel.ParameterSet" Role="ParameterSet" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="abcbdModelStoreContainer" CdmEntityContainer="abcbdEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="abcbdModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AckSet">
+            <EntityTypeMapping TypeName="abcbdModel.AckSet">
+              <MappingFragment StoreEntitySet="AckSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionsSet">
+            <EntityTypeMapping TypeName="abcbdModel.ActionsSet">
+              <MappingFragment StoreEntitySet="ActionsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Ack_Id" ColumnName="Ack_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnalysticsAreaSet">
+            <EntityTypeMapping TypeName="abcbdModel.AnalysticsAreaSet">
+              <MappingFragment StoreEntitySet="AnalysticsAreaSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AnalysticsAreaKey" ColumnName="AnalysticsAreaKey" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnterpriseAnalysticsArea_Id" ColumnName="EnterpriseAnalysticsArea_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnalystSet">
+            <EntityTypeMapping TypeName="abcbdModel.AnalystSet">
+              <MappingFragment StoreEntitySet="AnalystSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnalyticsMethodSet">
+            <EntityTypeMapping TypeName="abcbdModel.AnalyticsMethodSet">
+              <MappingFragment StoreEntitySet="AnalyticsMethodSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaseParamFamilySet">
+            <EntityTypeMapping TypeName="abcbdModel.BaseParamFamilySet">
+              <MappingFragment StoreEntitySet="BaseParamFamilySet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaseParamSet">
+            <EntityTypeMapping TypeName="abcbdModel.BaseParamSet">
+              <MappingFragment StoreEntitySet="BaseParamSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PrintInResultRepot" ColumnName="PrintInResultRepot" />
+                <ScalarProperty Name="ParamFamily_Id" ColumnName="ParamFamily_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContainerSet">
+            <EntityTypeMapping TypeName="abcbdModel.ContainerSet">
+              <MappingFragment StoreEntitySet="ContainerSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnterpriseSet">
+            <EntityTypeMapping TypeName="abcbdModel.EnterpriseSet">
+              <MappingFragment StoreEntitySet="EnterpriseSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketSet">
+            <EntityTypeMapping TypeName="abcbdModel.MarketSet">
+              <MappingFragment StoreEntitySet="MarketSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Region_Id" ColumnName="Region_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatrixChangesSet">
+            <EntityTypeMapping TypeName="abcbdModel.MatrixChangesSet">
+              <MappingFragment StoreEntitySet="MatrixChangesSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="LastMatrixName" ColumnName="LastMatrixName" />
+                <ScalarProperty Name="LastMatrixDescription" ColumnName="LastMatrixDescription" />
+                <ScalarProperty Name="LastActiveStatus" ColumnName="LastActiveStatus" />
+                <ScalarProperty Name="Matrix_Id" ColumnName="Matrix_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatrixSet">
+            <EntityTypeMapping TypeName="abcbdModel.MatrixSet">
+              <MappingFragment StoreEntitySet="MatrixSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MatrixCreateDate" ColumnName="MatrixCreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Office_Id" ColumnName="Office_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MethodSet">
+            <EntityTypeMapping TypeName="abcbdModel.MethodSet">
+              <MappingFragment StoreEntitySet="MethodSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="RequiredVolume" ColumnName="RequiredVolume" />
+                <ScalarProperty Name="MinimumVolume" ColumnName="MinimumVolume" />
+                <ScalarProperty Name="Formula" ColumnName="Formula" />
+                <ScalarProperty Name="InternetPublish" ColumnName="InternetPublish" />
+                <ScalarProperty Name="DeliverTime" ColumnName="DeliverTime" />
+                <ScalarProperty Name="DetectionLimit_Value" ColumnName="DetectionLimit_Value" />
+                <ScalarProperty Name="DetectionLimit_Decimals" ColumnName="DetectionLimit_Decimals" />
+                <ScalarProperty Name="CuantificationLimit_Value" ColumnName="CuantificationLimit_Value" />
+                <ScalarProperty Name="CuantificationLimit_Decimals" ColumnName="CuantificationLimit_Decimals" />
+                <ScalarProperty Name="Uncertainty_Value" ColumnName="Uncertainty_Value" />
+                <ScalarProperty Name="Uncertainty_Decimals" ColumnName="Uncertainty_Decimals" />
+                <ScalarProperty Name="MaxTimeBeforeAnalysis" ColumnName="MaxTimeBeforeAnalysis" />
+                <ScalarProperty Name="LabDeliverTime" ColumnName="LabDeliverTime" />
+                <ScalarProperty Name="QcObj_HasQc" ColumnName="QcObj_HasQc" />
+                <ScalarProperty Name="QcObj_UpperLimit" ColumnName="QcObj_UpperLimit" />
+                <ScalarProperty Name="QcObj_LowerLimit" ColumnName="QcObj_LowerLimit" />
+                <ScalarProperty Name="ReportTime" ColumnName="ReportTime" />
+                <ScalarProperty Name="AnalysisTime" ColumnName="AnalysisTime" />
+                <ScalarProperty Name="AnalyticsMethod_Id" ColumnName="AnalyticsMethod_Id" />
+                <ScalarProperty Name="Container_Id" ColumnName="Container_Id" />
+                <ScalarProperty Name="Preserver_Id" ColumnName="Preserver_Id" />
+                <ScalarProperty Name="Residue_Id" ColumnName="Residue_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormSet">
+            <EntityTypeMapping TypeName="abcbdModel.NormSet">
+              <MappingFragment StoreEntitySet="NormSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfficeSet">
+            <EntityTypeMapping TypeName="abcbdModel.OfficeSet">
+              <MappingFragment StoreEntitySet="OfficeSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Market_Id" ColumnName="Market_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackageSet">
+            <EntityTypeMapping TypeName="abcbdModel.PackageSet">
+              <MappingFragment StoreEntitySet="PackageSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="JustQuotePrice" ColumnName="JustQuotePrice" />
+                <ScalarProperty Name="Norm_Id" ColumnName="Norm_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParameterSet">
+            <EntityTypeMapping TypeName="abcbdModel.ParameterSet">
+              <MappingFragment StoreEntitySet="ParameterSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MaxPermitedLimit" ColumnName="MaxPermitedLimit" />
+                <ScalarProperty Name="PerTurnCapacity" ColumnName="PerTurnCapacity" />
+                <ScalarProperty Name="PerWeekCapacity" ColumnName="PerWeekCapacity" />
+                <ScalarProperty Name="AutolabAssignedAreaKey" ColumnName="AutolabAssignedAreaKey" />
+                <ScalarProperty Name="AutolabAssignedAreaName" ColumnName="AutolabAssignedAreaName" />
+                <ScalarProperty Name="GaramUniquekey" ColumnName="GaramUniquekey" />
+                <ScalarProperty Name="GenericKeyForStatistic" ColumnName="GenericKeyForStatistic" />
+                <ScalarProperty Name="Analista_Id" ColumnName="Analista_Id" />
+                <ScalarProperty Name="BaseParam_Id" ColumnName="BaseParam_Id" />
+                <ScalarProperty Name="CentoCosto_Id" ColumnName="CentoCosto_Id" />
+                <ScalarProperty Name="Metodo_Id" ColumnName="Metodo_Id" />
+                <ScalarProperty Name="Precio_Id" ColumnName="Precio_Id" />
+                <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreserverSet">
+            <EntityTypeMapping TypeName="abcbdModel.PreserverSet">
+              <MappingFragment StoreEntitySet="PreserverSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="abcbdModel.Prices">
+              <MappingFragment StoreEntitySet="Prices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionSet">
+            <EntityTypeMapping TypeName="abcbdModel.RegionSet">
+              <MappingFragment StoreEntitySet="RegionSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResidueSet">
+            <EntityTypeMapping TypeName="abcbdModel.ResidueSet">
+              <MappingFragment StoreEntitySet="ResidueSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RightSet">
+            <EntityTypeMapping TypeName="abcbdModel.RightSet">
+              <MappingFragment StoreEntitySet="RightSet">
+                <ScalarProperty Name="RightId" ColumnName="RightId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleSet">
+            <EntityTypeMapping TypeName="abcbdModel.RoleSet">
+              <MappingFragment StoreEntitySet="RoleSet">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SessionLogSet">
+            <EntityTypeMapping TypeName="abcbdModel.SessionLogSet">
+              <MappingFragment StoreEntitySet="SessionLogSet">
+                <ScalarProperty Name="SessionLogId" ColumnName="SessionLogId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitSet">
+            <EntityTypeMapping TypeName="abcbdModel.UnitSet">
+              <MappingFragment StoreEntitySet="UnitSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="abcbdModel.UserSet">
+              <MappingFragment StoreEntitySet="UserSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserCreateDate" ColumnName="UserCreateDate" />
+                <ScalarProperty Name="Role_RoleId" ColumnName="Role_RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AnalystEnterprises" TypeName="abcbdModel.AnalystEnterprises" StoreEntitySet="AnalystEnterprises">
+            <EndProperty Name="AnalystSet">
+              <ScalarProperty Name="Id" ColumnName="Analyst_Id" />
+            </EndProperty>
+            <EndProperty Name="EnterpriseSet">
+              <ScalarProperty Name="Id" ColumnName="Enterprise_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EnterpriseActions" TypeName="abcbdModel.EnterpriseActions" StoreEntitySet="EnterpriseActions">
+            <EndProperty Name="ActionsSet">
+              <ScalarProperty Name="Id" ColumnName="Actions_Id" />
+            </EndProperty>
+            <EndProperty Name="EnterpriseSet">
+              <ScalarProperty Name="Id" ColumnName="Enterprise_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="MatrixParameters" TypeName="abcbdModel.MatrixParameters" StoreEntitySet="MatrixParameters">
+            <EndProperty Name="MatrixSet">
+              <ScalarProperty Name="Id" ColumnName="Matrix_Id" />
+            </EndProperty>
+            <EndProperty Name="ParameterSet">
+              <ScalarProperty Name="Id" ColumnName="Parameter_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ParameterAcks" TypeName="abcbdModel.ParameterAcks" StoreEntitySet="ParameterAcks">
+            <EndProperty Name="AckSet">
+              <ScalarProperty Name="Id" ColumnName="Ack_Id" />
+            </EndProperty>
+            <EndProperty Name="ParameterSet">
+              <ScalarProperty Name="Id" ColumnName="Parameter_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RightRoles" TypeName="abcbdModel.RightRoles" StoreEntitySet="RightRoles">
+            <EndProperty Name="RightSet">
+              <ScalarProperty Name="RightId" ColumnName="Right_RightId" />
+            </EndProperty>
+            <EndProperty Name="RoleSet">
+              <ScalarProperty Name="RoleId" ColumnName="Role_RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="GroupSet">
+            <EntityTypeMapping TypeName="abcbdModel.GroupSet">
+              <MappingFragment StoreEntitySet="GroupSet">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="GroupParameters" TypeName="abcbdModel.GroupParameters" StoreEntitySet="GroupParameters">
+            <EndProperty Name="ParameterSet">
+              <ScalarProperty Name="Id" ColumnName="Parameter_Id" />
+            </EndProperty>
+            <EndProperty Name="GroupSet">
+              <ScalarProperty Name="Id" ColumnName="Group_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PackageGroups" TypeName="abcbdModel.PackageGroups" StoreEntitySet="PackageGroups">
+            <EndProperty Name="PackageSet">
+              <ScalarProperty Name="Id" ColumnName="Package_Id" />
+            </EndProperty>
+            <EndProperty Name="GroupSet">
+              <ScalarProperty Name="Id" ColumnName="Group_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PackageParameters" TypeName="abcbdModel.PackageParameters" StoreEntitySet="PackageParameters">
+            <EndProperty Name="ParameterSet">
+              <ScalarProperty Name="Id" ColumnName="Parameter_Id" />
+            </EndProperty>
+            <EndProperty Name="PackageSet">
+              <ScalarProperty Name="Id" ColumnName="Package_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

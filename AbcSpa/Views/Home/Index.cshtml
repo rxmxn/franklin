@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="abcadmin" style="height: 100%;" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <!-- Mobile First: To ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Application to administrate data.">
+    <meta name="keywords" content="Medio Ambiente, Matrices, Parametros, Empresas.">
+    <meta name="author" content="Adiel Miranda and Ramon Carrasco.">
+    <!-- Using ng-cloak to avoid seeing the unstyled content -->
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+
+        :-webkit-full-screen {
+            /* properties */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        :-moz-full-screen {
+            /* properties */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        :-ms-fullscreen {
+            /* properties */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <title>ABC ADMIN</title>
+
+    <!-- StyleSheets -->
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fonts/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/myStyles.css">
+
+
+    <!-- AngularJS-->
+    <link href="~/Content/css/angular-ui-notification.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Metro UI -->
+    <link href="~/Content/css/metro.css" rel="stylesheet">
+    <link href="~/Content/css/metro-responsive.css" rel="stylesheet">
+    <link href="~/Content/css/metro-icons.css" rel="stylesheet">
+    <link href="~/Content/css/metro-schemes.css" rel="stylesheet">
+    <link href="~/Content/css/metro-rtl.css" rel="stylesheet">
+
+    <!-- Sin revisar aun con el nuevo estilo metro -->
+    <link href="~/Content/css/header/header.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/plugins/datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/css/angular-csp.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/ngdialog.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/ngdialog-theme-default.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/angular-chart.css" rel="stylesheet" />
+    <link href="~/Content/css/spinners.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/adminlte.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/table_css/select2.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/table_css/select2-bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/custom/adjust.css" rel="stylesheet" type="text/css" />
+
+    <!-- El header de informacion. Supongo que si se queda se modificara -->
+    <link href="~/Content/css/custom/information-header.css" rel="stylesheet" type="text/css" />
+
+    <!--estilo para la directiva que crea tablas tipo árbol-->
+    <link href="~/Content/css/treeGrid.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="padding-top: 2.5rem;" update-session-directive>
+
+    <div id="loadingSpinners" style="display:none;">
+        <div id="overlay-spinners">
+            <div id="preview-area">
+                <ul id="spinners">
+                    <li class="three-bounce selected">
+                        <div class="one"></div>
+                        <div class="two"></div>
+                        <div class="three"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div id="workregion" class="page-content">-->
+    <div id="workregion" class="flex-grid page-content">
+        <div class="row" nav-directive>
+            <div ui-view="header"></div>
+        </div>
+
+        <div class="row page-content" style="margin: 0;" screen-directive>
+            @*<div class="col-xs-1 col-sm-1 col-md-1 col-lg-{{side_size}} sidemini"
+                     style="height: 100%; padding-left: 0; padding-right: 0;"
+                     ui-view="sidebar" ng-if="sidebarOn"></div>
+                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-{{main_size}} sidemini
+                     bg-white main-scroll-limit page-content" id="cell-content" style="padding-left: 0; padding-right: 0;"
+                     ui-view="content"></div>*@
+
+            <div style="height: 100%; padding-left: 0; padding-right: 0; position: fixed; z-index: 10;"
+                 ng-style="{'width': (compact === 'compact')?'2.8rem':'11rem'}"
+                 ui-view="sidebar" ng-if="sidebarOn"></div>
+            <div class="bg-white main-scroll-limit page-content" id="cell-content"
+                 style="padding-right: 0; width: 100%;"
+                 ng-style="{'padding-left': (sidebarOn === false)?0:(compact === 'compact')?'2.8rem':'11rem'}"
+                 ui-view="content"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!--
+      Scripts necesarios para el collapse del navbar:
+       1- jquery-2.1.1.min.js
+       2- bootstrap.js
+       3- collapse.js
+    -->
+
+    <script src="~/Scripts/pool/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/pool/angular.min.js"></script>
+    <script src="~/i18n/angular-locale_es-mx.js"></script>
+
+    <script src="~/Scripts/pool/bootstrap.min.js"></script>
+    <script src="~/Scripts/pool/collapse.js"></script>
+
+    <script src="~/Scripts/pool/jquery.dataTables.min.js"></script>
+
+    <script src="~/Scripts/pool/angular-resource.min.js"></script>
+    <script src="~/Scripts/pool/angular-route.min.js"></script>
+    <script src="~/Scripts/pool/angular-cookies.min.js"></script>
+    <script src="~/Scripts/pool/angular-dialgauge.js"></script>
+    <script src="~/Scripts/pool/angular-ui-notification.min.js"></script>
+    <script src="~/Scripts/pool/angular-animate.min.js"></script>
+    <script src="~/Scripts/pool/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/pool/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/pool/ngdialog.js"></script>
+    <!--JavaScript para la directiva que crea tablas tipo árbol-->
+    <script src="~/Scripts/pool/tree-grid-directive.js"></script>
+    <!--Directiva para hacer el fullscreen-->
+    <script src="~/Scripts/pool/angular-fullscreen.js"></script>
+    <!--Directiva para el wizard-->
+    <script src="~/Scripts/pool/angular-wizard-metro.js"></script>
+
+    <!-- Metro UI -->
+    <script src="~/Scripts/pool/metro.js"></script>
+    <script src="~/Scripts/pool/select2.min.js"></script>
+
+    <!-- My js -->
+    <script src="~/Scripts/abcadmin.js"></script>
+    <script src="~/Scripts/controller/login.js"></script>
+    <script src="~/Scripts/controller/excel.js"></script>
+    <script src="~/Scripts/controller/user.js"></script>
+    <script src="~/Scripts/controller/role.js"></script>
+    <script src="~/Scripts/filters/filters.js"></script>
+    <script src="~/Scripts/services/security.js"></script>
+    <script src="~/Scripts/controller/enterprise.js"></script>
+    <script src="~/Scripts/controller/matrix.js"></script>
+    <script src="~/Scripts/controller/basematrix.js"></script>
+    <script src="~/Scripts/controller/general.js"></script>
+    <script src="~/Scripts/controller/nav.js"></script>
+    <script src="~/Scripts/controller/help.js"></script>
+    <script src="~/Scripts/controller/comercial.js"></script>
+    <script src="~/Scripts/controller/container.js"></script>
+    <script src="~/Scripts/controller/preserver.js"></script>
+    <script src="~/Scripts/controller/analyticsmethod.js"></script>
+    <script src="~/Scripts/controller/annalist.js"></script>
+    <script src="~/Scripts/controller/analyticsarea.js"></script>
+    <script src="~/Scripts/controller/annalistkey.js"></script>
+    <script src="~/Scripts/controller/actions.js"></script>
+    <script src="~/Scripts/controller/baseparam.js"></script>
+    <script src="~/Scripts/controller/baseparamfamily.js"></script>
+    <script src="~/Scripts/controller/currency.js"></script>
+    <script src="~/Scripts/controller/measureunit.js"></script>
+    <script src="~/Scripts/controller/ack.js"></script>
+    <script src="~/Scripts/controller/region.js"></script>
+    <script src="~/Scripts/controller/market.js"></script>
+    <script src="~/Scripts/controller/office.js"></script>
+    <script src="~/Scripts/controller/method.js"></script>
+    <script src="~/Scripts/controller/norm.js"></script>
+    <script src="~/Scripts/controller/status.js"></script>
+    <script src="~/Scripts/controller/group.js"></script>
+    <script src="~/Scripts/controller/residue.js"></script>
+    <script src="~/Scripts/controller/package.js"></script>
+    <script src="~/Scripts/services/general.js"></script>
+    <script src="~/Scripts/controller/param.js"></script>
+    <script src="~/Scripts/services/mycharts.js"></script>
+    <script src="~/Scripts/controller/material.js"></script>
+    <script src="~/Scripts/services/fileupload.js"></script>
+    <script src="~/Scripts/controller/sheetTable.js"></script>
+    <script src="~/Scripts/controller/chart.js"></script>
+    <script src="~/Scripts/controller/useraccess.js"></script>
+    <script src="~/Scripts/controller/audit.js"></script>
+    <script src="~/Scripts/controller/notes.js"></script>
+    <script src="~/Scripts/controller/sucursal.js"></script>
+    <script src="~/Scripts/controller/maxpermitedlimit.js"></script>
+    <script src="~/Scripts/services/dialogs.js"></script>
+    <script src="~/Scripts/controller/clasificacionquimica.js"></script>
+    <script src="~/Scripts/controller/tiposervicio.js"></script>
+    <script src="~/Scripts/controller/massivetransfer.js"></script>
+    <script src="~/Scripts/controller/centrocosto.js"></script>
+    <script src="~/Scripts/controller/unidadanalitica.js"></script>
+    <script src="~/Scripts/controller/rama.js"></script>
+    <script src="~/Scripts/controller/alcance.js"></script>
+
+    <!-- Sin revisar aun con el nuevo estilo metro -->
+
+    <script src="~/Scripts/pool/moment.min.js"></script>
+    <script src="~/Scripts/pool/transition.js"></script>
+
+    <script src="~/Content/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/plugins/bootstrap3-typeahead.min.js"></script>
+    <script src="~/Content/plugins/bootstrap-switch/js/bootstrap-switch.js"></script>
+
+    <script src="~/Content/plugins/datepicker-strap/js/angular-strap.min.js"></script>
+    <script src="~/Content/plugins/datepicker-strap/js/angular-strap.tpl.min.js"></script>
+    <script src="~/Content/plugins/datepicker-strap/js/date-parser.js"></script>
+    <script src="~/Content/plugins/datepicker-strap/js/dimensions.js"></script>
+
+    <script src="~/Scripts/pool/chart.js"></script>
+    <script src="~/Scripts/pool/angular-chart.js"></script>
+
+    <script src="~/Content/pagination/angular-animate.js"></script>
+    <script src="~/Content/pagination/ui-bootstrap-tpls.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/pool/fusioncharts.js"></script>
+    <script type="text/javascript" src="~/Scripts/pool/fusioncharts.charts.js"></script>
+    <script type="text/javascript" src="~/Scripts/pool/angular-fusioncharts.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/pool/fusioncharts.widgets.js"></script>
+
+    <script src="~/Scripts/pool/paging.min.js"></script>
+
+</body>
+</html>

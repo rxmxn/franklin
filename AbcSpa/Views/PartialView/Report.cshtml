@@ -1,0 +1,56 @@
+﻿<div class="main-scroll">
+    <div class="padding10" style="position: absolute; width: 99%;">
+        <h6 class="text-light margin0 text-uppercase">
+            Residuos 
+            <!-- <span class="ani-hover-vertical ani-slow icon mif-bin place-right"></span>  -->
+        </h6>
+        <hr class="thin bg-grayLighter">
+    </div>
+
+  
+    <ul class="t-menu horizontal compact taskbar_panels">
+        <li ng-repeat="p in panels" style="margin-right: 3px;">
+            <a href="" ng-show="!p.state" ng-click="minimize(p)" class="text-uppercase">{{p.name}}</a>
+        </li>
+    </ul>
+
+</div>
+
+<script type="text/ng-template" id="editDialog">
+    <div class="ngdialog-message">
+        <form>
+            <div style="margin-left: 10px; margin-right:10px;">
+                <h3 style="padding-bottom: 10px;">{{dialogTitle}}</h3>
+                <div class="row" style="padding-bottom: 10px;">
+                    <div class="input-control text" style="margin-top: 30px; width: 100%;">
+                        <label>Nombre</label>
+                        <input placeholder="Nombre del residuo" type="text" style="margin-top: 10px;"
+                               data-ng-model="ngDialogData.dData.Name" unique-name="/residue/CheckResidueName">
+                        <p data-ng-if="isIndb">El elemento existe en Base de Datos</p>
+                    </div>
+            
+                    <div class="input-control textarea" style="margin-top: 30px; width: 100%;">
+                        <label>Descripci&oacute;n</label>
+                        <textarea placeholder="Descripción" type="text" style="max-width: 100%;" 
+                               data-ng-model="ngDialogData.dData.Description">        
+                        </textarea>                
+                    </div>               
+                </div>              
+
+                <div class="ngdialog-buttons">
+					<button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+						<i class="fa fa-check"></i>
+					</button>
+                    @*<button class="button primary pull-right" ng-class="{disabled : isIndb}"
+                            data-ng-click="acceptDialog()">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+                    <button class="button warning pull-right"
+                            data-ng-click="closeThisDialog()">
+                        Cancelar
+                    </button>*@
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

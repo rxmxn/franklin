@@ -1,0 +1,63 @@
+﻿    <div class="ngdialog-message">
+        <form>
+            <div style="margin-left: 10px; margin-right:10px;">
+                <h5 style="padding-bottom: 10px;">{{dialogTitle}}</h5>
+	            <div class="row" style="min-height: 200px; height: 580px; overflow: auto; 
+					padding-left: 15px; padding-right: 15px;">
+
+		            <label>Parámetro Base: {{ngDialogData.dData.Name}}</label>
+
+		            <div class="row">
+			            <div class="panel" style="width: 100%; margin-top: 10px; padding-left: 15px; padding-right: 15px;">
+				            <div class="heading">
+					            <span class="titleBarText">Parámetros con parámetro base "{{ngDialogData.dData.Name}}"</span>
+				            </div>
+				            <div class="content" style="height: 330px; overflow-y: auto;">
+					            <div class="table-responsive" style="min-height: 300px; overflow-x: scroll;">
+						            <table class="table table-hover table-condensed table-responsive">
+							            <thead>
+							            <tr role="row">
+								            <th style="width: 50%;">
+									            Parámetro
+								            </th>
+								            <th style="width: 50%;">
+									            Centro de Costo
+								            </th>
+							            </tr>
+							            </thead>
+							            <tbody aria-relevant="all" aria-live="polite" role="alert" style="overflow-y: scroll;">
+							            <tr class="odd" data-ng-repeat="param in ngDialogData.dData.children">
+								            <td>{{param.Name}}</td>
+								            <td>{{param.CentroCosto.AnalyticsAreaKey}}</td>
+							            </tr>
+							            </tbody>
+						            </table>
+					            </div>
+				            </div>
+			            </div>
+		            </div>
+					
+		            <div class="input-control select" style="width: 100%; margin-top: 50px;">
+			            <label>Seleccionar nuevo Centro de Costo</label>
+			            <select id="centrocosto-change"
+			                    data-ng-model="centrocosto"
+			                    data-ng-options="cc.Id as cc.AnalyticsAreaKey for cc in centroscosto"
+			                    style="border: 1px #d9d9d9 solid;">
+				            <option value="">Selecciona un Centro de Costo</option>
+			            </select>
+		            </div>
+					<span>
+						Advertencia: Modificando este valor cambiará el centro de costo para todos
+						los parámetros que se muestran en el panel.
+					</span>
+
+
+		            <div class="ngdialog-buttons" style="position: absolute; bottom: 15px; right: 15px;">
+			            <button class="button cycle-button medium-button place-right" data-ng-click="acceptDialog()" ng-class="{disabled : isIndb}">
+				            <i class="fa fa-check"></i>
+			            </button>
+		            </div>
+	            </div>
+            </div>
+        </form>
+    </div>
